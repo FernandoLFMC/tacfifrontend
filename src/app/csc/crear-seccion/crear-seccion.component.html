@@ -1,0 +1,41 @@
+<div *ngIf="data; else showNewForm">
+    <div class="form">
+        <mat-card class="card">
+            <mat-card-title>Editar Seccion </mat-card-title> 
+            <mat-card-content>
+                <div class="container">
+                    <mat-form-field>
+                        <input [(ngModel)]="editseccion.cod_seccion" matInput placeholder="Cod. seccion">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input [(ngModel)]="editseccion.nombre_seccion" matInput placeholder="SeccionNombre">
+                    </mat-form-field>
+                </div>
+            </mat-card-content>
+            <mat-card-actions>
+                <button (click)="edit()" class="button" mat-raised-button color="accent" [mat-dialog-close]="true">Editar</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>
+<ng-template #showNewForm>
+    <div class="form">
+        <mat-card class="card">
+            <mat-card-title>Crear Seccion </mat-card-title> 
+            <mat-card-content>
+                <div class="container">
+                    <mat-form-field>
+                        <mat-label>Cod. de Seccion</mat-label>
+                        <input type="text" [(ngModel)]="createTask.cod_seccion" maxlength="4" matInput placeholder="Ej. ' SIS ' (Mayusculas)">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input [(ngModel)]="createTask.nombre_seccion" matInput placeholder="SeccionNombre">
+                    </mat-form-field>
+                </div>
+            </mat-card-content>
+            <mat-card-actions>
+                <button (click)="create()" class="button" mat-raised-button color="accent" [mat-dialog-close]="true">crear</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</ng-template>

@@ -1,0 +1,13 @@
+.spacer {
+    flex: 1 1 auto;
+  }
+
+a{
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+}
+mat-icon-button{
+  cursor: pointer;
+}
+

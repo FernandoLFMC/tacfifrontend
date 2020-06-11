@@ -1,0 +1,102 @@
+
+<div class="form">
+    <mat-card class="card">
+        <mat-card-title>Registrar activo de Terrenos</mat-card-title>
+        <mat-card-content>
+            <div class="container">
+                <mat-form-field>
+                    <mat-label>Nro. activo</mat-label>
+                    <input [(ngModel)]="activo.id_activo" matInput placeholder="111">
+                </mat-form-field>
+                <mat-form-field>
+                    <input [(ngModel)]="activo.id_cuenta" matInput placeholder="Cod. cuenta">
+                </mat-form-field>
+                
+                <mat-form-field>
+                    <input [(ngModel)]="activo.id_coop" matInput placeholder="Cod. coop.">
+                </mat-form-field>
+                <mat-form-field>
+                    <input [(ngModel)]="activo.nombre_tipo" matInput placeholder="Nombre tipo">
+                </mat-form-field>
+            <table class="example-full-width" cellspacing="0"><tr>
+                <mat-form-field>
+                    <input [(ngModel)]="activo.cod_tipo" matInput placeholder="Cod. tipo">
+                </mat-form-field>
+                <mat-form-field>
+                    <input [(ngModel)]="activo.cod_seccion" matInput placeholder="Cod. Seccion">
+                </mat-form-field>
+            </tr></table>
+                <mat-form-field>
+                    <input [(ngModel)]="activo.id_funcionario" matInput placeholder="Cod. Funcionario">
+                </mat-form-field>
+                <mat-form-field>
+                    <input [(ngModel)]="activo.unidad" matInput placeholder="Unidad">
+                </mat-form-field>
+                
+                <mat-form-field>
+                    <mat-label>Estado</mat-label>
+                    <mat-select [(value)]="activo.estado_op_nop">
+                      <mat-option value="operativo">Operativo</mat-option>
+                      <mat-option value="no operativa">No operativa</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field>
+                    <input [(ngModel)]="activo.descripcion" matInput placeholder="Descripcion">
+                </mat-form-field>
+                <mat-form-field>
+                    <input [(ngModel)]="activo.observacion" matInput placeholder="Observacion">
+                </mat-form-field>-->
+                <!--parte de aquisicion de activo-->
+                <mat-form-field>
+                    <input [(ngModel)]="adquisicion.id_adquisicion" matInput placeholder="Codigo de adquisicion">
+                </mat-form-field>
+                <span class="spacer"></span>
+                <mat-form-field>
+                    <input [(ngModel)]="adquisicion.nit" matInput placeholder="Numero de Nit">
+                </mat-form-field>
+                <span class="spacer"></span>
+                <mat-form-field>
+                    <input [(ngModel)]="adquisicion.fecha_adquisicion" matInput placeholder="Fecha de aquisicion">
+                </mat-form-field>
+                <mat-form-field>
+                    <input [(ngModel)]="adquisicion.comprobante_contable" matInput placeholder="Comprobante contable">
+                </mat-form-field>
+                <span class="spacer"></span>
+                <mat-form-field>
+                    <input [(ngModel)]="adquisicion.costo_adquisicion" matInput placeholder="Costo de aquisicion">
+                </mat-form-field>
+                <!--parte de terrenos -->
+                <mat-form-field>
+                    <input [(ngModel)]="terrenoss.cod_catastro" matInput placeholder="Codigo de catastro">
+                </mat-form-field>
+                <span class="spacer"></span>
+                <mat-form-field>
+                    <input [(ngModel)]="terrenoss.superficie" matInput placeholder="Superficie">
+                </mat-form-field>
+                <span class="spacer"></span>
+                <mat-form-field>
+                    <input [(ngModel)]="terrenoss.matricula_ddrr" matInput placeholder="Matricula DDRR">
+                </mat-form-field>
+                <mat-form-field>
+                    <input [(ngModel)]="terrenoss.propietario" matInput placeholder="Propietario">
+                </mat-form-field>
+                <mat-form-field>
+                    <input [(ngModel)]="terrenoss.departamento" matInput placeholder="Departamento">
+                </mat-form-field>
+                <span class="spacer"></span>
+                <mat-form-field>
+                    <input [(ngModel)]="terrenoss.ciudad" matInput placeholder="Ciudad">
+                </mat-form-field>
+                <span class="spacer"></span>
+                <mat-form-field>
+                    <input [(ngModel)]="terrenoss.direccion" matInput placeholder="Direccion">
+                </mat-form-field>
+
+
+            </div>
+        </mat-card-content>
+        <mat-card-actions>
+            <button (click)="crear()" class="button" mat-raised-button color="primary">Registrar</button>
+        </mat-card-actions>
+    </mat-card>
+</div>

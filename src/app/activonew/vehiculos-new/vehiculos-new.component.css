@@ -1,0 +1,62 @@
+.example-form {
+    justify-content: center;
+    margin-top: 10px;
+    display:initial;
+    width: 80%;
+    align-items: center;
+  }
+  
+  .example-full-width {
+    width: 90%;
+  }
+  
+  .example-full {
+    width: 100%;
+  }
+  
+  td {
+    padding-right: 5px;
+  }
+  
+  .forms{
+    width: auto;
+    margin-top: unset;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #6fff6f1c;
+  }
+  mat-card-title{
+    text-align: center;
+    font-size: 30px;
+  }
+  mat-label{
+  font-size: 16px;
+  }
+  .ti{
+    justify-content: center;
+    display: flex;
+    background-color:#04ff0029;
+  }
+  .button{
+  width: 100%;
+  
+  }
+  .spacer {
+  flex: 1 0 auto;
+  }
+  .btn{
+  background-color: #1fec258c;
+  }
+  .form-control{
+  background-color: #6fff6f1c;
+  }
+  
+  mat-icon{
+  cursor: pointer;
+  color: black;
+  }
+  
+  mat-label{
+    color: rgba(0, 0, 0, 0.774);
+  }

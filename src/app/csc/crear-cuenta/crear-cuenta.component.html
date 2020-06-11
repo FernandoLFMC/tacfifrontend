@@ -1,0 +1,41 @@
+<div *ngIf="data; else showNewForm">
+    <div class="form">
+        <mat-card class="card">
+            <mat-card-title>Editar cuenta de activo</mat-card-title> 
+            <mat-card-content>
+                <div class="container" >
+                    <mat-form-field>
+                        <input [(ngModel)]="editcuenta.id_cuenta" matInput placeholder="Codigo de cuenta">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input [(ngModel)]="editcuenta.descripcion_cuenta" matInput placeholder="Nombre de cuenta">
+                    </mat-form-field>
+                </div>
+            </mat-card-content>
+            <mat-card-actions>
+                <button (click)="edit()" class="button" mat-raised-button color="accent" [mat-dialog-close]="true">Editar</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>
+<ng-template #showNewForm>
+    <div class="form">
+        <mat-card class="card">
+            <mat-card-title>Crear cuenta de activo</mat-card-title> 
+            <mat-card-content>
+                <div class="container">
+                    <mat-form-field>
+                        <mat-label>Codigo de cuenta</mat-label>
+                        <input type="number" [(ngModel)]="cuenta.id_cuenta" maxlength="3" matInput placeholder="Ej. 172">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input [(ngModel)]="cuenta.descripcion_cuenta" matInput placeholder="Nombre de cuenta">
+                    </mat-form-field>
+                </div>
+            </mat-card-content>
+            <mat-card-actions>
+                <button (click)="create()" class="button" mat-raised-button color="accent" [mat-dialog-close]="true">Crear</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</ng-template>

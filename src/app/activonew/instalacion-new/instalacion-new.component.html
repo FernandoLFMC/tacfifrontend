@@ -1,0 +1,229 @@
+
+<div class="ti">
+    <mat-card-title>Registrar activo de Equipos de Instalacion </mat-card-title>
+</div>
+<div class="forms">
+    <mat-card-content class="example-form">
+        
+        <h5>Cod. cuenta {{activo.id_cuenta}}</h5>
+        
+        <table class="example-full" cellspacing="0"><tr>
+            <td><mat-form-field>
+                <mat-label>Nombre de tipo</mat-label>
+                <mat-select [(ngModel)]="activo.nombre_tipo" name="food">
+                    <mat-option *ngFor="let food of codigo" [value]="food.nombre">
+                        {{food.num}} - {{food.nombre}}
+                    </mat-option>
+                </mat-select>
+                <mat-hint  align="end">
+                    <mat-error *ngIf="!activo.nombre_tipo" >Introdusca Datos</mat-error>
+                </mat-hint>
+            </mat-form-field></td>
+            <td><mat-form-field class="example-full-width">
+                <mat-label>Codigo tipo  </mat-label>
+                <input maxlength="5" type="number" [(ngModel)]="activo.cod_tipo" matInput placeholder="Ej. 1001" >
+                <mat-hint  align="end">
+                    <mat-error *ngIf="!activo.cod_tipo" >no existe el codigo</mat-error>
+                    <!--<mat-error *ngIf="activo.nombre_tipo=='Edificio' && activo.cod_tipo<=1000 || activo.cod_tipo>=2000" >Introdusca Rango 1000-1999</mat-error>
+                    <mat-error *ngIf="activo.nombre_tipo=='Remodelacion' && activo.cod_tipo<=2000 || activo.cod_tipo>=3000" >Introdusca Rango 2000-2999</mat-error>-->
+                </mat-hint>
+            </mat-form-field></td>&nbsp;&nbsp;&nbsp;&nbsp;
+            <td><mat-form-field class="example-full-width">
+                <mat-label>Piezas</mat-label>
+                <input [(ngModel)]="activo.unidad" matInput placeholder="Ej. 2 Piezas">
+            </mat-form-field></td>
+            </tr>
+        </table>
+    
+    
+        <table class="example-full" cellspacing="0"><tr>
+            <td><mat-form-field class="example-full-width">
+                <mat-label>Cod. coop.</mat-label>
+                <mat-select [(ngModel)]="activo.id_coop" name="food">
+                    <mat-option *ngFor="let food of coop" [value]="food.id_coop">
+                        {{food.id_coop}} - {{food.nombre}}
+                    </mat-option>
+                </mat-select>
+                <mat-hint  align="end">
+                    <mat-error *ngIf="!activo.id_coop" >Introdusca Datos</mat-error>
+                </mat-hint>
+            </mat-form-field></td>
+            <td><mat-form-field class="example-full-width">
+                <mat-label>Cod. Seccion</mat-label>
+                <mat-select [(ngModel)]="activo.cod_seccion" name="food">
+                    <mat-option *ngFor="let food of seccion" [value]="food.cod_seccion">
+                        {{food.cod_seccion}} - {{food.nombre_seccion}}
+                    </mat-option>
+                </mat-select>
+                <mat-hint  align="end">
+                    <mat-error *ngIf="!activo.cod_seccion" >Introdusca Datos</mat-error>
+                </mat-hint>
+            </mat-form-field></td>
+            <td><mat-form-field class="example-full-width">
+                <mat-label>Cod. Funcionario</mat-label>
+                <mat-select [(ngModel)]="activo.id_funcionario" name="food">
+                    <mat-option *ngFor="let food of funcionario" [value]="food.id_funcionario">
+                        {{food.id_funcionario}} - {{food.nombre}} {{food.ap_paterno}}
+                    </mat-option>
+                </mat-select>
+                <mat-hint  align="end">
+                    <mat-error *ngIf="!activo.id_funcionario" >Introdusca Datos</mat-error>
+                </mat-hint>
+            </mat-form-field></td>
+            <td><mat-form-field class="example-full-width">
+                <mat-label>Estado</mat-label>
+                <mat-select [(value)]="activo.estado_op_nop">
+                <mat-option value="Operativo">Operativo</mat-option>
+                <mat-option value="No operativo">No operativo</mat-option>
+                </mat-select>
+            </mat-form-field></td>
+        </tr></table>
+
+        <table class="example-full" cellspacing="0"><tr>
+            <td><mat-form-field class="example-full-width">
+                <mat-label>Marca</mat-label>
+                <input [(ngModel)]="equipinstall.marca" matInput placeholder="Ej. Samsung">
+                <mat-hint  align="end">
+                    <mat-error *ngIf="!equipinstall.marca" >Introdusca Datos</mat-error>
+                </mat-hint>
+            </mat-form-field></td>
+            <td><mat-form-field class="example-full-width">
+                <mat-label>Numero de Serie</mat-label>
+                <input [(ngModel)]="equipinstall.nro_serial" matInput placeholder="Ej. HSTNN-IBOX">
+                <mat-hint  align="end">
+                    <mat-error *ngIf="!equipinstall.nro_serial" >Introdusca Datos</mat-error>
+                </mat-hint>
+            </mat-form-field></td>
+            <td><mat-form-field class="example-full-width">
+                <mat-label>Color</mat-label>
+                <input [(ngModel)]="equipinstall.color" matInput placeholder="Ej. Negro">
+                <mat-hint  align="end">
+                    <mat-error *ngIf="!equipinstall.color" >Introdusca Datos</mat-error>
+                </mat-hint>
+            </mat-form-field></td>
+        </tr></table>
+
+        <table class="example-full" cellspacing="0"><tr>
+            <td><mat-form-field class="example-full-width">
+                <mat-label>Tipo</mat-label>
+                <input [(ngModel)]="equipinstall.tipo" matInput placeholder="Ej. Portatil">
+                <mat-hint  align="end">
+                    <mat-error *ngIf="!equipinstall.tipo" >Introdusca Datos</mat-error>
+                </mat-hint>
+            </mat-form-field></td>
+            <td><mat-form-field class="example-full-width">
+                <mat-label>Industria</mat-label>
+                <input [(ngModel)]="equipinstall.industria" matInput placeholder="Ej. Americana">
+                <mat-hint  align="end">
+                    <mat-error *ngIf="!equipinstall.industria" >Introdusca Datos</mat-error>
+                </mat-hint>
+            </mat-form-field></td>
+            <td><mat-form-field class="example-full-width">
+                <mat-label>Modelo</mat-label>
+                <input [(ngModel)]="equipinstall.modelo" matInput placeholder="Ej. M-1234">
+                <mat-hint  align="end">
+                    <mat-error *ngIf="!equipinstall.modelo" >Introdusca Datos</mat-error>
+                </mat-hint>
+            </mat-form-field></td>
+        </tr></table>
+
+        <table class="example-full" cellspacing="0"><tr>
+            <td><mat-form-field class="example-full-width">
+                <mat-label>Descripcion</mat-label>
+                <textarea [(ngModel)]="activo.descripcion" matInput placeholder="Descripcion"></textarea>
+            </mat-form-field></td>
+            <td><mat-form-field class="example-full-width">
+                <mat-label>Observacion</mat-label>
+                <textarea [(ngModel)]="activo.observacion" matInput placeholder="Observacion"></textarea>
+            </mat-form-field></td>
+        </tr></table>
+
+        <h6>Tipo de adquisicion</h6>
+
+        <table class="example-full" cellspacing="0"><tr>
+            <td><mat-form-field class="example-full-width">
+                <mat-label>Tipo de adquisicion</mat-label>
+                <mat-select [(ngModel)]="adquisicion.id_adquisicion" name="food">
+                    <mat-option *ngFor="let food of adqui" [value]="food.id_adquisicion">
+                        {{food.id_adquisicion}} - {{food.nombre_tipo_adq}}   {{food.porcentaje}} %
+                    </mat-option>
+                </mat-select>
+                <mat-hint  align="end">
+                    <mat-error *ngIf="!adquisicion.id_adquisicion" >Introdusca Datos</mat-error>
+                </mat-hint>
+            </mat-form-field></td>
+            <td><mat-form-field class="example-full-width">
+                <mat-label>Comprovante contable </mat-label>
+                <input type="number" [(ngModel)]="adquisicion.comprobante_contable" matInput placeholder="Ej. 1234">
+                <mat-hint  align="end">
+                    <mat-error *ngIf="!adquisicion.comprobante_contable" >Introdusca Datos</mat-error>
+                </mat-hint>
+            </mat-form-field></td>
+            <td><mat-form-field class="example-full-width">
+                <mat-label>Costo de adquicicion (Bs.)</mat-label>
+                <input type="number" [(ngModel)]="adquisicion.costo_adquisicion" matInput placeholder="Ej. 1234">
+                <mat-hint  align="end">
+                    <mat-error *ngIf="!adquisicion.costo_adquisicion" >Introdusca Datos</mat-error>
+                </mat-hint>
+            </mat-form-field></td>
+            <td><form class="form-inline">
+                <div class="form-group">
+                  <div class="input-group">
+                    <input matImput class="form-control" placeholder="Fecha de adquisicion" 
+                           name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
+                          <mat-icon>calendar_today</mat-icon>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </form></td>
+        </tr></table>
+        <p>
+            <mat-form-field class="example-full-width">
+                <mat-label>Nit de adquisicion</mat-label>
+                <mat-select [(ngModel)]="adquisicion.nit" name="food">
+                    <mat-option>--- Nuevo proveedor ---</mat-option>
+                    <mat-option *ngFor="let food of prov" [value]="food.nit">
+                     {{food.nit}}  Nombre: {{food.nombre_tienda}} Dir: {{food.direccion}} Telf: {{food.telefono}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </p>
+
+        <h6 *ngIf="!adquisicion.nit">Registro del proveedor</h6>
+        <table *ngIf="!adquisicion.nit" class="example-full" cellspacing="0"><tr>
+            <td><mat-form-field class="example-full-width">
+                <mat-label>Nro. de Nit</mat-label>
+                    <input type="number" [(ngModel)]="proveedor.nit" matInput placeholder="Ej. 1020304050">
+                    <mat-hint  align="end">
+                        <mat-error *ngIf="!proveedor.nit" >Introdusca Datos</mat-error>
+                    </mat-hint>
+                </mat-form-field></td>
+            <td><mat-form-field class="example-full-width">
+                <mat-label>Nombre  de tienda</mat-label>
+                <input upercase [(ngModel)]="proveedor.nombre_tienda" matInput placeholder="Ej. Todo Barato">
+            </mat-form-field></td>
+            <td><mat-form-field class="example-full-width">
+                <mat-label>Direccion de la tienda</mat-label>
+                    <input [(ngModel)]="proveedor.direccion" matInput placeholder="Ej. Siempre viva # 123">
+                </mat-form-field></td>
+            <td><mat-form-field class="example-full-width">
+                <mat-label>Nro. de telefono </mat-label>
+                <input type="number" [(ngModel)]="proveedor.telefono" matInput placeholder="Ej. 76......">
+            </mat-form-field></td>
+        </tr></table>
+        
+        <mat-card-actions >
+            <button (click)="crear()" class="button" mat-raised-button color="primary">Registrar</button>
+        </mat-card-actions>
+
+    </mat-card-content>
+</div>
+
+<!--
+<div *ngIf="activo.nombre_tipo=='Edificio'">
+    <input type="number" value="1010" [(ngModel)]="activo.cod_tipo">
+</div>
+-->

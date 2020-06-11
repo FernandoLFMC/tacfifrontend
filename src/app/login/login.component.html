@@ -1,0 +1,21 @@
+<div class="form">
+    <mat-card class="card">
+        <mat-card-title>Iniciar sesion</mat-card-title>
+        <mat-card-content>
+            <div class="container">
+                <mat-form-field>
+                    <input [(ngModel)]="loginUser.username" matInput placeholder="Usuario">
+                </mat-form-field>
+                <mat-form-field>
+                    <input [type]="hide ? 'password' : 'text'" [(ngModel)]="loginUser.password" matInput placeholder="Password">
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+        </mat-card-content>
+        <mat-card-actions>
+            <button (click)="login()" class="button" mat-raised-button color="primary">Login</button>
+        </mat-card-actions>
+    </mat-card>
+</div>

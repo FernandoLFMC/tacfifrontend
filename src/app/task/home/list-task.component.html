@@ -1,0 +1,19 @@
+<div class="accordion_display">
+    <div class="accordion_size">
+        <mat-accordion multi="true" *ngIf="tasks.length">
+            <mat-expansion-panel *ngFor="let task of tasks" hideToggle = "false">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <span class="text_center">{{task.cod_seccion}}</span>
+                        <span class="spacer"></span>
+                        <mat-panel-description>
+                            {{task.nombre_seccion}}
+                        </mat-panel-description>
+                        <span class="spacer"></span>
+                        <mat-icon color="warn" (click)="delete(task)">delete</mat-icon>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+</div>

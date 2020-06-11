@@ -1,0 +1,47 @@
+<div *ngIf="data; else showNewForm">
+    <div class="form">
+        <mat-card class="card">
+            <mat-card-title>Editar Adquisicion </mat-card-title> 
+            <mat-card-content>
+                <div class="container">
+                    <mat-form-field>
+                        <input [(ngModel)]="editadqui.id_adquisicion" matInput placeholder="Cod. adquisicion">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input type="number" [(ngModel)]="editadqui.porcentaje" matInput placeholder="Porcentaje">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input [(ngModel)]="editadqui.nombre_tipo_adq" matInput placeholder="Tipo de adquisicion">
+                    </mat-form-field>
+                </div>
+            </mat-card-content>
+            <mat-card-actions>
+                <button (click)="edit()" class="button" mat-raised-button color="accent" [mat-dialog-close]="true">Editar</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>
+<ng-template #showNewForm>
+    <div class="form">
+        <mat-card class="card">
+            <mat-card-title>Crear Adquisicion </mat-card-title> 
+            <mat-card-content>
+                <div class="container">
+                    <mat-form-field>
+                        <mat-label>Cod. de Adquisicion</mat-label>
+                        <input [(ngModel)]="createadqui.id_adquisicion" maxlength="2" matInput placeholder="Ej. ' CF ' (Mayusculas)">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input [(ngModel)]="createadqui.porcentaje" matInput placeholder="Porcentaje">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input [(ngModel)]="createadqui.nombre_tipo_adq" matInput placeholder="Tipo de adquisicion">
+                    </mat-form-field>
+                </div>
+            </mat-card-content>
+            <mat-card-actions>
+                <button (click)="create()" class="button" mat-raised-button color="accent" [mat-dialog-close]="true">Crear</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</ng-template>

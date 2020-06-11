@@ -1,0 +1,71 @@
+<div class="form">
+    <mat-card class="card">
+        <mat-card-title>Crear cuenta de activo</mat-card-title> 
+        <mat-card-content>
+            <div class="container">
+                <mat-form-field>
+                    <input type="number" [(ngModel)]="cuenta.id_cuenta" matInput placeholder="Codigo de cuenta">
+                </mat-form-field>
+                <mat-form-field>
+                    <input [(ngModel)]="cuenta.descripcion_cuenta" matInput placeholder="Nombre de cuenta">
+                </mat-form-field>
+            </div>
+        </mat-card-content>
+        <mat-card-actions>
+            <button (click)="create()" class="button" mat-raised-button color="accent">Crear</button>
+        </mat-card-actions>
+    </mat-card>
+    <span class="spacer"></span>
+    <mat-card class="card">
+        <mat-card-title>Crear seccion de activo</mat-card-title> 
+        <mat-card-content>
+            <div class="container">
+                <mat-form-field>
+                    <input type="number" [(ngModel)]="createTask.cod_seccion" matInput placeholder="Codigo de seccion ">
+                </mat-form-field>
+                <mat-form-field>
+                    <input [(ngModel)]="createTask.nombre_seccion" matInput placeholder="Nombre de seccion">
+                </mat-form-field>
+            </div>
+        </mat-card-content>
+        <mat-card-actions>
+            <button (click)="createC()" class="button" mat-raised-button color="accent">Crear</button>
+        </mat-card-actions>
+    </mat-card>
+</div>
+<div class="form">
+    <mat-card class="card">
+        <mat-card-title>Crear Cooperativa</mat-card-title> 
+        <mat-card-content>
+            <div class="container">
+                <mat-form-field>
+                    <input [(ngModel)]="cooperativa.id_coop" matInput placeholder="codigo de cooperativa">
+                </mat-form-field>
+                <mat-form-field>
+                    <input [(ngModel)]="cooperativa.nombre" matInput placeholder="Nombre de cooperativa">
+                </mat-form-field>
+                <mat-form-field>
+                    <input [(ngModel)]="cooperativa.ciudad" matInput placeholder="Ciudad">
+                </mat-form-field>
+                <mat-form-field>
+                    <input [(ngModel)]="cooperativa.direccion" matInput placeholder="Direccion">
+                </mat-form-field>
+                <mat-form-field>
+                    <input [(ngModel)]="cooperativa.telefono" matInput placeholder="Telefono">
+                </mat-form-field>
+                <mat-form-field>
+                    <input [(ngModel)]="cooperativa.nit" matInput placeholder="Numero de NIT">
+                </mat-form-field>
+                <mat-form-field>
+                    <input [(ngModel)]="cooperativa.correo" matInput placeholder="Correo electronico">
+                </mat-form-field>
+                <mat-form-field>
+                    <input [(ngModel)]="cooperativa.url" matInput placeholder="Direccion de URL">
+                </mat-form-field>
+            </div>
+        </mat-card-content>
+        <mat-card-actions>
+            <button (click)="createcoop()" class="button"  mat-raised-button color="primary">Crear</button>
+        </mat-card-actions>
+    </mat-card>
+</div>

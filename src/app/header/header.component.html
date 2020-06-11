@@ -1,0 +1,89 @@
+<mat-toolbar color="primary">
+    <ul>
+        <a mat-button *ngIf="authService.isLogged()" routerLink="tasks"><mat-icon>home</mat-icon>&nbsp;&nbsp;Inicio</a>
+    </ul>
+    <ul>
+        <a mat-button *ngIf=" authService.isLogged() && authService.getRol() == 'admin'" 
+        routerLink="create">Crear</a>
+    </ul>
+    <ul>
+        <a mat-button routerLink="lista-terrenos">listar funci</a>
+    </ul>
+
+    <ul>
+        <a mat-button routerLink="listar-activo">Lista Activo</a>
+    </ul>
+    <ul>
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            <mat-icon>more_vert</mat-icon>
+            <a>Nuevo Activo</a>
+        </button>
+    </ul>
+    
+    <span class="spacer"></span>
+    <ul>
+        <button mat-icon-button [matMenuTriggerFor]="seccion" aria-label="Example icon-button with a menu">
+            <mat-icon>more_vert</mat-icon>
+            <a>Lista Componentes</a>
+        </button>
+    </ul>
+    <span class="spacer"></span>
+    <span class="spacer"></span>
+    <span class="spacer"></span>
+    <ul>
+        <a mat-button routerLink="signup">Registrar Usuario</a>
+        <a *ngIf="!authService.isLogged()" mat-button routerLink="login">Iniciar Sesion</a>
+        <a *ngIf="authService.isLogged()" mat-button (click)="authService.logoutUser()">Cerrar Sesion</a>
+    </ul>
+</mat-toolbar>
+
+<mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="terrenosnew()">
+      <mat-icon>crop_din</mat-icon>
+      <span>171 Terrenos</span>
+    </button>
+    <button mat-menu-item (click)="edificiosnew()">
+        <mat-icon>location_city</mat-icon>
+        <span>172 Edificios</span>
+    </button>
+    <button mat-menu-item (click)="moviliarionew()">
+        <mat-icon>weekend</mat-icon>
+        <span>173 Moviliario y enseres</span>
+    </button>
+    <button mat-menu-item (click)="instalacionnew()">
+        <mat-icon>devices_other</mat-icon>
+        <span>174 Equipos e instalacion</span>
+    </button>
+    <button mat-menu-item (click)="computacionnew()">
+        <mat-icon>computer</mat-icon>
+        <span>175 Equipos de computacion</span>
+    </button>
+    <button mat-menu-item (click)="vehiculosnew()">
+        <mat-icon>directions_car</mat-icon>
+        <span>176 Vehiculos</span>
+    </button>
+    <button mat-menu-item (click)="otrosnew()">
+        <mat-icon>notifications_off</mat-icon>
+        <span>177 178 179</span>
+    </button>
+</mat-menu>
+
+<mat-menu #seccion="matMenu">
+    <button mat-menu-item (click)="seccionlist()">
+      <mat-icon>dialpad</mat-icon>
+      <span>Listar secion</span>
+    </button>
+    <button mat-menu-item (click)="cooplist()">
+        <mat-icon>notifications_off</mat-icon>
+        <span>Lista cooperativa</span>
+    </button>
+    <button mat-menu-item (click)="cuentalist()">
+        <mat-icon>notifications_off</mat-icon>
+        <span>Lista cuenta</span>
+    </button>
+    <button mat-menu-item (click)="adquilist()">
+        <mat-icon>notifications_off</mat-icon>
+        <span>Lista de adquisicion</span>
+    </button>
+</mat-menu>
+<!--para el rol de usuario authService.getRol()=='user' 'admin' 'pm' -->

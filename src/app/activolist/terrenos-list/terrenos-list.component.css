@@ -1,0 +1,14 @@
+.example-card {
+    max-width: 400px;
+  }
+  
+.example-header-image {
+    background-image: url(../../ImgActivos/terrenos.jpg);
+    background-size: cover;
+}
+
+.list{
+    display: flex;
+    justify-content: center;
+}
+

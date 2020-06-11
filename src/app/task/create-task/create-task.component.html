@@ -1,0 +1,46 @@
+<div class="form">
+    <mat-card class="card">
+        <mat-card-title>Crear tarea</mat-card-title> 
+        <mat-card-content>
+            <div class="container">
+                <mat-form-field>
+                    <input [(ngModel)]="numero" matInput placeholder="seccion">
+                        <mat-hint  align="end">
+                            <mat-error *ngIf="nume" >existe el codigo</mat-error>
+                            <mat-error *ngIf="!numero" >introdusca un codigo codigo</mat-error>
+                        </mat-hint>
+                </mat-form-field>
+                <!--<mat-form-field>
+                    <input [(ngModel)]="createTask.nombre_seccion" matInput placeholder="SeccionNombre">
+
+                    <mat-select [(ngModel)]="activo.id_coop" name="food">
+                <mat-option *ngFor="let food of coop" [value]="food.id_coop">
+                    {{food.id_coop}} - {{food.nombre}}
+                </mat-option>
+            </mat-select>
+
+                </mat-form-field>-->
+            </div>
+        </mat-card-content>
+        <!--<template *ngFor="let nav_link of defaultLinks"  >
+            <li *ngIf="nav_link.visible">
+                .....
+            </li>
+            <mat-hint *ngIf="acti.id_cuenta==cuenta && acti.cod_tipo==numero"align="end">
+                        <mat-error *ngIf="acti.id_cuenta==cuenta && acti.cod_tipo==numero">no existe el codigo</mat-error>
+                    </mat-hint>
+         </template>-->
+        <mat-card-actions>
+            <button (click)="create()" class="button" mat-raised-button color="accent">crear</button>
+        </mat-card-actions>
+
+            <mat-form-field>
+              <mat-label>Favorite food</mat-label>
+              <mat-select [(ngModel)]="selectedValue" name="food">
+                <mat-option *ngFor="let food of activo" [value]="food.id_activo">
+                    {{food.id_activo}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+    </mat-card>
+</div>

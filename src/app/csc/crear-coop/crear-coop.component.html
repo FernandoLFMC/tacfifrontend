@@ -1,0 +1,76 @@
+<div *ngIf="data; else showNewForm">
+    <div class="form">
+        <mat-card class="card">
+            <mat-card-title>Editar Cooperativa</mat-card-title> 
+            <mat-card-content>
+                <div class="container">
+                    <mat-form-field>
+                        <input [(ngModel)]="editCoop.id_coop" matInput placeholder="codigo de cooperativa">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input [(ngModel)]="editCoop.nombre" matInput placeholder="Nombre de cooperativa">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input [(ngModel)]="editCoop.ciudad" matInput placeholder="Ciudad">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input [(ngModel)]="editCoop.direccion" matInput placeholder="Direccion">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input type="number" [(ngModel)]="editCoop.telefono" matInput placeholder="Telefono">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input type="number" [(ngModel)]="editCoop.nit" matInput placeholder="Numero de NIT">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input [(ngModel)]="editCoop.correo" matInput placeholder="Correo electronico">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input [(ngModel)]="editCoop.url" matInput placeholder="Direccion de URL">
+                    </mat-form-field>
+                </div>
+            </mat-card-content>
+            <mat-card-actions>
+                <button (click)="editarCoop()" class="button"  mat-raised-button color="primary" [mat-dialog-close]="true">Editar</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>
+<ng-template #showNewForm>
+    <div class="form">
+        <mat-card class="card">
+            <mat-card-title>Crear Cooperativa</mat-card-title> 
+            <mat-card-content>
+                <div class="container">
+                    <mat-form-field>
+                        <input type="number" [(ngModel)]="cooperativa.id_coop" matInput placeholder="codigo de cooperativa">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input [(ngModel)]="cooperativa.nombre" matInput placeholder="Nombre de cooperativa">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input [(ngModel)]="cooperativa.ciudad" matInput placeholder="Ciudad">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input [(ngModel)]="cooperativa.direccion" matInput placeholder="Direccion">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input type="number" [(ngModel)]="cooperativa.telefono" matInput placeholder="Telefono">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input type="number" [(ngModel)]="cooperativa.nit" matInput placeholder="Numero de NIT">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input type="email" [(ngModel)]="cooperativa.correo" matInput placeholder="Correo electronico">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input type="text" [(ngModel)]="cooperativa.url" matInput placeholder="Direccion de URL">
+                    </mat-form-field>
+                </div>
+            </mat-card-content>
+            <mat-card-actions>
+                <button (click)="createcoop()" class="button"  mat-raised-button color="primary" [mat-dialog-close]="true">Crear</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</ng-template>

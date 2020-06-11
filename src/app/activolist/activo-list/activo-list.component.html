@@ -1,0 +1,93 @@
+
+<mat-form-field>
+    <mat-label>Buscar</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ej. SIS ">
+</mat-form-field>
+<div class="row">
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="id_activo">
+      <th mat-header-cell *matHeaderCellDef>Activo&nbsp;&nbsp;&nbsp;</th>
+      <td mat-cell *matCellDef="let element"> {{element.id_activo}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="id_cuenta">
+        <th mat-header-cell *matHeaderCellDef>Cod. cuenta&nbsp;&nbsp;&nbsp;</th>
+        <td mat-cell *matCellDef="let element"> {{element.id_cuenta}} </td>
+      </ng-container>
+        
+    <ng-container matColumnDef="id_coop">
+        <th mat-header-cell *matHeaderCellDef> cod. Coop. &nbsp;&nbsp;&nbsp;</th>
+        <td mat-cell *matCellDef="let element"> {{element.id_coop}} </td>
+      </ng-container>
+        
+    <ng-container matColumnDef="cod_tipo">
+        <th mat-header-cell *matHeaderCellDef> Cod. tipo &nbsp;&nbsp;&nbsp;</th>
+        <td mat-cell *matCellDef="let element"> {{element.cod_tipo}} </td>
+      </ng-container>
+  
+    <ng-container matColumnDef="cod_seccion">
+      <th mat-header-cell *matHeaderCellDef> cod. seccion &nbsp;&nbsp;&nbsp;</th>
+      <td mat-cell *matCellDef="let element"> {{element.cod_seccion}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="id_funcionario">
+      <th mat-header-cell *matHeaderCellDef>Cod. funcionario&nbsp;&nbsp;&nbsp;</th>
+      <td mat-cell *matCellDef="let element"> {{element.id_funcionario}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="nombre_tipo">
+        <th mat-header-cell *matHeaderCellDef>Nombre tipo &nbsp;&nbsp;&nbsp;&nbsp;</th>
+        <td mat-cell *matCellDef="let element"> {{element.nombre_tipo}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="unidad">
+        <th mat-header-cell *matHeaderCellDef>unidad&nbsp;&nbsp;&nbsp;&nbsp;</th>
+        <td mat-cell *matCellDef="let element"> {{element.unidad}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="estado_op_nop">
+        <th mat-header-cell *matHeaderCellDef>&nbsp;&nbsp;Estado</th>
+        <td mat-cell *matCellDef="let element">  
+            <button mat-stroked-button class="ope" *ngIf="element.estado_op_nop == 'Operativo' " >{{element.estado_op_nop}}</button>
+            <button mat-stroked-button class="nope" *ngIf="element.estado_op_nop == 'No operativo' ">{{element.estado_op_nop}}</button>
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="detalles">
+        <th mat-header-cell *matHeaderCellDef>&nbsp;&nbsp;&nbsp;Detalles</th>
+        <td mat-cell *matCellDef="let element">
+            <button color="accent" (click)= "detalles(element.id_activo)" mat-raised-button>Detalles</button>
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="mover">
+        <th mat-header-cell *matHeaderCellDef>&nbsp;&nbsp;&nbsp;Mover</th>
+        <td mat-cell *matCellDef="let element">
+            <button color="primary" (click)= "mover(element.id_activo)" mat-raised-button>Mover</button>
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="editar">
+        <th mat-header-cell *matHeaderCellDef>&nbsp;&nbsp;&nbsp;Editar</th>
+        <td mat-cell *matCellDef="let element">
+            <button mat-stroked-button color="accent" (click)= "editar(element)">
+                <mat-icon>edit</mat-icon>
+            </button>
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="eliminar">
+        <th mat-header-cell *matHeaderCellDef>&nbsp;&nbsp;&nbsp;Eliminar</th>
+        <td mat-cell *matCellDef="let element">
+            <button mat-stroked-button color="warn" (click)= "eliminar(element)">
+                <mat-icon>deleted</mat-icon>
+            </button>
+        </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+</div>

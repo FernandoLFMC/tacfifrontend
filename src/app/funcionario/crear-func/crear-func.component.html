@@ -1,0 +1,103 @@
+<div *ngIf="data; else showNewForm">
+    <div class="form">
+        <mat-card class="card">
+            <mat-card-title>Editar Funcionario</mat-card-title> 
+            <mat-card-content>
+                <div class="container">
+                        <h6>Cod. de funcionario {{editfunc.id_funcionario}}</h6>
+                        <h6>                               </h6>
+                    <mat-form-field>
+                        <mat-label>Cod. Seccion</mat-label>
+                        <mat-select [(ngModel)]="editfunc.cod_seccion" name="food">
+                            <mat-option *ngFor="let food of seccion" [value]="food.cod_seccion">
+                             {{food.cod_seccion}} - {{food.nombre_seccion}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Cod. coop.</mat-label>
+                        <mat-select [(ngModel)]="editfunc.id_coop" name="food">
+                            <mat-option *ngFor="let food of coop" [value]="food.id_coop">
+                                {{food.id_coop}} - {{food.nombre}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input [(ngModel)]="editfunc.id_profesion" matInput placeholder="Profesion">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input [(ngModel)]="editfunc.ci" matInput placeholder="Cedula de Identidad">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input [(ngModel)]="editfunc.nombre" matInput placeholder="Nombre">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input [(ngModel)]="editfunc.ap_paterno" matInput placeholder="Apellido paterno">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input [(ngModel)]="editfunc.ap_materno" matInput placeholder="Apellido materno">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input [(ngModel)]="editfunc.cargo" matInput placeholder="Cargo">
+                    </mat-form-field>
+                </div>
+            </mat-card-content>
+            <mat-card-actions>
+                <button (click)="editar()" class="button"  mat-raised-button color="primary" [mat-dialog-close]="true">Editar</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>
+<ng-template #showNewForm>
+    <div class="form">
+        <mat-card class="card">
+            <mat-card-title>Crear Funcionario</mat-card-title> 
+            <mat-card-content>
+                <div class="container">
+                    <mat-form-field>
+                        <mat-label>Cod. de Funcionario</mat-label>
+                        <input [(ngModel)]="funcionario.id_funcionario" matInput placeholder="Ej. 001">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Cod. Seccion</mat-label>
+                        <mat-select [(ngModel)]="funcionario.cod_seccion" name="food">
+                            <mat-option *ngFor="let food of seccion" [value]="food.cod_seccion">
+                             {{food.cod_seccion}} - {{food.nombre_seccion}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Cod. coop.</mat-label>
+                        <mat-select [(ngModel)]="funcionario.id_coop" name="food">
+                            <mat-option *ngFor="let food of coop" [value]="food.id_coop">
+                                {{food.id_coop}} - {{food.nombre}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input [(ngModel)]="funcionario.id_profesion" matInput placeholder="Profesion">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input [(ngModel)]="funcionario.ci" matInput placeholder="Cedula de Identidad">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input [(ngModel)]="funcionario.nombre" matInput placeholder="Nombre">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input [(ngModel)]="funcionario.ap_paterno" matInput placeholder="Apellido paterno">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input [(ngModel)]="funcionario.ap_materno" matInput placeholder="Apellido materno">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input [(ngModel)]="funcionario.cargo" matInput placeholder="Cargo">
+                    </mat-form-field>
+                </div>
+            </mat-card-content>
+            <mat-card-actions>
+                <button (click)="crear()" class="button"  mat-raised-button color="primary" [mat-dialog-close]="true">Crear</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</ng-template>
+<!--[mat-dialog-close]="true"-->
