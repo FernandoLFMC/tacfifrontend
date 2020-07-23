@@ -24,7 +24,7 @@ td {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #6fff6f1c;
+  background-color: #3d3d3d1c;
 }
 mat-card-title{
   text-align: center;
@@ -46,7 +46,7 @@ width: 100%;
 flex: 1 0 auto;
 }
 .btn{
-background-color: #1fec258c;
+background-color: #c4c9ce42;
 }
 .form-control{
 background-color: #6fff6f1c;
@@ -55,8 +55,21 @@ background-color: #6fff6f1c;
 mat-icon{
 cursor: pointer;
 color: black;
+font-size: 35px;
 }
 
 mat-label{
   color: rgba(0, 0, 0, 0.774);
+}
+
+.info{
+  color: black;
+  background-color: rgb(211 227 211);
+}
+
+.mat-elevation-z8 {
+  max-width: 1100px;
+  justify-content: center;
+  position:unset;
+  background-color: #6fff6f1c;
 }

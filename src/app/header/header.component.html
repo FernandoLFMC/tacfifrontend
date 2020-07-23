@@ -1,41 +1,54 @@
 <mat-toolbar color="primary">
     <ul>
-        <a mat-button *ngIf="authService.isLogged()" routerLink="tasks"><mat-icon>home</mat-icon>&nbsp;&nbsp;Inicio</a>
-    </ul>
-    <ul>
-        <a mat-button *ngIf=" authService.isLogged() && authService.getRol() == 'admin'" 
-        routerLink="create">Crear</a>
-    </ul>
-    <ul>
-        <a mat-button routerLink="lista-terrenos">listar funci</a>
-    </ul>
+        <a mat-button  routerLink="tasks"><mat-icon>home</mat-icon>&nbsp;&nbsp;Inicio</a>
 
-    <ul>
-        <a mat-button routerLink="listar-activo">Lista Activo</a>
-    </ul>
-    <ul>
-        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <!--<a mat-button *ngIf=" authService.isLogged() && authService.getRol() == 'admin'" 
+        routerLink="create">Crear</a>-->
+
+        <button mat-button *ngIf="authService.isLogged() && authService.getRol() == 'admin'" [matMenuTriggerFor]="activo" aria-label="Example icon-button with a menu">
+            <mat-icon>more_vert</mat-icon>
+            <a>Lista Activo</a>
+        </button>
+        
+
+        <button mat-button *ngIf="authService.isLogged() && authService.getRol() == 'admin'" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
             <mat-icon>more_vert</mat-icon>
             <a>Nuevo Activo</a>
         </button>
-    </ul>
-    
-    <span class="spacer"></span>
-    <ul>
-        <button mat-icon-button [matMenuTriggerFor]="seccion" aria-label="Example icon-button with a menu">
+
+        <button mat-button *ngIf="authService.isLogged() && authService.getRol() == 'admin'" [matMenuTriggerFor]="seccion" aria-label="Example icon-button with a menu">
             <mat-icon>more_vert</mat-icon>
             <a>Lista Componentes</a>
         </button>
+
+
+        <a mat-button *ngIf="authService.isLogged()" routerLink="listar-func">listar funci</a>
     </ul>
-    <span class="spacer"></span>
-    <span class="spacer"></span>
+
     <span class="spacer"></span>
     <ul>
-        <a mat-button routerLink="signup">Registrar Usuario</a>
+        <button mat-button *ngIf="authService.isLogged() && authService.getRol() == 'admin'" [matMenuTriggerFor]="user" aria-label="Example icon-button with a menu">
+            <a>Registro Usuario</a>
+        </button>
         <a *ngIf="!authService.isLogged()" mat-button routerLink="login">Iniciar Sesion</a>
         <a *ngIf="authService.isLogged()" mat-button (click)="authService.logoutUser()">Cerrar Sesion</a>
     </ul>
 </mat-toolbar>
+
+<mat-menu #activo="matMenu">
+    <button mat-menu-item (click)="listaactivo()">
+      <mat-icon>list_alt</mat-icon>
+      <span>Listar Activo</span>
+    </button>
+    <button mat-menu-item (click)="reportes()">
+        <mat-icon>list_alt</mat-icon>
+        <span>Reportes</span>
+    </button>
+    <button mat-menu-item (click)="listamovi()">
+        <mat-icon>list_alt</mat-icon>
+        <span>Lista Movimientos</span>
+    </button>
+</mat-menu>
 
 <mat-menu #menu="matMenu">
     <button mat-menu-item (click)="terrenosnew()">
@@ -62,28 +75,67 @@
         <mat-icon>directions_car</mat-icon>
         <span>176 Vehiculos</span>
     </button>
-    <button mat-menu-item (click)="otrosnew()">
-        <mat-icon>notifications_off</mat-icon>
-        <span>177 178 179</span>
+    <button mat-menu-item (click)="otrosnew(177)">
+        <mat-icon>add</mat-icon>
+        <span>177 Obras de arte</span>
+    </button>
+    <button mat-menu-item (click)="otrosnew(178)">
+        <mat-icon>add</mat-icon>
+        <span>178 Vienes tomados en arrendamiento financiero</span>
+    </button>
+    <button mat-menu-item (click)="otrosnew(179)">
+        <mat-icon>add</mat-icon>
+        <span>179 Obras de construccion</span>
+    </button>
+    <button mat-menu-item (click)="otrosnew(180)">
+        <mat-icon>add</mat-icon>
+        <span>180 Otros activos</span>
+    </button>
+    <button mat-menu-item (click)="otrosnew(181)">
+        <mat-icon>add</mat-icon>
+        <span>181 Bienes diversos</span>
+    </button>
+    <button mat-menu-item (click)="otrosnew(182)">
+        <mat-icon>add</mat-icon>
+        <span>182 Cargos diferidos</span>
+    </button>
+    <button mat-menu-item (click)="otrosnew(183)">
+        <mat-icon>add</mat-icon>
+        <span>183 Partidas pendientes de imputacion</span>
+    </button>
+    <button mat-menu-item (click)="otrosnew(184)">
+        <mat-icon>add</mat-icon>
+        <span>184 Activos intangibles</span>
     </button>
 </mat-menu>
 
 <mat-menu #seccion="matMenu">
     <button mat-menu-item (click)="seccionlist()">
-      <mat-icon>dialpad</mat-icon>
+      <mat-icon>list_alt</mat-icon>
       <span>Listar secion</span>
     </button>
     <button mat-menu-item (click)="cooplist()">
-        <mat-icon>notifications_off</mat-icon>
+        <mat-icon>list_alt</mat-icon>
         <span>Lista cooperativa</span>
     </button>
     <button mat-menu-item (click)="cuentalist()">
-        <mat-icon>notifications_off</mat-icon>
+        <mat-icon>list_alt</mat-icon>
         <span>Lista cuenta</span>
     </button>
     <button mat-menu-item (click)="adquilist()">
-        <mat-icon>notifications_off</mat-icon>
+        <mat-icon>list_alt</mat-icon>
         <span>Lista de adquisicion</span>
     </button>
 </mat-menu>
+<mat-menu #user="matMenu">
+    <button mat-menu-item (click)="createuser()">
+      <mat-icon>add</mat-icon>
+      <span>Nuevo Usuario</span>
+    </button>
+    <button mat-menu-item (click)="listuser()">
+        <mat-icon>list_alt</mat-icon>
+        <span>Lista Usuarios</span>
+    </button>
+</mat-menu>
+
 <!--para el rol de usuario authService.getRol()=='user' 'admin' 'pm' -->

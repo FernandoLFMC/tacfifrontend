@@ -9,6 +9,7 @@ export class AuthService {
 
   private signUpURL = "http://localhost:8080/api/auth/signup"
   private loginURL = "http://localhost:8080/api/auth/signin"
+  private userURL = "http://localhost:8080/api/auth/listuser"
   private adminrol = "http://localhost:8080/api/v1/admin"
   private userrol = "http://localhost:8080/api/v1/user"
   private pmrol = "http://localhost:8080/api/v1/pm"
@@ -52,5 +53,15 @@ export class AuthService {
   }
   rolpm(){
     return this.http.get<any>(this.pmrol)
+  }
+
+  //listar usuarios 
+  listuser(){
+    return this.http.get<any>(this.userURL)
+  }
+  deleteuser(delet){
+    const id=delet.id
+    const url= `${this.userURL}/${id}`
+    return this.http.delete<any>(url)
   }
 }

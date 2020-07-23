@@ -22,6 +22,8 @@ import {MatListModule} from '@angular/material/list'
 import { MatDialogModule } from '@angular/material/dialog'
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSortModule} from '@angular/material/sort';
 
 
 import {MatInputModule} from '@angular/material/input'
@@ -61,6 +63,17 @@ import { ListSeccionComponent } from './csc/list-seccion/list-seccion.component'
 import { ListCuentaComponent } from './csc/list-cuenta/list-cuenta.component';
 import { ListCoopComponent } from './csc/list-coop/list-coop.component';
 import { TerrenosListComponent } from './activolist/terrenos-list/terrenos-list.component';
+import { MovimientosComponent } from './activonew/movimientos/movimientos.component';
+import { MovimientosListComponent } from './activolist/movimientos-list/movimientos-list.component';
+import { ComputacionListComponent } from './activolist/computacion-list/computacion-list.component';
+import { EdificiosListComponent } from './activolist/edificios-list/edificios-list.component';
+import { InstalacionListComponent } from './activolist/instalacion-list/instalacion-list.component';
+import { MoviliarioListComponent } from './activolist/moviliario-list/moviliario-list.component';
+import { VehiculosListComponent } from './activolist/vehiculos-list/vehiculos-list.component';
+import { OtrosListComponent } from './activolist/otros-list/otros-list.component';
+import { UserListComponent } from './user-list/user-list.component';
+import { ExportxlsxService } from './service/exportxlsx.service';
+import { ReportesComponent } from './activolist/reportes/reportes.component'
 
 
 
@@ -94,7 +107,17 @@ import { TerrenosListComponent } from './activolist/terrenos-list/terrenos-list.
     ListSeccionComponent,
     ListCuentaComponent,
     ListCoopComponent,
-    TerrenosListComponent
+    TerrenosListComponent,
+    MovimientosComponent,
+    MovimientosListComponent,
+    ComputacionListComponent,
+    EdificiosListComponent,
+    InstalacionListComponent,
+    MoviliarioListComponent,
+    VehiculosListComponent,
+    OtrosListComponent,
+    UserListComponent,
+    ReportesComponent
   ],
   imports: [
     BrowserModule,
@@ -118,9 +141,11 @@ import { TerrenosListComponent } from './activolist/terrenos-list/terrenos-list.
     MatMenuModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    NgbModule
+    NgbModule,
+    MatSortModule,
+    MatPaginatorModule
   ],
-  providers: [AuthService, TaskService, AuthGuard,
+  providers: [AuthService, TaskService, AuthGuard,ExportxlsxService,
   {
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptorService,

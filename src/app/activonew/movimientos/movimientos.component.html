@@ -1,0 +1,81 @@
+<div class="forms">
+<mat-card class="mat-elevation-z8">
+  <div class="ti">
+    <mat-card-title>Movimiento de Activo </mat-card-title>
+  </div>
+  
+    <mat-card-content class="example-form">
+        
+        <h5>Cod. cuenta: {{id_cuenta}}</h5>
+        <h6>Cod. Tipo: {{cod_tipo}}</h6>
+
+        <table>
+            <td><mat-card class="info">
+            <mat-label>Secciona actual del activo:</mat-label>
+            <p>
+               {{infoactivo.seccion_anterior}}
+            </p>
+            </mat-card></td>&nbsp;&nbsp;
+            <td><mat-card class="info">
+            <mat-label>funcionario encaragado actual:</mat-label>
+            <p>
+                {{infoactivo.funcionario_anterior}}
+            </p>
+            </mat-card></td>
+          </table>
+        <h5>Nueva localizacion de activo</h5>
+        <table class="example-full" cellspacing="0"><tr>
+            <td><mat-form-field appearance="fill" class="example-full-width">
+                <mat-label>Nueva Seccion del activo </mat-label>
+                <mat-select [(ngModel)]="info_acti.cod_seccion" name="food">
+                    <mat-option *ngFor="let food of seccion" [value]="food.cod_seccion">
+                        {{food.cod_seccion}} - {{food.nombre_seccion}}
+                    </mat-option>
+                </mat-select>
+                <mat-hint  align="end">
+                    <mat-error *ngIf="!info_acti.cod_seccion" >Introdusca Datos</mat-error>
+                </mat-hint>
+            </mat-form-field></td>
+            <td><mat-form-field appearance="fill" class="example-full-width">
+                <mat-label>Nuevo funcionario encaragado</mat-label>
+                <mat-select [(ngModel)]="info_acti.id_funcionario" name="food">
+                    <mat-option *ngFor="let food of funcionario" [value]="food.id_funcionario">
+                        {{food.id_funcionario}} - {{food.nombre}} {{food.ap_paterno}}
+                    </mat-option>
+                </mat-select>
+                <mat-hint  align="end">
+                    <mat-error *ngIf="!info_acti.id_funcionario" >Introdusca Datos</mat-error>
+                </mat-hint>
+            </mat-form-field></td>
+            <td><form class="form-inline">
+                <div class="form-group">
+                  <div class="input-group">
+                    <input matImput class="form-control" placeholder="Fecha de movimineto" 
+                           name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
+                          <mat-icon>calendar_today</mat-icon>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </form></td>
+        </tr></table>
+  
+        <table class="example-full" cellspacing="0"><tr>
+            <td><mat-form-field appearance="fill" class="example-full-width">
+                <mat-label>Motivo de movimineto</mat-label>
+                <textarea [(ngModel)]="infoactivo.motivo" matInput placeholder="Motivo"></textarea>
+            </mat-form-field></td>
+        </tr></table>
+  
+       
+        
+        <mat-card-actions >
+            <button (click)="crear()" class="button" mat-raised-button color="primary">Registrar</button>
+        </mat-card-actions>
+  
+    </mat-card-content>
+  
+</mat-card>
+</div>

@@ -1,8 +1,10 @@
 import { Component, OnInit, ModuleWithComponentFactories } from '@angular/core';
 import { ActivoService } from '../../service/activo.service'
 import { TaskService } from '../../service/task.service'
+import { Router, ActivatedRoute } from '@angular/router'
 
 import Swal from 'sweetalert2';
+
 
 
 @Component({
@@ -13,7 +15,9 @@ import Swal from 'sweetalert2';
 export class TerrenosNewComponent implements OnInit {
 
   constructor(private activoservice:ActivoService,
-      private taskservice: TaskService  ) { }
+      private taskservice: TaskService,
+    private router: Router,
+    private actirouter: ActivatedRoute ) { }
   model: {
     year: number,
     month: number,
@@ -26,7 +30,7 @@ export class TerrenosNewComponent implements OnInit {
   activo={
     id_cuenta: 171,
     id_coop: "",
-    cod_tipo: 1001,
+    cod_tipo:"",
     cod_seccion: "",
     id_funcionario: "",
     nombre_tipo: "",
@@ -41,6 +45,7 @@ export class TerrenosNewComponent implements OnInit {
     nit: "",//1020304050,
     fecha_adquisicion: "",//2020-03-17
     comprobante_contable: "",
+    nro_factura:"",
     costo_adquisicion: ""
   }
   terrenoss={
@@ -66,8 +71,24 @@ export class TerrenosNewComponent implements OnInit {
   funcionario:[]
   adqui:[]
   prov:[]
-
+  id='';
   ngOnInit(): void {
+    if (this.actirouter.snapshot.paramMap.get('id')){
+      this.id=this.actirouter.snapshot.paramMap.get('id');
+      console.log('res id mover', this.id)
+      this.activoservice.getidacti(this.id)
+    .subscribe(
+      res=>{this.activo=res
+            this.adquisicion=res.adquisicion_activo
+            this.terrenoss=res.terrenos
+            this.model=res.adquisicion_activo.fecha_adquisicion
+            console.log('res acti',res)
+            console.log('res acti',this.model)},
+      err=>console.log(err)
+    )
+    }
+    
+
     this.taskservice.getTask()
     .subscribe(
       res=>this.seccion=res,
@@ -95,13 +116,13 @@ export class TerrenosNewComponent implements OnInit {
     )
   }
   crear(){
-    this.fecha()
+    
     //this.activo.id_activo=this.activo.id_cuenta+ this.activo.cod_tipo
     //this.terrenoss.id_activo=this.activo.id_cuenta+ this.activo.cod_tipo
     //this.adquisicion.id_activo=this.activo.id_cuenta + this.activo.cod_tipo
     //this.activo.adquisicion_activo=this.adquisicion
     //this.activo.terrenos=this.terrenoss
-    console.log('lo que manda',this.activo)
+    console.log('lo que manda',this.adquisicion)
     this.activoservice.createactivo(this.activo)
     .subscribe(
       res=>{
@@ -111,28 +132,61 @@ export class TerrenosNewComponent implements OnInit {
         if(!this.adquisicion.nit){
           this.activoservice.createproveedor(this.proveedor)
           .subscribe(
-            res=>{console.log(res)},
-            err=>{console.log(err)}
+            res=>{console.log(res)
+              this.adquisicion.nit=this.proveedor.nit
+              if(this.model.day){
+                this.fecha()
+              }
+              this.activoservice.createAdquiActi(this.adquisicion)
+              .subscribe(
+                res=>{console.log('res AdquiActi', res)
+                  this.activoservice.createterrenos(this.terrenoss)
+                  .subscribe(
+                    res=>{console.log('res terrenos', res)
+                      Swal.fire('Creado', 'Se creo corectamente', 'success')
+                      this.router.navigate(['/listar-activo'])
+                    },
+                    err=>{console.log('err terrenos', err)
+                          Swal.fire('Error', 'No se creo terrenos', 'error')
+                          this.delete(res)}
+                  )
+                },
+                err=>{console.log('err AdquiActi', err)
+                      this.model.day=this.model.day-1
+                      Swal.fire('Error', 'No se creo tipo de adquisicion', 'error')
+                      this.delete(res)}
+              )
+            },
+            err=>{console.log(err)
+              Swal.fire('Error', 'No se creo proveedor por el Nro. de NIT', 'error')
+              this.delete(res)
+            }
           )
-          this.adquisicion.nit=this.proveedor.nit
+          
+        }else{
+          if(this.model.day){
+            this.fecha()
+          }
+          this.activoservice.createAdquiActi(this.adquisicion)
+          .subscribe(
+            res=>{console.log('res AdquiActi', res)
+              this.activoservice.createterrenos(this.terrenoss)
+              .subscribe(
+                res=>{console.log('res terrenos', res)
+                  Swal.fire('Creado', 'Se creo corectamente', 'success')
+                  this.router.navigate(['/listar-activo'])
+                },
+                err=>{console.log('err terrenos', err)
+                      Swal.fire('Error', 'No se creo terrenos', 'error')
+                      this.delete(res)}
+              )
+            },
+            err=>{console.log('err AdquiActi', err)
+                  this.model.day=this.model.day-1
+                  Swal.fire('Error', 'No se creo tipo de adquisicion', 'error')
+                  this.delete(res)}
+          )
         }
-        this.activoservice.createAdquiActi(this.adquisicion)
-        .subscribe(
-          res=>{console.log('res AdquiActi', res)
-            this.activoservice.createterrenos(this.terrenoss)
-            .subscribe(
-              res=>{console.log('res terrenos', res)
-                Swal.fire('Creado', 'Se creo corectamente', 'success')
-              },
-              err=>{console.log('err terrenos', err)
-                    Swal.fire('Error', 'No se creo terrenos', 'error')
-                    this.delete(res)}
-            )
-          },
-          err=>{console.log('err AdquiActi', err)
-                Swal.fire('Error', 'No se creo tipo de adquisicion', 'error')
-                this.delete(res)}
-        )
       },
       err=>{
         console.log('error',err)
@@ -141,9 +195,34 @@ export class TerrenosNewComponent implements OnInit {
     )
   }
 
-  
+  edit(){
+    this.activoservice.putactivo(this.activo)
+    .subscribe(
+      res=>{console.log('res put acti',res)
+        this.activoservice.putAdquiActi(this.adquisicion)
+        .subscribe(
+          res=>{console.log('resput adquiacti', res)
+          this.activoservice.putTerrenos(this.terrenoss)
+          .subscribe(
+            res=>{console.log('resput adquiacti', res)
+            Swal.fire('Editado', 'Se Edito corectamente', 'success')
+            this.router.navigate(['/listar-activo'])  
+          },
+            err=>{console.log('err put adquiacti', err)
+            Swal.fire('Error', 'No se a Editado ', 'error')}
+          )
+        },
+          err=>{console.log('err put adquiacti', err)
+        Swal.fire('Error', 'No se a Editado ', 'error')}
+        )
+    },
+      err=>{console.log('error put acti', err)
+      Swal.fire('Error', 'No se a Editado ', 'error')}
+    )  
+  }
 
   fecha(){
+    this.model.day=this.model.day+1
     if(this.model.month < 10 && this.model.day >9){
       this.adquisicion.fecha_adquisicion=this.model.year+this.k+this.w+this.model.month+this.k+this.model.day}
       else{if(this.model.month < 10 && this.model.day <10){

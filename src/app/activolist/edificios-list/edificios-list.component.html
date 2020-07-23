@@ -1,0 +1,67 @@
+<div class="list">
+    <mat-card class="mat-elevation-z8">
+        <mat-card-header class="title">
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title>Activo Edificios: {{activo.id_cuenta}}-{{activo.id_coop}}-{{activo.cod_tipo}}-{{activo.cod_seccion}}-{{activo.id_funcionario}} </mat-card-title>
+          <mat-card-subtitle>Nombre tipo: {{activo.nombre_tipo}} </mat-card-subtitle>
+        </mat-card-header>
+        
+        <h4>Detalles del activo </h4>
+        <table>
+          <td><mat-card class="info"><mat-label>Cod. Coop.:</mat-label> {{activo.id_coop}}</mat-card></td>&nbsp;&nbsp;
+          <td><mat-card class="info"><mat-label>Cod. Seccion:</mat-label> {{activo.cod_seccion}}</mat-card></td>&nbsp;&nbsp;
+          <td><mat-card class="info"><mat-label>Cod. Funcionario:</mat-label> {{activo.id_funcionario}}</mat-card></td>&nbsp;&nbsp;
+          <td><mat-card class="info"><mat-label>Unidad:</mat-label> {{activo.unidad}}</mat-card></td>&nbsp;&nbsp;
+          <td><mat-card class="info">
+            <mat-label class="ope" *ngIf="activo.estado_op_nop == 'Operativo' ">{{activo.estado_op_nop}}</mat-label>
+            <mat-label class="nope" *ngIf="activo.estado_op_nop == 'No operativo' ">{{activo.estado_op_nop}}</mat-label>
+          </mat-card></td>
+        </table>
+    
+        <table>
+          <td><mat-card class="info"><mat-label>Cod. Catastro.:</mat-label> {{edificios.cod_catastro}}</mat-card></td>&nbsp;&nbsp;
+          <td><mat-card class="info"><mat-label>Matricula DDRR.:</mat-label> {{edificios.matricula_ddrr}}</mat-card></td>&nbsp;&nbsp;
+          <td><mat-card class="info"><mat-label>Superficie :</mat-label> {{edificios.superficie}} m²</mat-card></td>
+        </table>
+        <table>
+          <td><mat-card class="info"><mat-label>Propietario :</mat-label> {{edificios.propietario}}</mat-card></td>&nbsp;&nbsp;
+          <td><mat-card class="info"><mat-label>Departamento :</mat-label> {{edificios.departamento}}</mat-card></td>&nbsp;&nbsp;
+          <td><mat-card class="info"><mat-label>Ciudad :</mat-label> {{edificios.ciudad}}</mat-card></td>
+          <td><mat-card class="info"><mat-label>Direccion :</mat-label> {{edificios.direccion}}</mat-card></td>
+        </table>
+    
+        <table>
+          <td><mat-card class="info">
+          <mat-label>Descripcion:</mat-label>
+          <p>
+             {{activo.descripcion}}
+          </p>
+          </mat-card></td>&nbsp;&nbsp;
+          <td><mat-card class="info">
+          <mat-label>Observacion:</mat-label>
+          <p>
+              {{activo.observacion}}
+          </p>
+          </mat-card></td>
+        </table>
+        <h5>Detalles de la adquisicion del activo </h5>
+        <table>
+          <td><mat-card class="info"><mat-label>Cod. Adquisicion.:</mat-label> {{adquisicion.id_adquisicion}}</mat-card></td>&nbsp;&nbsp;
+          <td><mat-card class="info"><mat-label>Nro. Factura:</mat-label> {{adquisicion.nro_factura}}</mat-card></td>&nbsp;&nbsp;
+          <td><mat-card class="info"><mat-label>Fecha Adquisicion:</mat-label> {{adquisicion.fecha_adquisicion}}</mat-card></td>&nbsp;&nbsp;
+          <td><mat-card class="info"><mat-label>Comprobante Contable:</mat-label> {{adquisicion.comprobante_contable}}</mat-card></td>&nbsp;&nbsp;
+          <td><mat-card class="info"><mat-label>Costo de Adquisicion:</mat-label> {{adquisicion.costo_adquisicion}} Bs. </mat-card></td>
+        </table>
+
+        <table>
+          <td><mat-card class="info"><mat-label>Nro. Nit Proveedor:</mat-label> {{adquisicion.nit}}</mat-card></td>&nbsp;&nbsp;
+        </table>
+    
+        <mat-card-actions>
+          <button mat-button>LIKE</button>
+          <button mat-button>SHARE</button>
+        </mat-card-actions>
+    </mat-card>
+    </div>
+    
+    <!--<img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">-->

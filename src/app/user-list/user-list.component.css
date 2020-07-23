@@ -1,0 +1,43 @@
+.col{
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+.row{
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+table {
+    width: 90%;
+    justify-content: center;
+    align-items: center
+  }
+  .mat-form-field {
+      font-size: 1rem;
+      justify-content: center;
+      width: 60%;
+      display: flex;
+      margin: 0 auto;
+      margin-top: 1rem;
+  }
+  .btn {
+    width: 25%;
+    color: #fff;
+    background: #451e89;
+    cursor: pointer;
+}
+.rows{
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+
+.mat-card-title{
+    text-align: center;
+    justify-content: center;
+    display: flex;
+}
+.spacer {
+    flex: 1 0 auto;
+}

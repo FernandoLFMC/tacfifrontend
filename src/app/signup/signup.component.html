@@ -4,10 +4,15 @@
         <mat-card-content>
             <div class="container">
                 <mat-form-field>
-                    <input [(ngModel)]="signUpUser.id_funcionario" matInput placeholder="Codigo de funcionario">
+                    <mat-label>Cod. Funcionario</mat-label>
+                    <mat-select [(ngModel)]="signUpUser.id_funcionario" name="food">
+                        <mat-option *ngFor="let food of funcionario" [value]="food.id_funcionario">
+                            {{food.id_funcionario}} - {{food.nombre}} {{food.ap_paterno}}
+                        </mat-option>
+                    </mat-select>
                 </mat-form-field>
                 <mat-form-field>
-                    <input [(ngModel)]="signUpUser.username" matInput placeholder="Usuario">
+                    <input [(ngModel)]="signUpUser.username" matInput placeholder="Nombre Usuario">
                 </mat-form-field>
                 <mat-form-field>
                     <input [(ngModel)]="signUpUser.password" matInput placeholder="Password">
@@ -17,7 +22,6 @@
                     <mat-select [(value)]="selected">
                       <mat-option value="admin">administrador</mat-option>
                       <mat-option value="user">usuario</mat-option>
-                      <mat-option value="pm">cliente</mat-option>
                     </mat-select>
                   </mat-form-field>
             </div>

@@ -1,14 +1,17 @@
-
-<div class="ti">
-    <mat-card-title>Registrar activo de Terrenos</mat-card-title>
-</div>
 <div class="forms">
+    <mat-card class="mat-elevation-z8">
+        <div class="ti" *ngIf="!id">
+            <mat-card-title>Registrar activo de Terrenos</mat-card-title>
+        </div>
+        <div class="ti" *ngIf="id">
+            <mat-card-title>Editar activo de Terrenos</mat-card-title>
+        </div>
     <mat-card-content class="example-form">
         
         <h5>Cod. cuenta {{activo.id_cuenta}}</h5>
         
-        <table class="example-full" cellspacing="0"><tr>
-        <td><mat-form-field class="example-full-width">
+        <table *ngIf="!id" class="example-full" cellspacing="0"><tr>
+        <td><mat-form-field appearance="fill" class="example-full-width">
             <mat-label>Nombre de tipo</mat-label>
             <mat-select [(value)]="activo.nombre_tipo">
               <mat-option value="Terreno">1000 - Terreno</mat-option>
@@ -17,23 +20,28 @@
                 <mat-error *ngIf="!activo.nombre_tipo" >Introdusca Datos</mat-error>
             </mat-hint>
         </mat-form-field></td>
-        <td><mat-form-field class="example-full-width">
+        <td><mat-form-field appearance="fill" class="example-full-width">
             <mat-label>Codigo tipo  </mat-label>
-            <input maxlength="5" type="number" [(ngModel)]="activo.cod_tipo" matInput placeholder="Ej. 1001" >
+            <input type="number" [(ngModel)]="activo.cod_tipo" matInput placeholder="Ej. 1001" >
             <mat-hint  align="end">
                 <mat-error *ngIf="!activo.cod_tipo" >no existe el codigo</mat-error>
             </mat-hint>
         </mat-form-field></td>&nbsp;&nbsp;&nbsp;&nbsp;
-        <td><mat-form-field class="example-full-width">
+        <td><mat-form-field appearance="fill" class="example-full-width">
             <mat-label>Piezas</mat-label>
-            <input [(ngModel)]="activo.unidad" matInput placeholder="Ej. 2 Piezas">
+            <input maxlength="10" [(ngModel)]="activo.unidad" matInput placeholder="Ej. 2 Piezas">
         </mat-form-field></td>
         </tr>
+        </table>
+        <table *ngIf="id" class="example-full" cellspacing="0">
+            <td><mat-card class="info"><mat-label>Nombre de tipo:</mat-label> {{activo.nombre_tipo}}</mat-card></td>&nbsp;&nbsp;
+            <td><mat-card class="info"><mat-label>Codigo tipo:</mat-label> {{activo.cod_tipo}}</mat-card></td>&nbsp;&nbsp;
+            <td><mat-card class="info"><mat-label>Piezas:</mat-label> {{activo.unidad}}</mat-card></td>
         </table>
     
     
         <table class="example-full" cellspacing="0"><tr>
-        <td><mat-form-field class="example-full-width">
+        <td><mat-form-field appearance="fill" class="example-full-width">
             <mat-label>Cod. coop.</mat-label>
             <mat-select [(ngModel)]="activo.id_coop" name="food">
                 <mat-option *ngFor="let food of coop" [value]="food.id_coop">
@@ -44,7 +52,7 @@
                 <mat-error *ngIf="!activo.id_coop" >Introdusca Datos</mat-error>
             </mat-hint>
         </mat-form-field></td>
-        <td><mat-form-field class="example-full-width">
+        <td><mat-form-field appearance="fill" class="example-full-width">
             <mat-label>Cod. Seccion</mat-label>
             <mat-select [(ngModel)]="activo.cod_seccion" name="food">
                 <mat-option *ngFor="let food of seccion" [value]="food.cod_seccion">
@@ -55,7 +63,7 @@
                 <mat-error *ngIf="!activo.cod_seccion" >Introdusca Datos</mat-error>
             </mat-hint>
         </mat-form-field></td>
-        <td><mat-form-field class="example-full-width">
+        <td><mat-form-field appearance="fill" class="example-full-width">
             <mat-label>Cod. Funcionario</mat-label>
             <mat-select [(ngModel)]="activo.id_funcionario" name="food">
                 <mat-option *ngFor="let food of funcionario" [value]="food.id_funcionario">
@@ -66,7 +74,7 @@
                 <mat-error *ngIf="!activo.id_funcionario" >Introdusca Datos</mat-error>
             </mat-hint>
         </mat-form-field></td>
-        <td><mat-form-field class="example-full-width">
+        <td><mat-form-field appearance="fill" class="example-full-width">
             <mat-label>Estado</mat-label>
             <mat-select [(value)]="activo.estado_op_nop">
               <mat-option value="Operativo">Operativo</mat-option>
@@ -76,75 +84,54 @@
         </tr></table>
 
         <table class="example-full" cellspacing="0"><tr>
-            <td><mat-form-field class="example-full-width">
+            <td><mat-form-field appearance="fill" class="example-full-width">
                 <mat-label>Cod. catastro</mat-label>
-                <input [(ngModel)]="terrenoss.cod_catastro" matInput placeholder="Ej. 1234566">
-                <mat-hint  align="end">
-                    <mat-error *ngIf="!terrenoss.cod_catastro" >Introdusca Datos</mat-error>
-                </mat-hint>
+                <input maxlength="20" [(ngModel)]="terrenoss.cod_catastro" matInput placeholder="Ej. 1234566">
             </mat-form-field></td>
-            <td><mat-form-field class="example-full-width">
+            <td><mat-form-field appearance="fill" class="example-full-width">
                 <mat-label>Matricula DDRR</mat-label>
-                <input [(ngModel)]="terrenoss.matricula_ddrr" matInput placeholder="Ej. 232DDRR">
-                <mat-hint  align="end">
-                    <mat-error *ngIf="!terrenoss.matricula_ddrr" >Introdusca Datos</mat-error>
-                </mat-hint>
+                <input maxlength="20" [(ngModel)]="terrenoss.matricula_ddrr" matInput placeholder="Ej. 232DDRR">
             </mat-form-field></td>
-            <td><mat-form-field class="example-full-width">
+            <td><mat-form-field appearance="fill" class="example-full-width">
                 <mat-label>Superficie</mat-label>
                 <input type="number" [(ngModel)]="terrenoss.superficie" matInput placeholder="Ej. 260.3">
-                <mat-hint  align="end">
-                    <mat-error *ngIf="!terrenoss.superficie" >Introdusca Datos</mat-error>
-                </mat-hint>
-            </mat-form-field></td>
+                </mat-form-field></td>
         </tr></table>
 
         <table class="example-full" cellspacing="0"><tr>
-            <td><mat-form-field class="example-full-width">
+            <td><mat-form-field appearance="fill" class="example-full-width">
                 <mat-label>Propietario</mat-label>
-                <input [(ngModel)]="terrenoss.propietario" matInput placeholder="Ej. Juan Perez">
-                <mat-hint  align="end">
-                    <mat-error *ngIf="!terrenoss.propietario" >Introdusca Datos</mat-error>
-                </mat-hint>
+                <input maxlength="50" [(ngModel)]="terrenoss.propietario" matInput placeholder="Ej. Juan Perez">
             </mat-form-field></td>
-            <td><mat-form-field class="example-full-width">
+            <td><mat-form-field appearance="fill" class="example-full-width">
                 <mat-label>Departamento</mat-label>
-                <input [(ngModel)]="terrenoss.departamento" matInput placeholder="Ej. Potosí">
-                <mat-hint  align="end">
-                    <mat-error *ngIf="!terrenoss.departamento" >Introdusca Datos</mat-error>
-                </mat-hint>
+                <input maxlength="20" [(ngModel)]="terrenoss.departamento" matInput placeholder="Ej. Potosí">
             </mat-form-field></td>
-            <td><mat-form-field class="example-full-width">
+            <td><mat-form-field appearance="fill" class="example-full-width">
                 <mat-label>Ciudad</mat-label>
-                <input [(ngModel)]="terrenoss.ciudad" matInput placeholder="Ej. Potosí">
-                <mat-hint  align="end">
-                    <mat-error *ngIf="!terrenoss.ciudad" >Introdusca Datos</mat-error>
-                </mat-hint>
+                <input maxlength="20" [(ngModel)]="terrenoss.ciudad" matInput placeholder="Ej. Potosí">
             </mat-form-field></td>
-            <td><mat-form-field class="example-full-width">
+            <td><mat-form-field appearance="fill" class="example-full-width">
                 <mat-label>Direccion</mat-label>
-                <input [(ngModel)]="terrenoss.direccion" matInput placeholder="Ej. Siempre viva #123">
-                <mat-hint  align="end">
-                    <mat-error *ngIf="!terrenoss.direccion" >Introdusca Datos</mat-error>
-                </mat-hint>
+                <input maxlength="50" [(ngModel)]="terrenoss.direccion" matInput placeholder="Ej. Siempre viva #123">
             </mat-form-field></td>
         </tr></table>
 
         <p>
-            <mat-form-field class="example-full-width">
+            <mat-form-field appearance="fill" class="example-full-width">
                 <mat-label>Descripcion</mat-label>
-                <input [(ngModel)]="activo.descripcion" matInput placeholder="Descripcion">
+                <input maxlength="400" [(ngModel)]="activo.descripcion" matInput placeholder="Descripcion">
             </mat-form-field>
-            <mat-form-field class="example-full-width">
+            <mat-form-field appearance="fill" class="example-full-width">
                 <mat-label>Observacion</mat-label>
-                <input [(ngModel)]="activo.observacion" matInput placeholder="Observacion">
+                <input maxlength="200" [(ngModel)]="activo.observacion" matInput placeholder="Observacion">
             </mat-form-field>
         </p>
 
         <h6>Tipo de adquisicion</h6>
 
         <table class="example-full" cellspacing="0"><tr>
-            <td><mat-form-field class="example-full-width">
+            <td><mat-form-field appearance="fill" class="example-full-width">
                 <mat-label>Tipo de adquisicion</mat-label>
                 <mat-select [(ngModel)]="adquisicion.id_adquisicion" name="food">
                     <mat-option *ngFor="let food of adqui" [value]="food.id_adquisicion">
@@ -155,36 +142,52 @@
                     <mat-error *ngIf="!adquisicion.id_adquisicion" >Introdusca Datos</mat-error>
                 </mat-hint>
             </mat-form-field></td>
-            <td><mat-form-field class="example-full-width">
+            <td><mat-form-field appearance="fill" class="example-full-width">
                 <mat-label>Comprovante contable </mat-label>
                 <input type="number" [(ngModel)]="adquisicion.comprobante_contable" matInput placeholder="Ej. 1234">
                 <mat-hint  align="end">
                     <mat-error *ngIf="!adquisicion.comprobante_contable" >Introdusca Datos</mat-error>
                 </mat-hint>
             </mat-form-field></td>
-            <td><mat-form-field class="example-full-width">
-                <mat-label>Costo de adquicicion (Bs.)</mat-label>
-                <input type="number" [(ngModel)]="adquisicion.costo_adquisicion" matInput placeholder="Ej. 1234">
-                <mat-hint  align="end">
-                    <mat-error *ngIf="!adquisicion.costo_adquisicion" >Introdusca Datos</mat-error>
-                </mat-hint>
-            </mat-form-field></td>
-            <td><form class="form-inline">
-                <div class="form-group">
-                  <div class="input-group">
-                    <input matImput class="form-control" placeholder="Fecha de adquisicion" 
-                           name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
-                    <div class="input-group-append">
-                      <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
-                        <mat-icon>calendar_today</mat-icon>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </form></td>
+            <td><mat-form-field appearance="fill" class="example-full-width">
+              <mat-label>Nro. Factura </mat-label>
+              <input type="number" [(ngModel)]="adquisicion.nro_factura" matInput placeholder="Ej. 1234">
+          </mat-form-field></td>
         </tr></table>
+  
+        <table class="example-full" cellspacing="0"><tr>
+          <td><mat-form-field appearance="fill" class="example-full-width">
+              <mat-label>Costo de adquicicion (Bs.)</mat-label>
+              <input type="number" [(ngModel)]="adquisicion.costo_adquisicion" matInput placeholder="Ej. 1234">
+              <mat-hint  align="end">
+                  <mat-error *ngIf="!adquisicion.costo_adquisicion" >Introdusca Datos</mat-error>
+              </mat-hint>
+        </mat-form-field></td>
+        
+        <!--<td><mat-form-field appearance="fill">
+            <mat-label>Choose a date</mat-label>
+            <input matInput [matDatepicker]="picker" [(ngModel)]="model">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field></td>-->
+        
+        <td>
+            <mat-form-field appearance="fill" class="example-full-width">
+                <mat-label>Fecha Adquisicion</mat-label>
+                <input matInput ngbDatepicker #d="ngbDatepicker" [(ngModel)]="model" name="dp">
+                
+                <mat-hint  align="end">
+                    <mat-error *ngIf="!model" >Introdusca Datos</mat-error>
+                </mat-hint>
+            </mat-form-field>
+            <mat-form>
+            <mat-icon (click)="d.toggle()" >calendar_today</mat-icon>
+            </mat-form>
+        </td>
+        
+      </tr></table>
         <p>
-            <mat-form-field class="example-full-width">
+            <mat-form-field appearance="fill" class="example-full-width">
                 <mat-label>Nit de adquisicion</mat-label>
                 <mat-select [(ngModel)]="adquisicion.nit" name="food">
                     <mat-option>--- Nuevo proveedor ---</mat-option>
@@ -197,32 +200,37 @@
 
 
         <table *ngIf="!adquisicion.nit" class="example-full" cellspacing="0"><tr>
-            <td><mat-form-field class="example-full-width">
+            <td><mat-form-field appearance="fill" class="example-full-width">
                 <mat-label>Nro. de Nit</mat-label>
                     <input type="number" [(ngModel)]="proveedor.nit" matInput placeholder="Ej. 1020304050">
                     <mat-hint  align="end">
                         <mat-error *ngIf="!proveedor.nit" >Introdusca Datos</mat-error>
                     </mat-hint>
                 </mat-form-field></td>
-            <td><mat-form-field class="example-full-width">
+            <td><mat-form-field appearance="fill" class="example-full-width">
                 <mat-label>Nombre  de tienda</mat-label>
-                <input upercase [(ngModel)]="proveedor.nombre_tienda" matInput placeholder="Ej. Todo Barato">
+                <input maxlength="30" upercase [(ngModel)]="proveedor.nombre_tienda" matInput placeholder="Ej. Todo Barato">
             </mat-form-field></td>
-            <td><mat-form-field class="example-full-width">
+            <td><mat-form-field appearance="fill" class="example-full-width">
                 <mat-label>Direccion de la tienda</mat-label>
-                    <input [(ngModel)]="proveedor.direccion" matInput placeholder="Ej. Siempre viva # 123">
+                    <input maxlength="30" [(ngModel)]="proveedor.direccion" matInput placeholder="Ej. Siempre viva # 123">
                 </mat-form-field></td>
-            <td><mat-form-field class="example-full-width">
+            <td><mat-form-field appearance="fill" class="example-full-width">
                 <mat-label>Nro. de telefono </mat-label>
                 <input type="number" [(ngModel)]="proveedor.telefono" matInput placeholder="Ej. 76......">
             </mat-form-field></td>
         </tr></table>
 
-        <mat-card-actions>
+        <mat-card-actions *ngIf="!id">
             <button (click)="crear()" class="button" mat-raised-button color="primary">Registrar</button>
         </mat-card-actions>
 
+        <mat-card-actions *ngIf="id">
+            <button (click)="edit()" class="button" mat-raised-button color="primary">Editar</button>
+        </mat-card-actions>
+
     </mat-card-content>
+</mat-card>
 </div>
 
 <!--

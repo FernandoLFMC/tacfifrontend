@@ -15,6 +15,7 @@ export class TaskService {
   private coopUrl = "http://localhost:8080/api/v1/cooperativa"
   private fucionarioUrl = "http://localhost:8080/api/v1/funcionario"
   private adquiUrl = "http://localhost:8080/api/v1/adquisicion"
+  private profesionUrl="http://localhost:8080/api/v1/profesion"
 
   constructor(private http: HttpClient) { }
 //servicios para Seccion de activo
@@ -90,6 +91,15 @@ export class TaskService {
     const id= func.id_funcionario
     const url=`${this.fucionarioUrl}/${id}`
     return this.http.put<any>(url, func, httpOptions)
+  }
+
+  //servicos para la profesion del funcionario
+  listprofes(){
+    return this.http.get<any>(this.profesionUrl)
+  }
+
+  createprofes(profesion){
+    return this.http.post<any>(this.profesionUrl, profesion, httpOptions)
   }
   //Servicios para adquisiciin 
   listadqui(){

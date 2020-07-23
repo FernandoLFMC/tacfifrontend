@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../service/auth.service'
-import { Router } from '@angular/router'
+import { Router, ActivatedRoute } from '@angular/router'
+import { TaskService } from '../service/task.service'
+
 
 @Component({
   selector: 'app-header',
@@ -10,9 +12,28 @@ import { Router } from '@angular/router'
 export class HeaderComponent implements OnInit {
 
   constructor(public authService: AuthService,
-    private router:Router) { }
+    private router:Router,private atciroute: ActivatedRoute,
+    private taskservice:TaskService) { }
+
+    cuenta:[]
 
   ngOnInit(): void {
+    this.taskservice.listarcuenta()
+    .subscribe(
+      res=>this.cuenta=res,
+      err=>console.log('err serv cuenta', err)
+    )
+    
+  }
+
+  listaactivo(){
+    this.router.navigate(['/listar-activo'])
+  }
+  listamovi(){
+    this.router.navigate(['/list-movimiento'])
+  }
+  reportes(){
+    this.router.navigate(['/reportes'])
   }
   terrenosnew(){
     this.router.navigate(['/terrenos-new'])
@@ -32,8 +53,8 @@ export class HeaderComponent implements OnInit {
   vehiculosnew(){
     this.router.navigate(['/vehiculos-new'])
   }
-  otrosnew(){
-    this.router.navigate(['/otros-new'])
+  otrosnew(id:number){
+    this.router.navigate(['/otros-new',id])
   }
   seccionlist(){
     this.router.navigate(['/list-seccion'])
@@ -46,5 +67,11 @@ export class HeaderComponent implements OnInit {
   }
   adquilist(){
     this.router.navigate(['/listar-adqui'])
+  }
+  createuser(){
+    this.router.navigate(['/signup'])
+  }
+  listuser(){
+    this.router.navigate(['/list-user'])
   }
 }

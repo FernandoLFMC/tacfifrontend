@@ -1,13 +1,17 @@
 
-<div class="ti">
-    <mat-card-title>Registrar activo de Vehiculos </mat-card-title>
-  </div>
   <div class="forms">
+    <mat-card class="mat-elevation-z8">
+        <div class="ti" *ngIf="!id">
+            <mat-card-title>Registrar activo de Vehiculos </mat-card-title>
+        </div>
+        <div class="ti" *ngIf="id">
+            <mat-card-title>Editar activo de Vehiculos </mat-card-title>
+        </div>
     <mat-card-content class="example-form">
         
         <h5>Cod. cuenta {{activo.id_cuenta}}</h5>
         
-        <table class="example-full" cellspacing="0"><tr>
+        <table *ngIf="!id" class="example-full" cellspacing="0"><tr>
             <td><mat-form-field appearance="fill">
                 <mat-label>Nombre de tipo</mat-label>
                 <mat-select [(ngModel)]="activo.nombre_tipo" name="food">
@@ -28,11 +32,15 @@
             </mat-form-field></td>&nbsp;&nbsp;&nbsp;&nbsp;
             <td><mat-form-field appearance="fill" class="example-full-width">
                 <mat-label>Piezas</mat-label>
-                <input [(ngModel)]="activo.unidad" matInput placeholder="Ej. 2 Piezas">
+                <input maxlength="10" [(ngModel)]="activo.unidad" matInput placeholder="Ej. 2 Piezas">
             </mat-form-field></td>
             </tr>
         </table>
-    
+        <table *ngIf="id" class="example-full" cellspacing="0">
+            <td><mat-card class="info"><mat-label>Nombre de tipo:</mat-label> {{activo.nombre_tipo}}</mat-card></td>&nbsp;&nbsp;
+            <td><mat-card class="info"><mat-label>Codigo tipo:</mat-label> {{activo.cod_tipo}}</mat-card></td>&nbsp;&nbsp;
+            <td><mat-card class="info"><mat-label>Piezas:</mat-label> {{activo.unidad}}</mat-card></td>
+        </table>
     
         <table class="example-full" cellspacing="0"><tr>
             <td><mat-form-field appearance="fill" class="example-full-width">
@@ -80,80 +88,53 @@
         <table class="example-full" cellspacing="0"><tr>
             <td><mat-form-field appearance="fill">
                 <mat-label>Nro. de ruat</mat-label>
-                <input [(ngModel)]="vehiculos.ruat" matInput placeholder="Ej. SHTRIKS">
-                <mat-hint  align="end">
-                    <mat-error *ngIf="!vehiculos.ruat" >Introdusca Datos</mat-error>
-                </mat-hint>
+                <input maxlength="20" [(ngModel)]="vehiculos.ruat" matInput placeholder="Ej. SHTRIKS">
             </mat-form-field></td>
             <td><mat-form-field appearance="fill">
                 <mat-label>Nro. placa</mat-label>
-                <input [(ngModel)]="vehiculos.nro_placa" matInput placeholder="Ej. 1234-ABC">
-                <mat-hint  align="end">
-                    <mat-error *ngIf="!vehiculos.nro_placa" >Introdusca Datos</mat-error>
-                </mat-hint>
+                <input maxlength="10" [(ngModel)]="vehiculos.nro_placa" matInput placeholder="Ej. 1234-ABC">
             </mat-form-field></td>
             <td><mat-form-field appearance="fill">
                 <mat-label>Modelo de año</mat-label>
                 <input type="number" [(ngModel)]="vehiculos.modelo" matInput placeholder="Ej. 2020">
-                <mat-hint  align="end">
-                    <mat-error *ngIf="!vehiculos.modelo" >Introdusca Datos</mat-error>
-                </mat-hint>
             </mat-form-field></td>
             <td><mat-form-field appearance="fill">
                 <mat-label>Tipo</mat-label>
-                <input [(ngModel)]="vehiculos.tipo" matInput placeholder="Ej. Vagoneta">
-                <mat-hint  align="end">
-                    <mat-error *ngIf="!vehiculos.tipo" >Introdusca Datos</mat-error>
-                </mat-hint>
+                <input maxlength="20" [(ngModel)]="vehiculos.tipo" matInput placeholder="Ej. Vagoneta">
             </mat-form-field></td>
         </tr></table>
   
         <table class="example-full" cellspacing="0"><tr>
             <td><mat-form-field appearance="fill">
                 <mat-label>Nro. Chasis</mat-label>
-                <input [(ngModel)]="vehiculos.nro_chasis" matInput placeholder="Ej. HS6HDKJID7HD">
-                <mat-hint  align="end">
-                    <mat-error *ngIf="!vehiculos.nro_chasis" >Introdusca Datos</mat-error>
-                </mat-hint>
+                <input maxlength="20" [(ngModel)]="vehiculos.nro_chasis" matInput placeholder="Ej. HS6HDKJID7HD">
             </mat-form-field></td>
             <td><mat-form-field appearance="fill">
                 <mat-label>Nro. Motor</mat-label>
-                <input [(ngModel)]="vehiculos.nro_motor" matInput placeholder="Ej. HS6HDKJID7HD">
-                <mat-hint  align="end">
-                    <mat-error *ngIf="!vehiculos.nro_motor" >Introdusca Datos</mat-error>
-                </mat-hint>
+                <input maxlength="20" [(ngModel)]="vehiculos.nro_motor" matInput placeholder="Ej. HS6HDKJID7HD">
             </mat-form-field></td>
             <td><mat-form-field appearance="fill">
                 <mat-label>Color</mat-label>
-                <input [(ngModel)]="vehiculos.color" matInput placeholder="Ej. Plomo">
-                <mat-hint  align="end">
-                    <mat-error *ngIf="!vehiculos.color" >Introdusca Datos</mat-error>
-                </mat-hint>
+                <input maxlength="20" [(ngModel)]="vehiculos.color" matInput placeholder="Ej. Plomo">
             </mat-form-field></td>
             <td><mat-form-field appearance="fill">
                 <mat-label>Marca</mat-label>
-                <input [(ngModel)]="vehiculos.marca" matInput placeholder="Ej. Jeep">
-                <mat-hint  align="end">
-                    <mat-error *ngIf="!vehiculos.marca" >Introdusca Datos</mat-error>
-                </mat-hint>
+                <input maxlength="20" [(ngModel)]="vehiculos.marca" matInput placeholder="Ej. Jeep">
             </mat-form-field></td>
         </tr></table>
   
         <table class="example-full" cellspacing="0"><tr>
             <td><mat-form-field appearance="fill" class="example-full-width">
                 <mat-label>Procedencia</mat-label>
-                <input [(ngModel)]="vehiculos.procedencia" matInput placeholder="Ej. Americano">
-                <mat-hint  align="end">
-                    <mat-error *ngIf="!vehiculos.procedencia" >Introdusca Datos</mat-error>
-                </mat-hint>
+                <input maxlength="20" [(ngModel)]="vehiculos.procedencia" matInput placeholder="Ej. Americano">
             </mat-form-field></td>
             <td><mat-form-field appearance="fill" class="example-full-width">
                 <mat-label>Descripcion</mat-label>
-                <textarea [(ngModel)]="activo.descripcion" matInput placeholder="Descripcion"></textarea>
+                <textarea maxlength="400" [(ngModel)]="activo.descripcion" matInput placeholder="Descripcion"></textarea>
             </mat-form-field></td>
             <td><mat-form-field appearance="fill" class="example-full-width">
                 <mat-label>Observacion</mat-label>
-                <textarea [(ngModel)]="activo.observacion" matInput placeholder="Observacion"></textarea>
+                <textarea maxlength="200" [(ngModel)]="activo.observacion" matInput placeholder="Observacion"></textarea>
             </mat-form-field></td>
         </tr></table>
   
@@ -179,26 +160,36 @@
                 </mat-hint>
             </mat-form-field></td>
             <td><mat-form-field appearance="fill" class="example-full-width">
-                <mat-label>Costo de adquicicion (Bs.)</mat-label>
-                <input type="number" [(ngModel)]="adquisicion.costo_adquisicion" matInput placeholder="Ej. 1234">
-                <mat-hint  align="end">
-                    <mat-error *ngIf="!adquisicion.costo_adquisicion" >Introdusca Datos</mat-error>
-                </mat-hint>
-            </mat-form-field></td>
-            <td><form class="form-inline">
-                <div class="form-group">
-                  <div class="input-group">
-                    <input matImput class="form-control" placeholder="Fecha de adquisicion" 
-                           name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
-                    <div class="input-group-append">
-                      <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
-                          <mat-icon>calendar_today</mat-icon>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </form></td>
+              <mat-label>Nro. Factura </mat-label>
+              <input type="number" [(ngModel)]="adquisicion.nro_factura" matInput placeholder="Ej. 1234">
+              <mat-hint  align="end">
+                  <mat-error *ngIf="!adquisicion.nro_factura" >Introdusca Datos</mat-error>
+              </mat-hint>
+          </mat-form-field></td>
         </tr></table>
+  
+        <table class="example-full" cellspacing="0"><tr>
+          <td><mat-form-field appearance="fill" class="example-full-width">
+              <mat-label>Costo de adquicicion (Bs.)</mat-label>
+              <input type="number" [(ngModel)]="adquisicion.costo_adquisicion" matInput placeholder="Ej. 1234">
+              <mat-hint  align="end">
+                  <mat-error *ngIf="!adquisicion.costo_adquisicion" >Introdusca Datos</mat-error>
+              </mat-hint>
+          </mat-form-field></td>
+          <td>
+            <mat-form-field appearance="fill" class="example-full-width">
+                <mat-label>Fecha Adquisicion</mat-label>
+                <input matInput ngbDatepicker #d="ngbDatepicker" [(ngModel)]="model" name="dp">
+                
+                <mat-hint  align="end">
+                    <mat-error *ngIf="!model" >Introdusca Datos</mat-error>
+                </mat-hint>
+            </mat-form-field>
+            <mat-form>
+            <mat-icon (click)="d.toggle()" >calendar_today</mat-icon>
+            </mat-form>
+        </td>
+      </tr></table>
         <p>
             <mat-form-field appearance="fill" class="example-full-width">
                 <mat-label>Nit de adquisicion</mat-label>
@@ -222,11 +213,11 @@
                 </mat-form-field></td>
             <td><mat-form-field appearance="fill" class="example-full-width">
                 <mat-label>Nombre  de tienda</mat-label>
-                <input upercase [(ngModel)]="proveedor.nombre_tienda" matInput placeholder="Ej. Todo Barato">
+                <input maxlength="30" upercase [(ngModel)]="proveedor.nombre_tienda" matInput placeholder="Ej. Todo Barato">
             </mat-form-field></td>
             <td><mat-form-field appearance="fill" class="example-full-width">
                 <mat-label>Direccion de la tienda</mat-label>
-                    <input [(ngModel)]="proveedor.direccion" matInput placeholder="Ej. Siempre viva # 123">
+                    <input maxlength="30" [(ngModel)]="proveedor.direccion" matInput placeholder="Ej. Siempre viva # 123">
                 </mat-form-field></td>
             <td><mat-form-field appearance="fill" class="example-full-width">
                 <mat-label>Nro. de telefono </mat-label>
@@ -234,9 +225,14 @@
             </mat-form-field></td>
         </tr></table>
         
-        <mat-card-actions >
+        <mat-card-actions *ngIf="!id">
             <button (click)="crear()" class="button" mat-raised-button color="primary">Registrar</button>
+        </mat-card-actions>
+
+        <mat-card-actions *ngIf="id">
+            <button (click)="edit()" class="button" mat-raised-button color="primary">Editar</button>
         </mat-card-actions>
   
     </mat-card-content>
-  </div>
+</mat-card>
+</div>

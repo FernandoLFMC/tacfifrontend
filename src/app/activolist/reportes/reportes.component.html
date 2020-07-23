@@ -1,0 +1,140 @@
+<h4 class="title">Generar reportes</h4>
+<div class="container">
+<mat-form-field class="example-user-input">
+    <mat-label>Reportes</mat-label>
+    <mat-select [(ngModel)]="report">
+        <mat-option value="todos">
+            Todos
+        </mat-option>
+        <mat-option value="sec">
+            Por Secciones
+        </mat-option>
+        <mat-option value="func">
+            Por funcionario
+        </mat-option>
+        <mat-option value="cuenta">
+            Por tipo de cuenta
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+
+<mat-form-field class="example-user-input" *ngIf="report == 'sec'" >
+    <mat-label>Por Seccion</mat-label>
+    <mat-select [(ngModel)]="tipo" name="food">
+        <mat-option  *ngFor="let food of seccion" [value]="food.cod_seccion">
+            {{food.cod_seccion}} - {{food.nombre_seccion}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+
+<mat-form-field class="example-user-input" *ngIf="report == 'func'">
+    <mat-label>Por funcionario</mat-label>
+    <mat-select [(ngModel)]="tipo" name="food">
+        <mat-option  *ngFor="let food of funcionario" [value]="food.id_funcionario">
+            {{food.id_funcionario}} - {{food.nombre}} {{food.ap_paterno}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+<mat-form-field class="example-user-input" *ngIf="report == 'cuenta'">
+    <mat-label>Por tipo de cuenta</mat-label>
+    <mat-select [(ngModel)]="tipo" name="food">
+        <mat-option  *ngFor="let food of cuenta" [value]="food.id_cuenta">
+            {{food.id_cuenta}} - {{food.descripcion_cuenta}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+  
+<button mat-raised-button color="accent" (click)="reporte(dataSource.data,tipo,report)">
+    Generar
+</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<button  mat-raised-button color="primary" (click)="exportAsXLSX()">Exportar a Excel
+    <mat-icon>trending_down</mat-icon>
+</button>
+</div>
+
+<div class="row">
+    <table mat-table [dataSource]="dataSources" matSort class="mat-elevation-z8">
+    
+        <ng-container matColumnDef="cuenta">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Cuenta&nbsp;&nbsp;&nbsp;</th>
+          <td mat-cell *matCellDef="let row"> {{row.cuenta}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="coop">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Coop.&nbsp;</th>
+            <td mat-cell *matCellDef="let row"> {{row.coop}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="cod_tipo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Cod. tipo&nbsp;</th>
+            <td mat-cell *matCellDef="let row"> {{row.cod_tipo}}</td>
+        </ng-container> 
+
+        <ng-container matColumnDef="seccion">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Seccion&nbsp;</th>
+            <td mat-cell *matCellDef="let row"> {{row.seccion}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="funcionario">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Funcionario&nbsp;</th>
+            <td mat-cell *matCellDef="let row"> {{row.funcionario}}</td>
+        </ng-container>
+    
+        <ng-container matColumnDef="nombre_tipo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre tipo&nbsp;</th>
+            <td mat-cell *matCellDef="let row"> {{row.nombre_tipo}} </td>
+          </ng-container>
+            
+        <ng-container matColumnDef="descripcion">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Descripcion&nbsp;</th>
+            <td mat-cell *matCellDef="let row"> {{row.descripcion}} </td>
+          </ng-container>
+    
+        <ng-container matColumnDef="estado">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>&nbsp;Estado</th>
+            <td mat-cell *matCellDef="let row">  
+                <button mat-stroked-button class="ope" *ngIf="row.estado == 'Operativo' " >{{row.estado}}</button>
+                <button mat-stroked-button class="nope" *ngIf="row.estado == 'No operativo' ">{{row.estado}}</button>
+            </td>
+        </ng-container>
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    </div>
+
+
+<!--<div *ngFor="let food of seccion" name="food">
+    <button >{{food.cod_seccion}}</button>
+</div>-->
+
+<!--comberir(activos){
+      const resultActios=[]
+      for(const post of activos){
+        this.listactivo.codigo=post.id_cuenta+' - '+post.id_coop+' - '+post.cod_tipo
+        +' - '+post.cod_seccion+' - '+post.id_funcionario;
+        this.listactivo.nombre_tipo=post.nombre_tipo;
+        if(post.id_cuenta==173){
+          this.listactivo.descripcion=+' color: '+post.mobiliarioenseres.color +' material: '+post.mobiliarioenseres.color+' descripcion: '+post.descripcion;
+        }else{
+          this.listactivo.descripcion=post.descripcion; 
+        }
+        this.listactivo.estado=post.estado_op_nop;
+        resultActios.push(this.listactivo);
+      };
+      console.log('return',resultActios)
+      return resultActios;
+
+      listactivo={
+      codigo:"",
+      nombre_tipo:"",
+      descripcion:"",
+      estado:""
+    }
+    }-->

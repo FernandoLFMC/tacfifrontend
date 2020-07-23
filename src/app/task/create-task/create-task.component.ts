@@ -6,6 +6,13 @@ import { Router } from '@angular/router'
 
 import { ActivoService } from '../../service/activo.service'
 
+/*import {
+  MAT_MOMENT_DATE_FORMATS,
+  MomentDateAdapter,
+  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
+} from '@angular/material-moment-adapter';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+*/
 
 @Component({
   selector: 'app-create-task',
@@ -23,6 +30,8 @@ export class CreateTaskComponent implements OnInit {
   selectedCar: string;
 
   seccion: [ ];
+
+  model:{}
 
   cuenta=171
    numero:number;
@@ -58,7 +67,8 @@ export class CreateTaskComponent implements OnInit {
   }
 
   create(){
-    var a = 1
+    console.log("date", this.model)
+    /*var a = 1
     if(this.numero){
     for (var i = 0; i < this.activo.length; i++){
             a= a+1
@@ -67,7 +77,7 @@ export class CreateTaskComponent implements OnInit {
     console.log('enviado create', this.selectedValue)
     console.log('nume',a)
       //console.log('codigo que se envia',this.selectedValue)
-    /*this.taskService.createTask(this.createTask)
+    this.taskService.createTask(this.createTask)
     .subscribe(
       res => {
         console.log(res)

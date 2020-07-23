@@ -4,6 +4,7 @@ import { LoginComponent } from './login/login.component';
 import { ListTaskComponent } from './task/home/list-task.component';
 import { CreateTaskComponent } from './task/create-task/create-task.component';
 import { SignupComponent } from './signup/signup.component';
+import { UserListComponent } from './user-list/user-list.component'
 import { CrearCscComponent } from './csc/crear-csc/crear-csc.component';
 import { ListarCscComponent } from './csc/listar-csc/listar-csc.component';
 import { ListarFuncComponent } from './funcionario/listar-func/listar-func.component'
@@ -24,12 +25,18 @@ import { OtrosNewComponent } from './activonew/otros-new/otros-new.component'
 import { TerrenosListComponent } from './activolist/terrenos-list/terrenos-list.component'
 
 import { AuthGuard } from './guard/auth.guard'
-import { from } from 'rxjs';
-
-
 import { ListSeccionComponent } from './csc/list-seccion/list-seccion.component'
 import { ListCoopComponent } from './csc/list-coop/list-coop.component'
 
+import { MovimientosComponent } from './activonew/movimientos/movimientos.component'
+import { MovimientosListComponent } from './activolist/movimientos-list/movimientos-list.component'
+
+import { ComputacionListComponent } from './activolist/computacion-list/computacion-list.component'
+import { EdificiosListComponent } from './activolist/edificios-list/edificios-list.component'
+import { InstalacionListComponent } from './activolist/instalacion-list/instalacion-list.component'
+import { MoviliarioListComponent } from './activolist/moviliario-list/moviliario-list.component'
+import { VehiculosListComponent } from './activolist/vehiculos-list/vehiculos-list.component'
+import { ReportesComponent } from './activolist/reportes/reportes.component'
 const routes: Routes = [
   {
     path: '',
@@ -53,6 +60,10 @@ const routes: Routes = [
   {
     path: 'signup',
     component: SignupComponent
+  },
+  {
+    path: 'list-user',
+    component: UserListComponent
   },
   {
     path: 'crearcsc',
@@ -80,8 +91,32 @@ const routes: Routes = [
     component: ActivoListComponent
   },
   {
+    path: 'reportes',
+    component:ReportesComponent
+  },
+  {
     path: 'lista-terrenos/:id',
     component: TerrenosListComponent
+  },
+  {
+    path: 'lista-computacion/:id',
+    component: ComputacionListComponent
+  },
+  {
+    path: 'lista-edificios/:id',
+    component: EdificiosListComponent
+  },
+  {
+    path: 'lista-instalacion/:id',
+    component: InstalacionListComponent
+  },
+  {
+    path: 'lista-moviliario/:id',
+    component: MoviliarioListComponent
+  },
+  {
+    path: 'lista-vehiculos/:id',
+    component: VehiculosListComponent
   },
   //crear activos
   {
@@ -89,7 +124,15 @@ const routes: Routes = [
     component: TerrenosNewComponent
   },
   {
+    path: 'terrenos-new/:id',
+    component: TerrenosNewComponent
+  },
+  {
     path: 'edificios-new',
+    component: EdificiosNewComponent
+  },
+  {
+    path: 'edificios-new/:id',
     component: EdificiosNewComponent
   },
   {
@@ -97,7 +140,15 @@ const routes: Routes = [
     component: MoviliarioNewComponent
   },
   {
+    path: 'moviliario-new/:id',
+    component: MoviliarioNewComponent
+  },
+  {
     path: 'instalacion-new',
+    component: InstalacionNewComponent
+  },
+  {
+    path: 'instalacion-new/:id',
     component: InstalacionNewComponent
   },
   {
@@ -105,11 +156,19 @@ const routes: Routes = [
     component: ComputacionNewComponent
   },
   {
+    path: 'computacion-new/:id',
+    component: ComputacionNewComponent
+  },
+  {
     path: 'vehiculos-new',
     component: VehiculosNewComponent
   },
   {
-    path: 'otros-new',
+    path: 'vehiculos-new/:id',
+    component: VehiculosNewComponent
+  },
+  {
+    path: 'otros-new/:id',
     component: OtrosNewComponent
   },
   //lista de componentes
@@ -128,6 +187,15 @@ const routes: Routes = [
   {
     path: 'listar-adqui',
     component: ListAdquiComponent
+  },
+  //crear movimiento de activo
+  {
+    path: 'create-movimiento/:id',
+    component: MovimientosComponent
+  },
+  {
+    path: 'list-movimiento',
+    component: MovimientosListComponent
   }
 ];
 

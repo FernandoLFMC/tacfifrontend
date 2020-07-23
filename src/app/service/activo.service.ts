@@ -24,6 +24,9 @@ export class ActivoService {
   private equipoInstUrl = "http://localhost:8080/api/v1/equiposinstalacion"
   private equipoCompUrl = "http://localhost:8080/api/v1/equiposcomputacion"
   private mobiliarioUrl = "http://localhost:8080/api/v1/mobiliarioenseres"
+
+  private infoactivoUrl= "http://localhost:8080/api/v1/infoactivo"
+  private infoactiUrl= "http://localhost:8080/api/v1/info_activo"
   
 
 
@@ -42,6 +45,11 @@ export class ActivoService {
     const id = activo
     const url = `${this.activoUrl}/${id}`
     return this.http.get<any>(url)
+  }
+  putactivo(activo){
+    const id =activo.id_activo
+    const url = `${this.activoUrl}/${id}`
+    return this.http.put<any>(url, activo)
   }
   
 
@@ -67,10 +75,20 @@ export class ActivoService {
   createAdquiActi(AdquiActi){
     return this.http.post<any>(this.AdqActiUrl, AdquiActi, httpOptions)
   }
+  putAdquiActi(AdquiActi){
+    const id =AdquiActi.id_activo
+    const url = `${this.AdqActiUrl}/${id}`
+    return this.http.put<any>(url, AdquiActi)
+  }
 
   //servicio de insertar activo de terrenos
   createterrenos(terreno){
     return this.http.post<any>(this.terrenosUrl, terreno, httpOptions)
+  }
+  putTerrenos(terreno){
+    const id =terreno.id_activo
+    const url = `${this.terrenosUrl}/${id}`
+    return this.http.put<any>(url, terreno)
   }
 
   //servicio de insercion activo de edificios
@@ -78,23 +96,71 @@ export class ActivoService {
     return this.http.post<any>(this.edificiosUrl, edificio, httpOptions)
   }
 
+  putEdificios(edificio){
+    const id =edificio.id_activo
+    const url = `${this.edificiosUrl}/${id}`
+    return this.http.put<any>(url, edificio)
+  }
+
   //servicio de insertar activo de vehiculos
   createvehiculos(vehiculo){
     return this.http.post<any>(this.vehiculosUrl, vehiculo, httpOptions)
+  }
+  putVehiculos(vehiculo){
+    const id =vehiculo.id_activo
+    const url = `${this.vehiculosUrl}/${id}`
+    return this.http.put<any>(url, vehiculo)
   }
 
   //servicio de insertar activo equipos instalacion
   createEquiInstal(equiinstal){
     return this.http.post<any>(this.equipoInstUrl, equiinstal, httpOptions)
   }
+  putEquiInstal(equiinstal){
+    const id =equiinstal.id_activo
+    const url = `${this.equipoInstUrl}/${id}`
+    return this.http.put<any>(url,equiinstal)
+  }
 
   //servicio de insertar activo equipos de computacion
   createEquiCompu(equicompu){
     return this.http.post<any>(this.equipoCompUrl, equicompu, httpOptions)
+  }
+  putEquiCompu(equicompu){
+    const id =equicompu.id_activo
+    const url = `${this.equipoCompUrl}/${id}`
+    return this.http.put<any>(url, equicompu)
   }
 
   //servicio de insertar activo mobiliario enseres
   createmobiliario(mobiliario){
     return this.http.post<any>(this.mobiliarioUrl, mobiliario, httpOptions)
   }
+  putMobiliario(mobiliario){
+    const id =mobiliario.id_activo
+    const url = `${this.mobiliarioUrl}/${id}`
+    return this.http.put<any>(url, mobiliario)
+  }
+
+  //actualizar movimiento de activo
+  updateinfoacti(infoacti){
+    const id = infoacti.id_activo
+    const url = `${this.infoactivoUrl}/${id}`
+    return this.http.put<any>(url, infoacti, httpOptions)
+  }
+
+  createinfo_acti(info_acti){
+    return this.http.post<any>(this.infoactiUrl, info_acti, httpOptions)
+  }
+
+  deleteinfo_acti(info_acti){
+    const id=info_acti
+    const url= `${this.infoactiUrl}/${id}`
+    return this.http.delete<any>(url)
+  }
+
+  getinfo_acti(){
+    return  this.http.get<any>(this.infoactiUrl, httpOptions)
+  }
+
 }

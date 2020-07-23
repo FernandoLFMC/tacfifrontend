@@ -60,3 +60,14 @@
   mat-label{
     color: rgba(0, 0, 0, 0.774);
   }
+
+  .mat-elevation-z8 {
+    max-width: 1100px;
+    justify-content: center;
+    position:unset;
+    background-color: #6fff6f1c;
+  }
+  .info{
+    color: black;
+    background-color: #d8f5d8;
+  }

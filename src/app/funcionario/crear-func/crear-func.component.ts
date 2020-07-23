@@ -40,11 +40,21 @@ export class CrearFuncComponent implements OnInit {
 
   seccion:[]
   coop:[]
+  profesion:{
+    id_profesion:"",
+    nomb_profesion:""
+  }
   ngOnInit(): void {
     this.taskService.getTask()
     .subscribe(
       res=>this.seccion=res,
-        err=> console.log(err)
+      err=> console.log(err)
+    )
+    this.taskService.listprofes()
+    .subscribe(
+      res=>{console.log('res profesion',res)
+        this.profesion=res},
+      err=> console.log('err list profesion',err)
     )
     this.taskService.listarcoop()
     .subscribe(

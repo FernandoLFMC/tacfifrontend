@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { ActivoService } from '../../service/activo.service'
 import { TaskService } from '../../service/task.service'
-import { Router } from '@angular/router'
+import { Router, ActivatedRoute } from '@angular/router';
 
 import Swal from 'sweetalert2';
 
@@ -15,7 +15,8 @@ export class ComputacionNewComponent implements OnInit {
 
   constructor(private activoservice:ActivoService,
     private taskservice: TaskService,
-    private router: Router) { }
+    private router: Router,
+    private actirouter: ActivatedRoute) { }
 
   codigo=[
     {num:1000, nombre:"Monitor"},
@@ -27,9 +28,13 @@ export class ComputacionNewComponent implements OnInit {
     {num:7000, nombre:"Estabilizador"},
     {num:8000, nombre:"Lector de Huellas"},
     {num:9000, nombre:"Disco Duro"},
-    {num:10000, nombre:"Proyector"}
+    {num:10000, nombre:"Proyector"},
+    {num:11000, nombre:"Computadora portatil"},
+    {num:12000, nombre:"Moden Router"},
+    {num:13000, nombre:"Tarjeta de red"}
   ]
 
+  
   model: {
     year: number,
     month: number,
@@ -57,6 +62,7 @@ export class ComputacionNewComponent implements OnInit {
     nit: "",//1020304050,
     fecha_adquisicion: "",//2020-03-17
     comprobante_contable: "",
+    nro_factura:"",
     costo_adquisicion: ""
   }
   equipcompu={
@@ -81,7 +87,22 @@ export class ComputacionNewComponent implements OnInit {
   adqui:[]
   prov:[]
   
+  id='';
   ngOnInit(): void {
+    if (this.actirouter.snapshot.paramMap.get('id')){
+      this.id=this.actirouter.snapshot.paramMap.get('id');
+      console.log('res id mover', this.id)
+      this.activoservice.getidacti(this.id)
+    .subscribe(
+      res=>{this.activo=res
+            this.adquisicion=res.adquisicion_activo
+            this.equipcompu=res.equiposcomputacion
+            this.model=res.adquisicion_activo.fecha_adquisicion
+            console.log('res acti',res)
+            console.log('res acti',this.model)},
+      err=>console.log(err)
+    )
+    }
       this.taskservice.getTask()
       .subscribe(
         res=>this.seccion=res,
@@ -109,7 +130,6 @@ export class ComputacionNewComponent implements OnInit {
       )
   }
   crear(){
-    this.fecha()
       //this.activo.id_activo=this.activo.id_cuenta+ this.activo.cod_tipo
       //this.terrenoss.id_activo=this.activo.id_cuenta+ this.activo.cod_tipo
       //this.adquisicion.id_activo=this.activo.id_cuenta + this.activo.cod_tipo
@@ -125,30 +145,63 @@ export class ComputacionNewComponent implements OnInit {
         if(!this.adquisicion.nit){
           this.activoservice.createproveedor(this.proveedor)
           .subscribe(
-            res=>{console.log(res)},
+            res=>{console.log(res)
+              this.adquisicion.nit=this.proveedor.nit
+              if(this.model.day){
+                this.fecha()
+              }
+              console.log('manda adquiacti', this.adquisicion)
+              this.activoservice.createAdquiActi(this.adquisicion)
+              .subscribe(
+                res=>{console.log('res AdquiActi', res)
+                  this.activoservice.createEquiCompu(this.equipcompu)
+                  .subscribe(
+                    res=>{console.log('res computacion', res)
+                    Swal.fire('Creado', 'Se creo corectamente', 'success')
+                    this.router.navigate(['/listar-activo'])
+                    },
+                    err=>{console.log('err Instalacion', err)
+                          Swal.fire('Error', 'No se creo Equipo de computacion', 'error')
+                          this.delete(res)}
+                  )              
+                },
+                err=>{console.log('err AdquiActi', err)
+                this.model.day=this.model.day-1
+                      Swal.fire('Error', 'No se creo tipo de adquisicion', 'error')
+                      this.delete(res)}
+              )
+            },
             err=>{console.log(err)
-              Swal.fire('Error', 'No se creo proveedor por el Nro. de NIT', 'error')}
+              this.delete(res)
+              Swal.fire('Error', 'No se creo proveedor por el Nro. de NIT', 'error')
+            }
           )
-          this.adquisicion.nit=this.proveedor.nit
+          
+        }else{
+          if(this.model.day){
+            this.fecha()
+          }
+          console.log('manda adquiacti', this.adquisicion)
+          this.activoservice.createAdquiActi(this.adquisicion)
+          .subscribe(
+            res=>{console.log('res AdquiActi', res)
+              this.activoservice.createEquiCompu(this.equipcompu)
+              .subscribe(
+                res=>{console.log('res computacion', res)
+                Swal.fire('Creado', 'Se creo corectamente', 'success')
+                this.router.navigate(['/listar-activo'])
+                },
+                err=>{console.log('err Instalacion', err)
+                      Swal.fire('Error', 'No se creo Equipo de computacion', 'error')
+                      this.delete(res)}
+              )              
+            },
+            err=>{console.log('err AdquiActi', err)
+                  this.model.day=this.model.day-1
+                  Swal.fire('Error', 'No se creo tipo de adquisicion', 'error')
+                  this.delete(res)}
+          )
         }
-        this.activoservice.createAdquiActi(this.adquisicion)
-        .subscribe(
-          res=>{console.log('res AdquiActi', res)
-            this.activoservice.createEquiCompu(this.equipcompu)
-            .subscribe(
-              res=>{console.log('res computacion', res)
-              Swal.fire('Creado', 'Se creo corectamente', 'success')
-              this.router.navigate(['/listar-activo'])
-              },
-              err=>{console.log('err Instalacion', err)
-                    Swal.fire('Error', 'No se creo Equipo de computacion', 'error')
-                    this.delete(res)}
-            )              
-          },
-          err=>{console.log('err AdquiActi', err)
-                Swal.fire('Error', 'No se creo tipo de adquisicion', 'error')
-                this.delete(res)}
-        )
 
       },
       err=>{
@@ -158,9 +211,34 @@ export class ComputacionNewComponent implements OnInit {
     )
   }
   
-    
+  edit(){
+    this.activoservice.putactivo(this.activo)
+    .subscribe(
+      res=>{console.log('res put acti',res)
+        this.activoservice.putAdquiActi(this.adquisicion)
+        .subscribe(
+          res=>{console.log('resput adquiacti', res)
+          this.activoservice.putEquiCompu(this.equipcompu)
+          .subscribe(
+            res=>{console.log('resput adquiacti', res)
+            Swal.fire('Editado', 'Se Edito corectamente', 'success')
+            this.router.navigate(['/listar-activo'])  
+          },
+            err=>{console.log('err put adquiacti', err)
+            Swal.fire('Error', 'No se a Editado ', 'error')}
+          )
+        },
+          err=>{console.log('err put adquiacti', err)
+        Swal.fire('Error', 'No se a Editado ', 'error')}
+        )
+    },
+      err=>{console.log('error put acti', err)
+      Swal.fire('Error', 'No se a Editado ', 'error')}
+    )  
+  }
   
   fecha(){
+    this.model.day=this.model.day+1
     if(this.model.month < 10 && this.model.day >9){
       this.adquisicion.fecha_adquisicion=this.model.year+this.k+this.w+this.model.month+this.k+this.model.day}
       else{if(this.model.month < 10 && this.model.day <10){
