@@ -7,15 +7,19 @@
   }
   
   .example-full-width {
-    width: 90%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
+  
   
   .example-full {
     width: 100%;
   }
   
   td {
-    padding-right: 5px;
+    padding-right: 3px;
   }
   
   .forms{
@@ -62,12 +66,32 @@
   }
 
   .mat-elevation-z8 {
-    max-width: 1100px;
+    width: 90%;
     justify-content: center;
-    position:unset;
     background-color: #6fff6f1c;
   }
-  .info{
-    color: black;
-    background-color: #d8f5d8;
+
+  .example-stretched-tabs {
+    width: 100%;
+  }
+
+  .mat-elevation-z3{
+    width: 95%;
+    background-color: #6fff6f1c;
+  }
+
+  .labels{
+    display: flex;
+    justify-content: center;
+  }
+  mat-form-field{
+    width: 170px; 
+  }
+
+  .atras{
+    display: inline-table;
+  }
+
+  .cartta{
+    background-color: #ccf5cc; 
   }

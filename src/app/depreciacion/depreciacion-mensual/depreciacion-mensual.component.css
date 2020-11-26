@@ -1,0 +1,14 @@
+.row{
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+table {
+    width: 90%;
+    justify-content: center;
+    align-items: center
+}
+
+mat-paginator{
+    width: 90%;
+}

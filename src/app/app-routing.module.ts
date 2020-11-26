@@ -37,6 +37,10 @@ import { InstalacionListComponent } from './activolist/instalacion-list/instalac
 import { MoviliarioListComponent } from './activolist/moviliario-list/moviliario-list.component'
 import { VehiculosListComponent } from './activolist/vehiculos-list/vehiculos-list.component'
 import { ReportesComponent } from './activolist/reportes/reportes.component'
+
+import { DepreciacionMensualComponent } from './depreciacion/depreciacion-mensual/depreciacion-mensual.component'
+import { DepreciacionAnualComponent } from './depreciacion/depreciacion-anual/depreciacion-anual.component';
+import { ListTipoCuentaComponent } from './csc/list-tipo-cuenta/list-tipo-cuenta.component';
 const routes: Routes = [
   {
     path: '',
@@ -188,6 +192,10 @@ const routes: Routes = [
     path: 'listar-adqui',
     component: ListAdquiComponent
   },
+  {
+    path: 'listar-tipocuenta',
+    component: ListTipoCuentaComponent
+  },
   //crear movimiento de activo
   {
     path: 'create-movimiento/:id',
@@ -196,6 +204,15 @@ const routes: Routes = [
   {
     path: 'list-movimiento',
     component: MovimientosListComponent
+  },
+  //deprecicacion
+  {
+    path: 'depreciacionmensual',
+    component: DepreciacionMensualComponent
+  },
+  {
+    path: 'depreciacionanual',
+    component: DepreciacionAnualComponent
   }
 ];
 

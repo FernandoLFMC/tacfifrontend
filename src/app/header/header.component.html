@@ -1,9 +1,8 @@
+<app-navbar class="mat-elevation-z6" _nghost-agx-c50="">
 <mat-toolbar color="primary">
     <ul>
         <a mat-button  routerLink="tasks"><mat-icon>home</mat-icon>&nbsp;&nbsp;Inicio</a>
 
-        <!--<a mat-button *ngIf=" authService.isLogged() && authService.getRol() == 'admin'" 
-        routerLink="create">Crear</a>-->
 
         <button mat-button *ngIf="authService.isLogged() && authService.getRol() == 'admin'" [matMenuTriggerFor]="activo" aria-label="Example icon-button with a menu">
             <mat-icon>more_vert</mat-icon>
@@ -21,9 +20,42 @@
             <a>Lista Componentes</a>
         </button>
 
+        <a mat-button *ngIf="authService.isLogged() && authService.getRol() == 'admin'" routerLink="listar-func">Funcionarios</a>
+        <button mat-button *ngIf="authService.isLogged() && authService.getRol() == 'admin'" [matMenuTriggerFor]="depreciacion" aria-label="Example icon-button with a menu">
+            <mat-icon>more_vert</mat-icon>
+            <a>Depreciacion</a>
+        </button>
 
-        <a mat-button *ngIf="authService.isLogged()" routerLink="listar-func">listar funci</a>
+        <a mat-button *ngIf="authService.isLogged() && authService.getRol() == 'admin'" routerLink="create">create</a>
+
+        
+<!--menu para la parte del usuario qeu utilizara el sistema-->
+        <button mat-button *ngIf="authService.isLogged() && authService.getRol() == 'user'" [matMenuTriggerFor]="activo" aria-label="Example icon-button with a menu">
+            <mat-icon>more_vert</mat-icon>
+            <a>Lista Activo</a>
+        </button>
+        
+
+        <button mat-button *ngIf="authService.isLogged() && authService.getRol() == 'user'" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            <mat-icon>more_vert</mat-icon>
+            <a>Nuevo Activo</a>
+        </button>
+
+        <button mat-button *ngIf="authService.isLogged() && authService.getRol() == 'user'" [matMenuTriggerFor]="seccion" aria-label="Example icon-button with a menu">
+            <mat-icon>more_vert</mat-icon>
+            <a>Lista Componentes</a>
+        </button>
+
+
+        <a mat-button *ngIf="authService.isLogged() && authService.getRol() == 'user'" routerLink="listar-func">Funcionarios</a>
     </ul>
+
+<!--Menu para la parte del cliente  que soro sera de letura y no asi para la modificacion-->
+    <button mat-button *ngIf="authService.isLogged() && authService.getRol() == 'pm'" [matMenuTriggerFor]="reporte" aria-label="Example icon-button with a menu">
+            <mat-icon>more_vert</mat-icon>
+            <a>Lista Activo</a>
+    </button>
+
 
     <span class="spacer"></span>
     <ul>
@@ -34,6 +66,9 @@
         <a *ngIf="authService.isLogged()" mat-button (click)="authService.logoutUser()">Cerrar Sesion</a>
     </ul>
 </mat-toolbar>
+</app-navbar>
+<h1>hola mundo</h1>
+
 
 <mat-menu #activo="matMenu">
     <button mat-menu-item (click)="listaactivo()">
@@ -47,6 +82,13 @@
     <button mat-menu-item (click)="listamovi()">
         <mat-icon>list_alt</mat-icon>
         <span>Lista Movimientos</span>
+    </button>
+</mat-menu>
+
+<mat-menu #reporte="matMenu">
+    <button mat-menu-item (click)="reportes()">
+        <mat-icon>list_alt</mat-icon>
+        <span>Reportes</span>
     </button>
 </mat-menu>
 
@@ -122,6 +164,10 @@
         <mat-icon>list_alt</mat-icon>
         <span>Lista cuenta</span>
     </button>
+    <button mat-menu-item (click)="tipocuenta()">
+        <mat-icon>list_alt</mat-icon>
+        <span>Lista Tipos de Cuenta</span>
+    </button>
     <button mat-menu-item (click)="adquilist()">
         <mat-icon>list_alt</mat-icon>
         <span>Lista de adquisicion</span>
@@ -135,6 +181,17 @@
     <button mat-menu-item (click)="listuser()">
         <mat-icon>list_alt</mat-icon>
         <span>Lista Usuarios</span>
+    </button>
+</mat-menu>
+
+<mat-menu #depreciacion="matMenu">
+    <button mat-menu-item routerLink="depreciacionmensual">
+      <mat-icon>list_alt</mat-icon>
+      <span>Depreciacion Mensual</span>
+    </button>
+    <button mat-menu-item routerLink="depreciacionanual">
+        <mat-icon>list_alt</mat-icon>
+        <span>Depreciacion Anual</span>
     </button>
 </mat-menu>
 

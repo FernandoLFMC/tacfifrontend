@@ -58,6 +58,11 @@ export class ActivoService {
     return this.http.get<any>(this.proveedorUrl, httpOptions)
   }
 
+  getidproveedor(id){
+    const url = `${this.proveedorUrl}/${id}`
+    return this.http.get<any>(url)
+  }
+
   createproveedor(proveedor){
     return this.http.post<any>(this.proveedorUrl, proveedor, httpOptions)
   }

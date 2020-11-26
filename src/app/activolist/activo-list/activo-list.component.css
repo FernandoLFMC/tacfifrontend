@@ -41,3 +41,6 @@ th{
     display: flex;
     width: 80%;
 }
+mat-paginator{
+    width: 90%;
+}

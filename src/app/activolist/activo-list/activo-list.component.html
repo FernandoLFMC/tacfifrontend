@@ -1,7 +1,4 @@
-<mat-form-field>
-    <mat-label>Buscar</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Ej. SIS " #input>
-</mat-form-field>
+<div>
 <!--<div class="cabezal">
 &nbsp;
 <mat-form-field appearance="fill">
@@ -12,49 +9,46 @@
 <button mat-fab color="primary" (click)="filtroSeccion(dataSource.data,seccion)">Primary</button>
 </div>-->
 <div class="container">
-      <button mat-raised-button color="primary" (click)="exportAsXLSX()">Exportar todo a excel
-          <mat-icon>trending_down</mat-icon>
-      </button>
-      &nbsp;
-      <button mat-raised-button color="primary" (click)="exportAsXLSXfilter()">Exportar filtro de busqueda
-        <mat-icon>trending_down</mat-icon>
-    </button>
-      <!--<button mat-raised-button color="accent">Accent</button>
-      <button mat-raised-button color="warn">Warn</button>
-      <button mat-raised-button disabled>Disabled</button>-->
-      
+    <table>
+        <td>
+            <mat-form-field>
+                <mat-label>Buscar</mat-label>
+                <input matInput (keyup)="applyFilter($event)" placeholder="Ej. SIS " #input>
+            </mat-form-field>
+        </td>
+        <td>
+            <button mat-raised-button color="primary" (click)="exportAsXLSX()">Exportar todo a excel
+                <mat-icon>trending_down</mat-icon>
+            </button>
+            &nbsp;
+            <button mat-raised-button color="primary" (click)="exportAsXLSXfilter()">Exportar filtro de busqueda
+              <mat-icon>trending_down</mat-icon>
+          </button>
+        </td>
+    </table> 
+</div>
 </div>
 <div class="row">
-<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z7">
 
     <ng-container matColumnDef="id_activo">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Activo&nbsp;&nbsp;&nbsp;</th>
-      <td mat-cell *matCellDef="let row"> {{row.id_activo}}</td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nro.&nbsp;&nbsp;&nbsp;</th>
+        <td mat-cell *matCellDef="let row"> {{row.id_activo}} </td>
+      </ng-container>
+    
+    <ng-container matColumnDef="codigo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Codigo&nbsp;&nbsp;&nbsp;</th>
+        <td mat-cell *matCellDef="let row"> {{row.codigo}} </td>
     </ng-container>
-
-    <ng-container matColumnDef="id_cuenta">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Cod. cuenta&nbsp;&nbsp;&nbsp;</th>
-        <td mat-cell *matCellDef="let row"> {{row.id_cuenta}} </td>
-      </ng-container>
         
-    <ng-container matColumnDef="id_coop">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> cod. Coop. &nbsp;&nbsp;&nbsp;</th>
-        <td mat-cell *matCellDef="let row"> {{row.id_coop}} </td>
-      </ng-container>
-        
-    <ng-container matColumnDef="cod_tipo">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Cod. tipo &nbsp;&nbsp;&nbsp;</th>
-        <td mat-cell *matCellDef="let row"> {{row.cod_tipo}} </td>
-      </ng-container>
-  
-    <ng-container matColumnDef="cod_seccion">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> cod. seccion &nbsp;&nbsp;&nbsp;</th>
-      <td mat-cell *matCellDef="let row"> {{row.cod_seccion}} </td>
+    <ng-container matColumnDef="seccion">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Seccion &nbsp;&nbsp;&nbsp;</th>
+        <td mat-cell *matCellDef="let row"> {{row.seccion}} </td>
     </ng-container>
-  
-    <ng-container matColumnDef="id_funcionario">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Cod. funcionario&nbsp;&nbsp;&nbsp;</th>
-      <td mat-cell *matCellDef="let row"> {{row.id_funcionario}} </td>
+        
+    <ng-container matColumnDef="funcionario">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Funcionario &nbsp;&nbsp;&nbsp;</th>
+        <td mat-cell *matCellDef="let row"> {{row.funcionario}} </td>
     </ng-container>
 
     <ng-container matColumnDef="nombre_tipo">
@@ -62,17 +56,21 @@
         <td mat-cell *matCellDef="let row"> {{row.nombre_tipo}} </td>
     </ng-container>
 
+    <ng-container matColumnDef="descripcion">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Descripcion&nbsp;&nbsp;&nbsp;</th>
+        <td mat-cell *matCellDef="let row"> {{row.descripcion}} </td>
+      </ng-container>
 
     <ng-container matColumnDef="unidad">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>unidad&nbsp;&nbsp;&nbsp;&nbsp;</th>
         <td mat-cell *matCellDef="let row"> {{row.unidad}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="estado_op_nop">
+    <ng-container matColumnDef="estado">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>&nbsp;&nbsp;Estado</th>
         <td mat-cell *matCellDef="let row">  
-            <button mat-stroked-button class="ope" *ngIf="row.estado_op_nop == 'Operativo' " >{{row.estado_op_nop}}</button>
-            <button mat-stroked-button class="nope" *ngIf="row.estado_op_nop == 'No operativo' ">{{row.estado_op_nop}}</button>
+            <button mat-stroked-button class="ope" *ngIf="row.estado == 'Operativo' " >{{row.estado}}</button>
+            <button mat-stroked-button class="nope" *ngIf="row.estado == 'No operativo' ">{{row.estado}}</button>
         </td>
     </ng-container>
 
@@ -97,7 +95,7 @@
     <ng-container matColumnDef="editar">
         <th mat-header-cell *matHeaderCellDef >Editar</th>
         <td mat-cell *matCellDef="let row">
-            <button mat-stroked-button color="accent" (click)= "editar(row.id_activo, row.id_cuenta)">
+            <button mat-stroked-button color="accent" (click)= "editar(row.id_activo, row.codigo)">
                 <mat-icon>edit</mat-icon>
             </button>
         </td>
@@ -115,4 +113,5 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
+<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons class="mat-elevation-z7"></mat-paginator>
 </div>

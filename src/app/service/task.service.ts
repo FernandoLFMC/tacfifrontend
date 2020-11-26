@@ -16,8 +16,26 @@ export class TaskService {
   private fucionarioUrl = "http://localhost:8080/api/v1/funcionario"
   private adquiUrl = "http://localhost:8080/api/v1/adquisicion"
   private profesionUrl="http://localhost:8080/api/v1/profesion"
+  private tipocuentaUrl = "http://localhost:8080/api/v1/tipo_cuenta"
 
   constructor(private http: HttpClient) { }
+  // Servicio para la parte de tipos de cuenta 
+  createTipocuenta(tipocuenta){
+    return this.http.post<any>(this.tipocuentaUrl, tipocuenta, httpOptions)
+  }
+  getTipocuenta(){
+    return this.http.get<any>(this.tipocuentaUrl)
+  }
+  putTipocuenta(tipocuenta){
+    const id=tipocuenta.id_num
+    const url=`${this.tipocuentaUrl}/${id}`
+    return this.http.put<any>(url, tipocuenta)
+  }
+  deleteTipocuenta(tipocuenta){
+    const id=tipocuenta.id_num
+    const url=`${this.tipocuentaUrl}/${id}`
+    return this.http.delete<any>(url)
+  }
 //servicios para Seccion de activo
   createTask(task){
     return this.http.post<any>(this.taskUrl, task, httpOptions);
@@ -77,6 +95,11 @@ export class TaskService {
 //Servicios para funcionario
   listfuncionario(){
    return this.http.get<any>(this.fucionarioUrl) 
+  }
+
+  getidfunci(id){
+    const url = `${this.fucionarioUrl}/${id}`
+    return this.http.get<any>(url)
   }
 
   deletefunci(func){

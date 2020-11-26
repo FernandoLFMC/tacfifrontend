@@ -3,35 +3,80 @@
         <mat-card class="card">
             <mat-card-title>Editar Cooperativa</mat-card-title> 
             <mat-card-content>
-                <div class="container">
-                    <mat-form-field>
-                        <input [(ngModel)]="editCoop.id_coop" matInput placeholder="codigo de cooperativa">
+                <form [formGroup]="cooperativa" class="container">
+                    <div><mat-card class="info">
+                        <mat-label>Cod. de Coop.:  </mat-label> 
+                          {{cooperativa.value.id_coop}}
+                    </mat-card></div>
+
+                    <mat-form-field class="space">
+                        <mat-label>Nombre</mat-label>
+                        <input formControlName="nombre" matInput maxlength="50" placeholder="Nombre de la Coop." required>
+                        <mat-error *ngIf="isValidField('nombre')">
+                            {{getErrorMessage("nombre")}} 
+                        </mat-error>
+                        <mat-hint  align="end">
+                            <mat-error *ngIf="nombre.invalid" >Introdusca datos</mat-error>
+                        </mat-hint>
                     </mat-form-field>
+
                     <mat-form-field>
-                        <input [(ngModel)]="editCoop.nombre" matInput placeholder="Nombre de cooperativa">
+                        <mat-label>Ciudad</mat-label>
+                        <input formControlName="ciudad" matInput maxlength="20" placeholder="Ej. Potosí" required>
+                        <mat-error *ngIf="isValidField('ciudad')">
+                            {{getErrorMessage("ciudad")}} 
+                        </mat-error>
+                        <mat-hint  align="end">
+                            <mat-error *ngIf="ciudad.invalid" >Introdusca datos</mat-error>
+                        </mat-hint>
                     </mat-form-field>
+                    
                     <mat-form-field>
-                        <input [(ngModel)]="editCoop.ciudad" matInput placeholder="Ciudad">
+                        <mat-label>Direccion</mat-label>
+                        <input formControlName="direccion" matInput maxlength="40" placeholder="Ej. Calle. siempre viva #123" required>
+                        <mat-error *ngIf="isValidField('direccion')">
+                            {{getErrorMessage("direccion")}} 
+                        </mat-error>
+                        <mat-hint  align="end">
+                            <mat-error *ngIf="direccion.invalid" >Introdusca datos</mat-error>
+                        </mat-hint>
                     </mat-form-field>
+                    
                     <mat-form-field>
-                        <input [(ngModel)]="editCoop.direccion" matInput placeholder="Direccion">
+                        <mat-label>Telefono</mat-label>
+                        <input formControlName="telefono" matInput type="number" placeholder="Ej. 6221234" required>
+                        <mat-error *ngIf="isValidField('telefono')">
+                            {{getErrorMessage("telefono")}} 
+                        </mat-error>
+                        <mat-hint  align="end">
+                            <mat-error *ngIf="telefono.invalid" >Introdusca datos</mat-error>
+                        </mat-hint>
                     </mat-form-field>
+                    
                     <mat-form-field>
-                        <input type="number" [(ngModel)]="editCoop.telefono" matInput placeholder="Telefono">
+                        <mat-label>Nro. de Nit</mat-label>
+                        <input formControlName="nit" matInput type="number" placeholder="Ej. 10203040" required>
+                        <mat-error *ngIf="isValidField('nit')">
+                            {{getErrorMessage("nit")}} 
+                        </mat-error>
+                        <mat-hint  align="end">
+                            <mat-error *ngIf="nit.invalid" >Introdusca datos</mat-error>
+                        </mat-hint>
                     </mat-form-field>
+                    
                     <mat-form-field>
-                        <input type="number" [(ngModel)]="editCoop.nit" matInput placeholder="Numero de NIT">
+                        <mat-label>Correo</mat-label>
+                        <input formControlName="correo" matInput maxlength="30" placeholder="Ej. Ejemplo@gmail.com">
                     </mat-form-field>
+
                     <mat-form-field>
-                        <input [(ngModel)]="editCoop.correo" matInput placeholder="Correo electronico">
+                        <mat-label>Direccion Url</mat-label>
+                        <input formControlName="url" matInput maxlength="30" placeholder="Url...">
                     </mat-form-field>
-                    <mat-form-field>
-                        <input [(ngModel)]="editCoop.url" matInput placeholder="Direccion de URL">
-                    </mat-form-field>
-                </div>
+                </form>
             </mat-card-content>
             <mat-card-actions>
-                <button (click)="editarCoop()" class="button"  mat-raised-button color="primary" [mat-dialog-close]="true">Editar</button>
+                <button (click)="editarCoop()" class="button" mat-raised-button color="accent" [disabled]="!cooperativa.valid" [mat-dialog-close]="true">Editar</button>
             </mat-card-actions>
         </mat-card>
     </div>
@@ -41,35 +86,86 @@
         <mat-card class="card">
             <mat-card-title>Crear Cooperativa</mat-card-title> 
             <mat-card-content>
-                <div class="container">
+                <form [formGroup]="cooperativa" class="container">
                     <mat-form-field>
-                        <input type="number" [(ngModel)]="cooperativa.id_coop" matInput placeholder="codigo de cooperativa">
+                        <mat-label>Cod. de Coop.</mat-label>
+                        <input type="number" formControlName="id_coop" maxlength="3" matInput placeholder="Ej. 60)" required>
+                        <mat-error *ngIf="isValidField('id_coop')"> 
+                            {{getErrorMessage("id_coop")}} 
+                        </mat-error>
+                        <mat-hint  align="end">
+                            <mat-error *ngIf="id_coop.invalid" >Introdusca datos</mat-error>
+                        </mat-hint>
                     </mat-form-field>
+
                     <mat-form-field>
-                        <input [(ngModel)]="cooperativa.nombre" matInput placeholder="Nombre de cooperativa">
+                        <mat-label>Nombre</mat-label>
+                        <input formControlName="nombre" matInput maxlength="50" placeholder="Nombre de la Coop." required>
+                        <mat-error *ngIf="isValidField('nombre')">
+                            {{getErrorMessage("nombre")}} 
+                        </mat-error>
+                        <mat-hint  align="end">
+                            <mat-error *ngIf="nombre.invalid" >Introdusca datos</mat-error>
+                        </mat-hint>
                     </mat-form-field>
+
                     <mat-form-field>
-                        <input [(ngModel)]="cooperativa.ciudad" matInput placeholder="Ciudad">
+                        <mat-label>Ciudad</mat-label>
+                        <input formControlName="ciudad" matInput maxlength="20" placeholder="Ej. Potosí" required>
+                        <mat-error *ngIf="isValidField('ciudad')">
+                            {{getErrorMessage("ciudad")}} 
+                        </mat-error>
+                        <mat-hint  align="end">
+                            <mat-error *ngIf="ciudad.invalid" >Introdusca datos</mat-error>
+                        </mat-hint>
                     </mat-form-field>
+                    
                     <mat-form-field>
-                        <input [(ngModel)]="cooperativa.direccion" matInput placeholder="Direccion">
+                        <mat-label>Direccion</mat-label>
+                        <input formControlName="direccion" matInput maxlength="40" placeholder="Ej. Calle. siempre viva #123" required>
+                        <mat-error *ngIf="isValidField('direccion')">
+                            {{getErrorMessage("direccion")}} 
+                        </mat-error>
+                        <mat-hint  align="end">
+                            <mat-error *ngIf="direccion.invalid" >Introdusca datos</mat-error>
+                        </mat-hint>
                     </mat-form-field>
+                    
                     <mat-form-field>
-                        <input type="number" [(ngModel)]="cooperativa.telefono" matInput placeholder="Telefono">
+                        <mat-label>Telefono</mat-label>
+                        <input formControlName="telefono" matInput type="number" placeholder="Ej. 6221234" required>
+                        <mat-error *ngIf="isValidField('telefono')">
+                            {{getErrorMessage("telefono")}} 
+                        </mat-error>
+                        <mat-hint  align="end">
+                            <mat-error *ngIf="telefono.invalid" >Introdusca datos</mat-error>
+                        </mat-hint>
                     </mat-form-field>
+                    
                     <mat-form-field>
-                        <input type="number" [(ngModel)]="cooperativa.nit" matInput placeholder="Numero de NIT">
+                        <mat-label>Nro. de Nit</mat-label>
+                        <input formControlName="nit" matInput type="number" placeholder="Ej. 10203040" required>
+                        <mat-error *ngIf="isValidField('nit')">
+                            {{getErrorMessage("nit")}} 
+                        </mat-error>
+                        <mat-hint  align="end">
+                            <mat-error *ngIf="nit.invalid" >Introdusca datos</mat-error>
+                        </mat-hint>
                     </mat-form-field>
+                    
                     <mat-form-field>
-                        <input type="email" [(ngModel)]="cooperativa.correo" matInput placeholder="Correo electronico">
+                        <mat-label>Correo</mat-label>
+                        <input formControlName="correo" matInput maxlength="30" placeholder="Ej. Ejemplo@gmail.com">
                     </mat-form-field>
+
                     <mat-form-field>
-                        <input type="text" [(ngModel)]="cooperativa.url" matInput placeholder="Direccion de URL">
+                        <mat-label>Direccion Url</mat-label>
+                        <input formControlName="url" matInput maxlength="30" placeholder="Url...">
                     </mat-form-field>
-                </div>
+                </form>
             </mat-card-content>
             <mat-card-actions>
-                <button (click)="createcoop()" class="button"  mat-raised-button color="primary" [mat-dialog-close]="true">Crear</button>
+                <button (click)="createcoop()" class="button" mat-raised-button color="accent" [disabled]="!cooperativa.valid" [mat-dialog-close]="true">Crear</button>
             </mat-card-actions>
         </mat-card>
     </div>

@@ -1,194 +1,299 @@
 <div class="forms">
     <mat-card class="mat-elevation-z8">
-        <div class="ti">
-            <mat-card-title>Registrar Otros Activos </mat-card-title>
+        <div *ngIf="!id" class="ti">
+            <mat-card-title>Registrar activo de {{titulo}} </mat-card-title>
+        </div>
+        <div *ngIf="id" class="ti">
+            <mat-card-title>Editar activo de {{titulo}} </mat-card-title>
         </div>
     <mat-card-content class="example-form">
-        
-        <h5>Cod. cuenta {{activo.id_cuenta}}</h5>
-        
-        <table class="example-full" cellspacing="0"><tr>
-            <td><mat-form-field appearance="fill">
-                <mat-label>Nombre de tipo</mat-label>
-                <input maxlength="5" type="number" [(ngModel)]="activo.nombre_tipo" matInput placeholder="Ej. 1001" >
-                <!--<mat-select [(ngModel)]="activo.nombre_tipo" name="food">
-                    <mat-option *ngFor="let food of codigo" [value]="food.nombre">
-                        {{food.num}} - {{food.nombre}}
-                    </mat-option>
-                </mat-select>-->
-
-                <mat-hint  align="end">
-                    <mat-error *ngIf="!activo.nombre_tipo" >Introdusca Datos</mat-error>
-                </mat-hint>
-            </mat-form-field></td>
-            <td><mat-form-field appearance="fill" class="example-full-width">
-                <mat-label>Codigo tipo  </mat-label>
-                <input maxlength="5" type="number" [(ngModel)]="activo.cod_tipo" matInput placeholder="Ej. 1001" >
-                <mat-hint  align="end">
-                    <mat-error *ngIf="!activo.cod_tipo" >no existe el codigo</mat-error>
-                    <!--<mat-error *ngIf="activo.nombre_tipo=='Edificio' && activo.cod_tipo<=1000 || activo.cod_tipo>=2000" >Introdusca Rango 1000-1999</mat-error>
-                    <mat-error *ngIf="activo.nombre_tipo=='Remodelacion' && activo.cod_tipo<=2000 || activo.cod_tipo>=3000" >Introdusca Rango 2000-2999</mat-error>-->
-                </mat-hint>
-            </mat-form-field></td>&nbsp;&nbsp;&nbsp;&nbsp;
-            <td><mat-form-field appearance="fill" class="example-full-width">
-                <mat-label>Piezas</mat-label>
-                <input maxlength="10" [(ngModel)]="activo.unidad" matInput placeholder="Ej. 2 Piezas">
-            </mat-form-field></td>
-            </tr>
-        </table>
-    
-    
-        <table class="example-full" cellspacing="0"><tr>
-            <td><mat-form-field appearance="fill" class="example-full-width">
-                <mat-label>Cod. coop.</mat-label>
-                <mat-select [(ngModel)]="activo.id_coop" name="food">
-                    <mat-option *ngFor="let food of coop" [value]="food.id_coop">
-                        {{food.id_coop}} - {{food.nombre}}
-                    </mat-option>
-                </mat-select>
-                <mat-hint  align="end">
-                    <mat-error *ngIf="!activo.id_coop" >Introdusca Datos</mat-error>
-                </mat-hint>
-            </mat-form-field></td>
-            <td><mat-form-field appearance="fill" class="example-full-width">
-                <mat-label>Cod. Seccion</mat-label>
-                <mat-select [(ngModel)]="activo.cod_seccion" name="food">
-                    <mat-option *ngFor="let food of seccion" [value]="food.cod_seccion">
-                        {{food.cod_seccion}} - {{food.nombre_seccion}}
-                    </mat-option>
-                </mat-select>
-                <mat-hint  align="end">
-                    <mat-error *ngIf="!activo.cod_seccion" >Introdusca Datos</mat-error>
-                </mat-hint>
-            </mat-form-field></td>
-            <td><mat-form-field appearance="fill" class="example-full-width">
-                <mat-label>Cod. Funcionario</mat-label>
-                <mat-select [(ngModel)]="activo.id_funcionario" name="food">
-                    <mat-option *ngFor="let food of funcionario" [value]="food.id_funcionario">
-                        {{food.id_funcionario}} - {{food.nombre}} {{food.ap_paterno}}
-                    </mat-option>
-                </mat-select>
-                <mat-hint  align="end">
-                    <mat-error *ngIf="!activo.id_funcionario" >Introdusca Datos</mat-error>
-                </mat-hint>
-            </mat-form-field></td>
-            <td><mat-form-field appearance="fill" class="example-full-width">
-                <mat-label>Estado</mat-label>
-                <mat-select [(value)]="activo.estado_op_nop">
-                <mat-option value="Operativo">Operativo</mat-option>
-                <mat-option value="No operativo">No operativo</mat-option>
-                </mat-select>
-            </mat-form-field></td>
-        </tr></table>
-
-        <table class="example-full" cellspacing="0"><tr>
-            <td><mat-form-field appearance="fill" class="example-full-width">
-                <mat-label>Descripcion</mat-label>
-                <textarea maxlength="400" [(ngModel)]="activo.descripcion" matInput placeholder="Descripcion"></textarea>
-            </mat-form-field></td>
-            <td><mat-form-field appearance="fill" class="example-full-width">
-                <mat-label>Observacion</mat-label>
-                <textarea maxlength="200" [(ngModel)]="activo.observacion" matInput placeholder="Observacion"></textarea>
-            </mat-form-field></td>
-        </tr></table>
-
-        <h6>Tipo de adquisicion</h6>
-
-        <table class="example-full" cellspacing="0"><tr>
-            <td><mat-form-field appearance="fill" class="example-full-width">
-                <mat-label>Tipo de adquisicion</mat-label>
-                <mat-select [(ngModel)]="adquisicion.id_adquisicion" name="food">
-                    <mat-option *ngFor="let food of adqui" [value]="food.id_adquisicion">
-                        {{food.id_adquisicion}} - {{food.nombre_tipo_adq}}   {{food.porcentaje}} %
-                    </mat-option>
-                </mat-select>
-                <mat-hint  align="end">
-                    <mat-error *ngIf="!adquisicion.id_adquisicion" >Introdusca Datos</mat-error>
-                </mat-hint>
-            </mat-form-field></td>
-            <td><mat-form-field appearance="fill" class="example-full-width">
-                <mat-label>Comprovante contable </mat-label>
-                <input type="number" [(ngModel)]="adquisicion.comprobante_contable" matInput placeholder="Ej. 1234">
-                <mat-hint  align="end">
-                    <mat-error *ngIf="!adquisicion.comprobante_contable" >Introdusca Datos</mat-error>
-                </mat-hint>
-            </mat-form-field></td>
-            <td><mat-form-field appearance="fill" class="example-full-width">
-              <mat-label>Nro. Factura </mat-label>
-              <input type="number" [(ngModel)]="adquisicion.nro_factura" matInput placeholder="Ej. 1234">
-              <mat-hint  align="end">
-                  <mat-error *ngIf="!adquisicion.nro_factura" >Introdusca Datos</mat-error>
-              </mat-hint>
-          </mat-form-field></td>
-        </tr></table>
-  
-        <table class="example-full" cellspacing="0"><tr>
-          <td><mat-form-field appearance="fill" class="example-full-width">
-              <mat-label>Costo de adquicicion (Bs.)</mat-label>
-              <input type="number" [(ngModel)]="adquisicion.costo_adquisicion" matInput placeholder="Ej. 1234">
-              <mat-hint  align="end">
-                  <mat-error *ngIf="!adquisicion.costo_adquisicion" >Introdusca Datos</mat-error>
-              </mat-hint>
-          </mat-form-field></td>
-          <td>
-            <mat-form-field appearance="fill" class="example-full-width">
-                <mat-label>Fecha Adquisicion</mat-label>
-                <input matInput ngbDatepicker #d="ngbDatepicker" [(ngModel)]="model" name="dp">
-                
-                <mat-hint  align="end">
-                    <mat-error *ngIf="!model" >Introdusca Datos</mat-error>
-                </mat-hint>
-            </mat-form-field>
-            <mat-form>
-            <mat-icon (click)="d.toggle()" >calendar_today</mat-icon>
-            </mat-form>
-        </td>
-      </tr></table>
-        <p>
-            <mat-form-field appearance="fill" class="example-full-width">
-                <mat-label>Nit de adquisicion</mat-label>
-                <mat-select [(ngModel)]="adquisicion.nit" name="food">
-                    <mat-option>--- Nuevo proveedor ---</mat-option>
-                    <mat-option *ngFor="let food of prov" [value]="food.nit">
-                     {{food.nit}}  Nombre: {{food.nombre_tienda}} Dir: {{food.direccion}} Telf: {{food.telefono}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </p>
-
-        <h6 *ngIf="!adquisicion.nit">Registro del proveedor</h6>
-        <table *ngIf="!adquisicion.nit" class="example-full" cellspacing="0"><tr>
-            <td><mat-form-field appearance="fill" class="example-full-width">
-                <mat-label>Nro. de Nit</mat-label>
-                    <input type="number" [(ngModel)]="proveedor.nit" matInput placeholder="Ej. 1020304050">
-                    <mat-hint  align="end">
-                        <mat-error *ngIf="!proveedor.nit" >Introdusca Datos</mat-error>
-                    </mat-hint>
-                </mat-form-field></td>
-            <td><mat-form-field appearance="fill" class="example-full-width">
-                <mat-label>Nombre  de tienda</mat-label>
-                <input maxlength="30" upercase [(ngModel)]="proveedor.nombre_tienda" matInput placeholder="Ej. Todo Barato">
-            </mat-form-field></td>
-            <td><mat-form-field appearance="fill" class="example-full-width">
-                <mat-label>Direccion de la tienda</mat-label>
-                    <input maxlength="30" [(ngModel)]="proveedor.direccion" matInput placeholder="Ej. Siempre viva # 123">
-                </mat-form-field></td>
-            <td><mat-form-field appearance="fill" class="example-full-width">
-                <mat-label>Nro. de telefono </mat-label>
-                <input type="number" [(ngModel)]="proveedor.telefono" matInput placeholder="Ej. 76......">
-            </mat-form-field></td>
-        </tr></table>
-        
-        <mat-card-actions >
-            <button (click)="crear()" class="button" mat-raised-button color="primary">Registrar</button>
-        </mat-card-actions>
-
-    </mat-card-content>
+        <mat-tab-group mat-stretch-tabs [selectedIndex]="selected.value" 
+            (selectedIndexChange)="selected.setValue($event)" animationDuration="1000ms"
+            class="example-stretched-tabs mat-elevation-z4">
+            <mat-tab label="PASO 1"><div class="labels">
+                <mat-card class="mat-elevation-z3">
+                    <form [formGroup]="activo">
+                        <h5>Cod. cuenta {{activo.value.id_cuenta}}</h5>
+                        <table class="example-full-width" cellspacing="0"><tr>
+                            <td *ngIf="!id"><mat-form-field appearance="fill">
+                                <mat-label>Nombre de tipo</mat-label>
+                                <mat-select formControlName="nombre_tipo" name="food">
+                                    <mat-option *ngFor="let food of codigo" [value]="food.nombre">
+                                        {{food.num}} - {{food.nombre}} 
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="isValidField('nombre_tipo')"> 
+                                    {{getErrorMessage("nombre_tipo")}} 
+                                </mat-error>
+                                <mat-hint  align="end">
+                                    <mat-error *ngIf="!activo.value.nombre_tipo" >Introdusca datos</mat-error>
+                                </mat-hint>
+                            </mat-form-field></td>
+                            <td *ngIf="!id"><mat-form-field appearance="fill">
+                                <mat-label>Codigo tipo  </mat-label>
+                                <input maxlength="5" type="number" formControlName="cod_tipo" matInput placeholder="Ej. 1001" required>
+                                <mat-button mat-icon-button matSuffix>
+                                    <mat-icon (click)="generar()">input</mat-icon>
+                                </mat-button>
+                                <mat-error *ngIf="isValidField('cod_tipo')"> 
+                                    {{getErrorMessage("cod_tipo")}}  
+                                </mat-error>
+                                <mat-hint  align="end">
+                                    <mat-error *ngIf="!activo.value.cod_tipo" >Introdusca datos</mat-error>
+                                    <mat-error *ngIf="activo.value.cod_tipo" >{{comprobar(activo.value.cod_tipo)}}</mat-error>
+                                </mat-hint>
+                            </mat-form-field></td>
+                            <td *ngIf="id"><mat-card  class="cartta" appearance="fill">
+                                <mat-label>Nombre de tipo : </mat-label>
+                                  {{activo.value.nombre_tipo}}
+                            </mat-card></td>
+                            <td *ngIf="id"><mat-card  class="cartta" appearance="fill">
+                                <mat-label>Codigo tipo : </mat-label>
+                                {{activo.value.cod_tipo}}
+                            </mat-card></td>
+                            <td><mat-form-field appearance="fill">
+                                <mat-label>Cod. coop.</mat-label>
+                                <mat-select formControlName="id_coop" name="food">
+                                    <mat-option *ngFor="let food of coop" [value]="food.id_coop">
+                                        {{food.id_coop}} - {{food.nombre}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="isValidField('id_coop')"> 
+                                    {{getErrorMessage("id_coop")}} 
+                                </mat-error>
+                                <mat-hint  align="end">
+                                    <mat-error *ngIf="!activo.value.id_coop" >Introdusca datos</mat-error>
+                                </mat-hint>
+                            </mat-form-field></td>
+                            <td><mat-form-field appearance="fill">
+                                <mat-label>Cod. Seccion</mat-label>
+                                <mat-select formControlName="cod_seccion" name="food">
+                                    <mat-option *ngFor="let food of seccion" [value]="food.cod_seccion">
+                                        {{food.cod_seccion}} - {{food.nombre_seccion}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="isValidField('cod_seccion')"> 
+                                    {{getErrorMessage("cod_seccion")}} 
+                                </mat-error>
+                                <mat-hint  align="end">
+                                    <mat-error *ngIf="!activo.value.cod_seccion" >Introdusca datos</mat-error>
+                                </mat-hint>
+                            </mat-form-field></td>
+                        </tr></table>
+                    </form>
+                    <form [formGroup]="activo">
+                        <table class="example-full-width" cellspacing="0"><tr>
+                            <td><mat-form-field appearance="fill">
+                                <mat-label>Cod. Funcionario</mat-label>
+                                <mat-select formControlName="id_funcionario" name="food">
+                                    <mat-option *ngFor="let food of funcionario" [value]="food.id_funcionario">
+                                        {{food.id_funcionario}} - {{food.nombre}} {{food.ap_paterno}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="isValidField('id_funcionario')"> 
+                                    {{getErrorMessage("id_funcionario")}} 
+                                </mat-error>
+                                <mat-hint  align="end">
+                                    <mat-error *ngIf="!activo.value.id_funcionario" >Introdusca datos</mat-error>
+                                </mat-hint>
+                            </mat-form-field></td>
+                            <td><mat-form-field appearance="fill">
+                                <mat-label>Sujeto a Depreciacion</mat-label>
+                                <mat-select formControlName="sujeto_depreciacion" >
+                                    <mat-option value="Si">Si</mat-option>
+                                    <mat-option value="No">No</mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="isValidField('sujeto_depreciacion')"> 
+                                    {{getErrorMessage("sujeto_depreciacion")}} 
+                                </mat-error>
+                                <mat-hint  align="end">
+                                    <mat-error *ngIf="!activo.value.sujeto_depreciacion" >Introdusca datos</mat-error>
+                                </mat-hint>
+                            </mat-form-field></td>
+                            <td><mat-form-field appearance="fill">
+                                <mat-label>Vida util en meses</mat-label>
+                                <input type="number" formControlName="vida_util" matInput placeholder="48" required>
+                                <mat-error *ngIf="isValidField('vida_util')"> 
+                                    {{getErrorMessage("vida_util")}} 
+                                </mat-error>
+                                <mat-hint  align="end">
+                                    <mat-error *ngIf="!activo.value.vida_util" >Introdusca datos</mat-error>
+                                </mat-hint>
+                            </mat-form-field></td>
+                            <td><mat-form-field appearance="fill">
+                                <mat-label>Estado</mat-label>
+                                <mat-select formControlName="estado_op_nop">
+                                <mat-option value="Operativo">Operativo</mat-option>
+                                <mat-option value="No operativo">No operativo</mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="isValidField('estado_op_nop')"> 
+                                    {{getErrorMessage("estado_op_nop")}} 
+                                </mat-error>
+                                <mat-hint  align="end">
+                                    <mat-error *ngIf="!activo.value.estado_op_nop" >Introdusca datos</mat-error>
+                                </mat-hint>
+                            </mat-form-field></td>
+                        </tr></table>
+                    </form>
+                    <form [formGroup]="activo">
+                        <table class="example-full-width" cellspacing="0"><tr>
+                            <td><mat-form-field appearance="fill">
+                                <mat-label>Piezas</mat-label>
+                                <input maxlength="10" formControlName="unidad" matInput placeholder="Ej. 1 Piezas">
+                            </mat-form-field></td>
+                            <td><mat-form-field appearance="fill">
+                                <mat-label>Descripcion</mat-label>
+                                <textarea maxlength="400" formControlName="descripcion" matInput placeholder="Descripcion"></textarea>
+                            </mat-form-field></td>
+                            <td><mat-form-field appearance="fill">
+                                <mat-label>Observacion</mat-label>
+                                <textarea maxlength="200" formControlName="observacion" matInput placeholder="Observacion"></textarea>
+                            </mat-form-field></td>
+                        </tr></table>
+                    </form>
+                    <mat-card-actions>
+                        <button (click)="siguiente(1)" class="button" mat-raised-button color="accent" [disabled]="!activo.valid">Siguinete</button>
+                    </mat-card-actions>
+                </mat-card>  
+            </div></mat-tab>
+            <mat-tab label="PASO 2" [disabled]="!activo.valid"><div class="labels">
+                <mat-card class="mat-elevation-z3">
+                        <h5>Tipo de adquisicion</h5>
+                    <form [formGroup]="adquisicion">
+                        <table class="example-full-width" cellspacing="0"><tr>
+                            <td><mat-form-field appearance="fill">
+                                    <mat-label>Tipo de adquisicion</mat-label>
+                                    <mat-select formControlName="id_adquisicion" name="food">
+                                        <mat-option *ngFor="let food of adqui" [value]="food.id_adquisicion">
+                                            {{food.id_adquisicion}} - {{food.nombre_tipo_adq}}   {{food.porcentaje}} %
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="isValidFieldss('id_adquisicion')"> 
+                                        {{getErrorMessagess("id_adquisicion")}} 
+                                    </mat-error>
+                                    <mat-hint  align="end">
+                                        <mat-error *ngIf="!adquisicion.value.id_adquisicion" >Introdusca datos</mat-error>
+                                    </mat-hint>
+                            </mat-form-field></td>
+                            <td><mat-form-field appearance="fill">
+                                    <mat-label>Comprovante contable </mat-label>
+                                    <input type="number" formControlName="comprobante_contable" matInput placeholder="Ej. 1234" required>
+                                    <mat-error *ngIf="isValidFieldss('comprobante_contable')"> 
+                                        {{getErrorMessagess("comprobante_contable")}} 
+                                    </mat-error>
+                                    <mat-hint  align="end">
+                                        <mat-error *ngIf="!adquisicion.value.comprobante_contable" >Introdusca datos</mat-error>
+                                    </mat-hint>
+                            </mat-form-field></td>
+                            <td>
+                                <mat-form-field appearance="fill" >
+                                    <mat-label>Fecha Adquisicion</mat-label>
+                                    <input matInput [matDatepicker]="picker" formControlName="fecha_adquisicion" required>
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                    <mat-error *ngIf="isValidFieldss('fecha_adquisicion')"> 
+                                        {{getErrorMessagess("fecha_adquisicion")}} 
+                                    </mat-error>
+                                    <mat-hint  align="end">
+                                        <mat-error *ngIf="!adquisicion.value.fecha_adquisicion" >Introdusca datos</mat-error>
+                                    </mat-hint>
+                                </mat-form-field>
+                            </td>
+                            <td><mat-form-field appearance="fill">
+                                    <mat-label>Costo de adquicicion (Bs.)</mat-label>
+                                    <input type="number" formControlName="costo_adquisicion" matInput placeholder="Ej. 1234">
+                                    <mat-error *ngIf="isValidFieldss('costo_adquisicion')"> 
+                                        {{getErrorMessagess("costo_adquisicion")}} 
+                                    </mat-error>
+                                    <mat-hint  align="end">
+                                        <mat-error *ngIf="!adquisicion.value.costo_adquisicion" >Introdusca datos</mat-error>
+                                    </mat-hint>
+                            </mat-form-field></td>
+                        </tr></table>
+                    </form>
+                    <form [formGroup]="adquisicion">
+                        <table class="example-full-width" cellspacing="0"><tr>
+                            <td><mat-form-field appearance="fill">
+                                <mat-label>Nro. Factura </mat-label>
+                                <input type="number" formControlName="nro_factura" matInput placeholder="Ej. 1234">
+                            </mat-form-field></td>
+                            
+                            <td><mat-form-field appearance="fill" class="example-full-width">
+                                    <mat-label>Nit de adquisicion</mat-label>
+                                    <mat-select formControlName="nit" name="food">
+                                        <mat-option>--- Nuevo proveedor ---</mat-option>
+                                        <mat-option *ngFor="let food of prov" [value]="food.nit">
+                                        {{food.nit}}  Nombre: {{food.nombre_tienda}} Dir: {{food.direccion}} Telf: {{food.telefono}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="isValidFieldss('nit')"> 
+                                        {{getErrorMessagess("nit")}} 
+                                    </mat-error> 
+                                    <mat-hint  align="end">
+                                        <mat-error *ngIf="!adquisicion.value.nit" >Introdusca datos</mat-error>
+                                    </mat-hint>
+                            </mat-form-field></td>
+                        </tr></table>
+                    </form>
+                    
+                        <h6 *ngIf="!adquisicion.value.nit">Crear nuevo proveedor</h6>
+                        <form *ngIf="!adquisicion.value.nit" [formGroup]="proveedor">
+                            <table class="example-full-width" cellspacing="0"><tr>
+                                <td><mat-form-field appearance="fill">
+                                    <mat-label>Nro. de Nit</mat-label>
+                                        <input type="number" formControlName="nit" matInput placeholder="Ej. 1020304050" required>
+                                        <mat-error *ngIf="isValidFieldsss('nit')"> 
+                                            {{getErrorMessagesss("nit")}} 
+                                        </mat-error>
+                                        <mat-hint  align="end">
+                                            <mat-error *ngIf="!proveedor.value.nit" >Introdusca datos</mat-error>
+                                        </mat-hint>
+                                    </mat-form-field></td>
+                                <td><mat-form-field appearance="fill">
+                                    <mat-label>Nombre  de tienda</mat-label>
+                                    <input maxlength="30" upercase formControlName="nombre_tienda" matInput placeholder="Ej. Todo Barato" required>
+                                    <mat-error *ngIf="isValidFieldsss('nombre_tienda')"> 
+                                        {{getErrorMessagesss("nombre_tienda")}} 
+                                    </mat-error>
+                                    <mat-hint  align="end">
+                                        <mat-error *ngIf="!proveedor.value.nombre_tienda" >Introdusca datos</mat-error>
+                                    </mat-hint>
+                                </mat-form-field></td>
+                                <td><mat-form-field appearance="fill">
+                                    <mat-label>Direccion de la tienda</mat-label>
+                                        <input maxlength="30" formControlName="direccion" matInput placeholder="Ej. Siempre viva # 123" required>
+                                        <mat-error *ngIf="isValidFieldsss('direccion')"> 
+                                            {{getErrorMessagesss("direccion")}} 
+                                        </mat-error>
+                                        <mat-hint  align="end">
+                                            <mat-error *ngIf="!proveedor.value.direccion" >Introdusca datos</mat-error>
+                                        </mat-hint>
+                                    </mat-form-field></td>
+                                <td><mat-form-field appearance="fill">
+                                    <mat-label>Nro. de telefono </mat-label>
+                                    <input type="number" formControlName="telefono" matInput placeholder="Ej. 76......">
+                                </mat-form-field></td>
+                                <td>
+                                    <button (click)="createprov(prov)" class="button" mat-raised-button color="accent" [disabled]="!proveedor.valid">Registrar</button>
+                                </td>
+                            </tr></table>
+                        </form>
+                    
+                    <mat-card-actions class="atras">
+                        <button (click)="siguiente(0)" class="button" mat-raised-button color="accent"> Atras</button>
+                    </mat-card-actions>
+                    <mat-card-actions *ngIf="!id">
+                        <button (click)="crear()" class="button" mat-raised-button color="primary" [disabled]="!adquisicion.valid">Crear</button>
+                    </mat-card-actions>
+                    <mat-card-actions *ngIf="id">
+                        <button (click)="edit()" class="button" mat-raised-button color="primary" [disabled]="!adquisicion.valid">Editar</button>
+                    </mat-card-actions>
+                    <mat-card-actions>
+                        <button class="button" mat-raised-button color="accent"></button>
+                    </mat-card-actions>
+                </mat-card>
+            </div></mat-tab> 
+          </mat-tab-group>
+  </mat-card-content>
 </mat-card>
 </div>
-
-<!--
-<div *ngIf="activo.nombre_tipo=='Edificio'">
-    <input type="number" value="1010" [(ngModel)]="activo.cod_tipo">
-</div>
--->

@@ -8,53 +8,34 @@
     </button>
 </div>
 <div class="row">
-    <table class="seccion" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <div class="mat-elevation-z8">
+        <table  mat-table [dataSource]="dataSource" >
 
-        <ng-container matColumnDef="id_cuenta">
-          <th mat-header-cell *matHeaderCellDef>Cod. cuenta</th>
-        <td mat-cell *matCellDef="let element"> {{element.id_cuenta}} </td>
-        </ng-container>
-  
-        <ng-container matColumnDef="descripcion_cuenta">
-          <th mat-header-cell *matHeaderCellDef> Descripcion de la cuenta</th>
-          <td mat-cell *matCellDef="let element"> {{element.descripcion_cuenta}} </td>
-        </ng-container>
+            <ng-container matColumnDef="id_cuenta">
+            <th mat-header-cell *matHeaderCellDef>Cod. cuenta</th>
+            <td mat-cell *matCellDef="let element"> {{element.id_cuenta}} </td>
+            </ng-container>
+    
+            <ng-container matColumnDef="descripcion_cuenta">
+            <th mat-header-cell *matHeaderCellDef> Descripcion de la cuenta</th>
+            <td mat-cell *matCellDef="let element"> {{element.descripcion_cuenta}} </td>
+            </ng-container>
 
-        <ng-container matColumnDef="accion">
-            <th mat-header-cell *matHeaderCellDef>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Accion</th>
-            <td mat-cell *matCellDef="let element">
-                <button mat-stroked-button color="accent" (click)= "editar(element)">
-                    <mat-icon>edit</mat-icon>
-                </button>
-                <button mat-stroked-button color="warn" (click)= "eliminar(element)">
-                    <mat-icon>deleted</mat-icon>
-                </button>
-            </td>
-        </ng-container>
-  
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-</div>
-
-<mat-divider></mat-divider>
-<!--vista par la secion de activo-->
-
-
-<!--<div class="accordion_display">
-    <div class="accordion_size">
-        <mat-accordion multi="true" *ngIf="cuentas.length">
-            <mat-expansion-panel *ngFor="let cuenta of cuentas" hideToggle = "false">
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        <span class="text_center">{{cuenta.id_cuenta}}</span>
-                        <span class="spacer"></span>
-                        <span class="text_center">{{cuenta.descripcion_cuenta}}</span>
-                        <span class="spacer"></span>
-                        <mat-icon color="warn" (click)="delete(cuenta)">delete</mat-icon>
-                    </mat-panel-title>
-                </mat-expansion-panel-header>
-            </mat-expansion-panel>
-        </mat-accordion>
+            <ng-container matColumnDef="accion">
+                <th mat-header-cell *matHeaderCellDef>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Accion</th>
+                <td mat-cell *matCellDef="let element">
+                    <button mat-stroked-button color="accent" (click)= "editar(element)">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-stroked-button color="warn" (click)= "eliminar(element)">
+                        <mat-icon>deleted</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+    
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
     </div>
-</div>-->
+</div>

@@ -1,47 +1,36 @@
 <div class="form">
-    <mat-card class="card">
-        <mat-card-title>Crear tarea</mat-card-title> 
-        <mat-card-content>
-            <div class="container">
-                <mat-form-field>
-                    <input [(ngModel)]="numero" matInput placeholder="seccion">
-                        <mat-hint  align="end">
-                            <mat-error *ngIf="nume" >existe el codigo</mat-error>
-                            <mat-error *ngIf="!numero" >introdusca un codigo codigo</mat-error>
-                        </mat-hint>
-                </mat-form-field>
-                <!--<mat-form-field>
-                    <input [(ngModel)]="createTask.nombre_seccion" matInput placeholder="SeccionNombre">
 
-                    <mat-select [(ngModel)]="activo.id_coop" name="food">
-                <mat-option *ngFor="let food of coop" [value]="food.id_coop">
-                    {{food.id_coop}} - {{food.nombre}}
-                </mat-option>
-            </mat-select>
+    <mat-form-field appearance="fill" >
+        <mat-label>Choose a date</mat-label>
+        <input matInput [matDatepicker]="picker" [(ngModel)]="date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <!--<mat-form-field appearance="fill">
+        <input matInput [(ngModel)]="intro" placeholder="intro fecha">
+    </mat-form-field>-->
+    
+    <mat-card-actions >
+        <button (click)="parse()" class="button" mat-raised-button color="primary">fecha</button>
+    </mat-card-actions>
+    <mat-card-actions >
+        <button (click)="calculoDepre(datos_entrada)" class="button" mat-raised-button color="primary">Ejecutar</button>
+    </mat-card-actions>
+    <mat-card-actions >
+        <button (click)="ver()" class="button" mat-raised-button color="primary">ver</button>
+    </mat-card-actions>
 
-                </mat-form-field>-->
-            </div>
-        </mat-card-content>
-        <!--<template *ngFor="let nav_link of defaultLinks"  >
-            <li *ngIf="nav_link.visible">
-                .....
-            </li>
-            <mat-hint *ngIf="acti.id_cuenta==cuenta && acti.cod_tipo==numero"align="end">
-                        <mat-error *ngIf="acti.id_cuenta==cuenta && acti.cod_tipo==numero">no existe el codigo</mat-error>
-                    </mat-hint>
-         </template>-->
-        <mat-card-actions>
-            <button (click)="create()" class="button" mat-raised-button color="accent">crear</button>
-        </mat-card-actions>
+<br>
 
-        <mat-form-field appearance="fill">
-            <mat-label>Choose a date</mat-label>
-            <input matInput [matDatepicker]="picker" [(ngModel)]="model">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-          
-
-        
-    </mat-card>
 </div>
+<a>
+    {{depresiacion | json}}
+</a>
+<a>
+    {{respuesta}}
+</a>
+
+
+
+
+

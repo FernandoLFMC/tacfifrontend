@@ -1,113 +1,188 @@
-<div *ngIf="data; else showNewForm">
-    <div class="form">
-        <mat-card class="card">
-            <mat-card-title>Editar Funcionario</mat-card-title> 
-            <mat-card-content>
-                <div class="container">
-                        <h6>Cod. de funcionario {{editfunc.id_funcionario}}</h6>
-                        <h6>                               </h6>
-                    <mat-form-field>
+
+<div class="form">
+    <mat-card class="card">
+        <mat-card-title *ngIf="data" >Editar Funcionario</mat-card-title> 
+        <mat-card-title *ngIf="!data">Crear Funcionario</mat-card-title> 
+
+        <mat-card-content class="formu">
+            <form [formGroup]="funcionario" class="container">
+
+                <table><tr>
+                    <td><mat-card *ngIf="data" class="info">
+                        <mat-label>Cod. Funcionario:  </mat-label> 
+                        {{funcionario.value.id_funcionario}}
+                    </mat-card></td>
+                    
+                    
+                    <td><mat-form-field appearance="fill" *ngIf="!data">
+                        <mat-label>Cod. Funcionario</mat-label>
+                        <input type="text" formControlName="id_funcionario" maxlength="4" matInput placeholder="Ej. 001" required> 
+                        <mat-error *ngIf="isValidField('id_funcionario')"> 
+                            {{getErrorMessage("id_funcionario")}} 
+                        </mat-error>
+                        <mat-hint  align="end">
+                            <mat-error *ngIf="!funcionario.value.id_funcionario" >Introdusca datos</mat-error>
+                        </mat-hint>
+                    </mat-form-field></td>
+
+                    <td><mat-form-field appearance="fill" *ngIf="data" class="space">
                         <mat-label>Cod. Seccion</mat-label>
-                        <mat-select [(ngModel)]="editfunc.cod_seccion" name="food">
+                        <mat-select formControlName="cod_seccion" name="food">
                             <mat-option *ngFor="let food of seccion" [value]="food.cod_seccion">
-                             {{food.cod_seccion}} - {{food.nombre_seccion}}
+                            {{food.cod_seccion}} - {{food.nombre_seccion}} 
                             </mat-option>
                         </mat-select>
-                    </mat-form-field>
-                    <mat-form-field>
+                        <mat-error *ngIf="isValidField('cod_seccion')"> 
+                            {{getErrorMessage("cod_seccion")}} 
+                        </mat-error>
+                        <mat-hint  align="end">
+                            <mat-error *ngIf="!funcionario.value.cod_seccion" >Introdusca datos</mat-error>
+                        </mat-hint>
+                    </mat-form-field></td>
+                    
+                    <td><mat-form-field appearance="fill" *ngIf="!data">
+                        <mat-label>Cod. Seccion</mat-label>
+                        <mat-select formControlName="cod_seccion" name="food">
+                            <mat-option *ngFor="let food of seccion" [value]="food.cod_seccion">
+                            {{food.cod_seccion}} - {{food.nombre_seccion}} 
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="isValidField('cod_seccion')"> 
+                            {{getErrorMessage("cod_seccion")}} 
+                        </mat-error>
+                        <mat-hint  align="end">
+                            <mat-error *ngIf="!funcionario.value.cod_seccion" >Introdusca datos</mat-error>
+                        </mat-hint>
+                    </mat-form-field></td> 
+                </tr></table>
+
+                <table><tr>
+                    <td><mat-form-field appearance="fill">
                         <mat-label>Cod. coop.</mat-label>
-                        <mat-select [(ngModel)]="editfunc.id_coop" name="food">
+                        <mat-select formControlName="id_coop" name="food">
                             <mat-option *ngFor="let food of coop" [value]="food.id_coop">
                                 {{food.id_coop}} - {{food.nombre}}
                             </mat-option>
                         </mat-select>
-                    </mat-form-field>
-                    <mat-form-field>
+                        <mat-error *ngIf="isValidField('id_coop')"> 
+                            {{getErrorMessage("id_coop")}} 
+                        </mat-error>
+                        <mat-hint  align="end">
+                            <mat-error *ngIf="!funcionario.value.id_coop" >Introdusca datos</mat-error>
+                        </mat-hint>
+                    </mat-form-field></td>
+
+                    <td><mat-form-field appearance="fill">
+                        <mat-label>Estado</mat-label>
+                        <mat-select formControlName="estado" name="estad">
+                            <mat-option *ngFor="let estad of estados" [value]="estad.value">
+                                {{estad.value}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="isValidField('estado')"> 
+                            {{getErrorMessage("estado")}} 
+                        </mat-error>
+                        <mat-hint  align="end">
+                            <mat-error *ngIf="!funcionario.value.estado" >Introdusca datos</mat-error>
+                        </mat-hint>
+                    </mat-form-field></td>
+                </tr></table>
+
+                <table><tr>
+                    <td><mat-form-field appearance="fill">
+                        <mat-label>Cedula de Identidad</mat-label>
+                        <input type="text" formControlName="ci" matInput maxlength="15" placeholder="Ej. 1234567" required>
+                        <mat-error *ngIf="isValidField('ci')"> 
+                            {{getErrorMessage("ci")}} 
+                        </mat-error>
+                        <mat-hint  align="end">
+                            <mat-error *ngIf="!funcionario.value.ci" >Introdusca datos</mat-error>
+                        </mat-hint>
+                    </mat-form-field></td>
+                    
+                    <td><mat-form-field appearance="fill">
+                        <mat-label>Nombres</mat-label>
+                        <input type="text" formControlName="nombre" matInput maxlength="30" placeholder="Ej. Juan " required>
+                        <mat-error *ngIf="isValidField('nombre')"> 
+                            {{getErrorMessage("nombre")}} 
+                        </mat-error>
+                        <mat-hint  align="end">
+                            <mat-error *ngIf="!funcionario.value.nombre" >Introdusca datos</mat-error>
+                        </mat-hint>
+                    </mat-form-field></td>
+                </tr></table>
+
+                <table><tr>
+                    <td><mat-form-field appearance="fill">
+                        <mat-label>Ap. Paterno</mat-label>
+                        <input type="text" formControlName="ap_paterno" matInput maxlength="20" placeholder="Ej. Perez" required>
+                        <mat-error *ngIf="isValidField('ap_paterno')"> 
+                            {{getErrorMessage("ap_paterno")}} 
+                        </mat-error>
+                        <mat-hint  align="end">
+                            <mat-error *ngIf="!funcionario.value.ap_paterno" >Introdusca datos</mat-error>
+                        </mat-hint>
+                    </mat-form-field></td>
+
+                    <td><mat-form-field appearance="fill">
+                        <mat-label>Ap. Materno</mat-label>
+                        <input type="text" formControlName="ap_materno" matInput maxlength="20" placeholder="Ej. Lopez">
+                    </mat-form-field></td>
+                </tr></table>
+
+                <table><tr>
+                    <td><mat-form-field appearance="fill">
                         <mat-label>Profesion</mat-label>
-                        <mat-select [(ngModel)]="editfunc.id_profesion" name="food">
+                        <mat-select formControlName="id_profesion" name="food">
+                            <mat-option>--Nuevo--</mat-option>
                             <mat-option *ngFor="let food of profesion" [value]="food.id_profesion">
                                 {{food.id_profesion}} - {{food.nomb_profesion}}
                             </mat-option>
                         </mat-select>
-                    </mat-form-field>
-                    <mat-form-field>
-                        <input [(ngModel)]="editfunc.ci" matInput placeholder="Cedula de Identidad">
-                    </mat-form-field>
-                    <mat-form-field>
-                        <input [(ngModel)]="editfunc.nombre" matInput placeholder="Nombre">
-                    </mat-form-field>
-                    <mat-form-field>
-                        <input [(ngModel)]="editfunc.ap_paterno" matInput placeholder="Apellido paterno">
-                    </mat-form-field>
-                    <mat-form-field>
-                        <input [(ngModel)]="editfunc.ap_materno" matInput placeholder="Apellido materno">
-                    </mat-form-field>
-                    <mat-form-field>
-                        <input [(ngModel)]="editfunc.cargo" matInput placeholder="Cargo">
-                    </mat-form-field>
-                </div>
+                        <mat-error *ngIf="isValidField('id_profesion')"> 
+                            {{getErrorMessage("id_profesion")}} 
+                        </mat-error>
+                        <mat-hint  align="end">
+                            <mat-error *ngIf="!funcionario.value.id_profesion" >Introdusca nuevo profesion</mat-error>
+                        </mat-hint>
+                    </mat-form-field></td>
+
+
+                    <td><mat-form-field appearance="fill">
+                        <mat-label>Cargo</mat-label>
+                        <input type="text" formControlName="cargo" matInput maxlength="30" placeholder="Ej. Gerente">
+                    </mat-form-field></td>
+                </tr></table>
+            </form> 
+            
+            <mat-card-content *ngIf="!funcionario.value.id_profesion" class="prof">
+                <form [formGroup]="profesions" class="container">
+                <h6>Creacion de nueva profesion</h6>
+                <table ><tr>
+                    <td><mat-form-field appearance="fill">
+                        <mat-label>Introducir nueva profesion</mat-label>
+                        <input type="text" formControlName="nomb_profesion" matInput maxlength="20" placeholder="Ej. Ing. Sistemas" required>
+                        <mat-error *ngIf="isValidFields('nomb_profesion')"> 
+                            {{getErrorMessages("nomb_profesion")}} 
+                        </mat-error>
+                        <mat-hint  align="end">
+                            <mat-error *ngIf="!profesions.value.nomb_profesion" >Introdusca datos</mat-error>
+                        </mat-hint>
+                    </mat-form-field>&nbsp;&nbsp;&nbsp;</td>
+                    <td>
+                    <button (click)="createprof()" class="button" mat-raised-button color="accent" [disabled]="!profesions.valid">Registrar</button>
+                    </td>
+                </tr></table>
+                </form>
             </mat-card-content>
-            <mat-card-actions>
-                <button (click)="editar()" class="button"  mat-raised-button color="primary" [mat-dialog-close]="true">Editar</button>
-            </mat-card-actions>
-        </mat-card>
-    </div>
+        </mat-card-content>
+        <mat-card-actions *ngIf="data">
+            <button (click)="edit()" class="button" mat-raised-button color="accent" [disabled]="!funcionario.valid" [mat-dialog-close]="true">Editar</button>
+        </mat-card-actions>
+        <mat-card-actions *ngIf="!data">
+            <button (click)="create()" class="button" mat-raised-button color="accent" [disabled]="!funcionario.valid" [mat-dialog-close]="true">Crear</button>
+        </mat-card-actions>
+    </mat-card>
 </div>
-<ng-template #showNewForm>
-    <div class="form">
-        <mat-card class="card">
-            <mat-card-title>Crear Funcionario</mat-card-title> 
-            <mat-card-content>
-                <div class="container">
-                    <mat-form-field>
-                        <mat-label>Cod. de Funcionario</mat-label>
-                        <input [(ngModel)]="funcionario.id_funcionario" matInput placeholder="Ej. 001">
-                    </mat-form-field>
-                    <mat-form-field>
-                        <mat-label>Cod. Seccion</mat-label>
-                        <mat-select [(ngModel)]="funcionario.cod_seccion" name="food">
-                            <mat-option *ngFor="let food of seccion" [value]="food.cod_seccion">
-                             {{food.cod_seccion}} - {{food.nombre_seccion}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                    <mat-form-field>
-                        <mat-label>Cod. coop.</mat-label>
-                        <mat-select [(ngModel)]="funcionario.id_coop" name="food">
-                            <mat-option *ngFor="let food of coop" [value]="food.id_coop">
-                                {{food.id_coop}} - {{food.nombre}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                    <mat-form-field>
-                        <mat-label>Profesion</mat-label>
-                        <mat-select [(ngModel)]="funcionario.id_profesion" name="food">
-                            <mat-option *ngFor="let food of profesion" [value]="food.id_profesion">
-                                {{food.id_profesion}} - {{food.nomb_profesion}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                    <mat-form-field>
-                        <input [(ngModel)]="funcionario.ci" matInput placeholder="Cedula de Identidad">
-                    </mat-form-field>
-                    <mat-form-field>
-                        <input [(ngModel)]="funcionario.nombre" matInput placeholder="Nombre">
-                    </mat-form-field>
-                    <mat-form-field>
-                        <input [(ngModel)]="funcionario.ap_paterno" matInput placeholder="Apellido paterno">
-                    </mat-form-field>
-                    <mat-form-field>
-                        <input [(ngModel)]="funcionario.ap_materno" matInput placeholder="Apellido materno">
-                    </mat-form-field>
-                    <mat-form-field>
-                        <input [(ngModel)]="funcionario.cargo" matInput placeholder="Cargo">
-                    </mat-form-field>
-                </div>
-            </mat-card-content>
-            <mat-card-actions>
-                <button (click)="crear()" class="button"  mat-raised-button color="primary" [mat-dialog-close]="true">Crear</button>
-            </mat-card-actions>
-        </mat-card>
-    </div>
-</ng-template>
+
 <!--[mat-dialog-close]="true"-->

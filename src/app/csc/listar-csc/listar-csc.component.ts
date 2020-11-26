@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskService } from '../../service/task.service'
+import { AuthService } from '../../service/auth.service'
 
 import { MatTableDataSource} from '@angular/material/table'
 //alertas de eliminar
@@ -7,6 +8,8 @@ import Swal from 'sweetalert2';
 
 import { MatDialog } from '@angular/material/dialog';
 import { CrearCuentaComponent } from '../crear-cuenta/crear-cuenta.component'
+import {MatPaginator} from '@angular/material/paginator';
+import {AfterViewInit, ViewChild} from '@angular/core';
 
 
 @Component({
@@ -16,25 +19,34 @@ import { CrearCuentaComponent } from '../crear-cuenta/crear-cuenta.component'
 })
 export class ListarCscComponent implements OnInit {
 
-  constructor(private taskService: TaskService,
+
+  constructor(public authService: AuthService, private taskService: TaskService,
     public dialog:MatDialog) { }
 
-  ngOnInit(): void {
-    this.listCuenta()
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
   }
-//funcionaes para cuenta
-  dataSource = new MatTableDataSource();
-  displayedColumns: string[] = ['id_cuenta','descripcion_cuenta','accion'];
-  //operaciones de cuenta
-  listCuenta(): void{
+
+  ngOnInit(): void {
     this.taskService.listarcuenta()
     .subscribe(
       res => {
         this.dataSource.data = res
       },
-      err=>console.log(err)
+      err=>{ 
+        console.log(err)
+        if(err.status == 401){
+          this.authService.logoutUser()
+        }
+      }
     )
   }
+//funcionaes para cuenta
+  dataSource = new MatTableDataSource();
+  displayedColumns: string[] = ['id_cuenta','descripcion_cuenta','accion'];
+  
 
   eliminar(cuenta){
     Swal.fire({
@@ -55,8 +67,11 @@ export class ListarCscComponent implements OnInit {
           Swal.fire('Eliminado', 'Se ha eliminado corectamente', 'success')
         },
           err =>{
-            console.log(err)
-            Swal.fire('Error', 'No se pudo eliminar', 'error')
+            if(err.status == 500){
+              Swal.fire('Error', 'No se puede eliminar, existe activos designados a esta cuenta', 'error')
+            }else{
+              Swal.fire('Error', 'No se pudo eliminar', 'error')
+            }
           }
         )
       }
@@ -71,8 +86,6 @@ export class ListarCscComponent implements OnInit {
   openDialog(cuenta?): void{
      const config ={
        data: cuenta
-         //message: cuenta ? 'edit cuenta': 'new cuenta',
-         //content: cuenta
      };
     const dialogRef = this.dialog.open(CrearCuentaComponent, config);
     dialogRef.afterClosed().subscribe(
@@ -84,28 +97,3 @@ export class ListarCscComponent implements OnInit {
   }
 
 }
-
-
-    /*this.taskService.deletecuenta(cuenta)
-    .subscribe(
-      res=>{
-        const index = this.cuentas.indexOf(cuenta)
-        if(index>-1){
-          this.cuentas.splice(index,1)
-          this.snackBar.open("Tarea Borrada", null, {
-            duration: 2000
-          })
-        }
-      },
-      err=>{
-        console.log(err)
-        if(err instanceof HttpErrorResponse){
-          if(err.status === 401){
-            this.snackBar.open("No estas logeado", null, {
-              duration: 2000
-            })
-            this.router.navigate(['/login'])
-          }
-        }
-      }
-    )*/

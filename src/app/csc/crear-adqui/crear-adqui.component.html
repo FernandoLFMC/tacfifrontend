@@ -3,20 +3,29 @@
         <mat-card class="card">
             <mat-card-title>Editar Adquisicion </mat-card-title> 
             <mat-card-content>
-                <div class="container">
-                    <mat-form-field>
-                        <input [(ngModel)]="editadqui.id_adquisicion" matInput placeholder="Cod. adquisicion">
+                <form [formGroup]="createadqui" class="container">
+                    <div><mat-card class="info">
+                        <mat-label>Cod. de Adquisicion</mat-label> 
+                          {{createadqui.value.id_adquisicion}}
+                    </mat-card></div>
+                    <mat-form-field class="space">
+                        <mat-label>Tipo de adquisicion</mat-label>
+                        <input formControlName="nombre_tipo_adq" matInput maxlength="30" placeholder="Ej. Sin Credito Fiscal" required>
+                        <mat-error *ngIf="isValidField('nombre_tipo_adq')">
+                            {{getErrorMessage("nombre_tipo_adq")}} 
+                        </mat-error>
+                        <mat-hint  align="end">
+                            <mat-error *ngIf="nombre_tipo_adq.invalid" >Introdusca datos</mat-error>
+                        </mat-hint>
                     </mat-form-field>
                     <mat-form-field>
-                        <input type="number" [(ngModel)]="editadqui.porcentaje" matInput placeholder="Porcentaje">
+                        <mat-label>Porcentaje</mat-label>
+                        <input type="number" formControlName="porcentaje" matInput maxlength="5" placeholder="Ej. 0.13">
                     </mat-form-field>
-                    <mat-form-field>
-                        <input [(ngModel)]="editadqui.nombre_tipo_adq" matInput placeholder="Tipo de adquisicion">
-                    </mat-form-field>
-                </div>
+                </form>
             </mat-card-content>
             <mat-card-actions>
-                <button (click)="edit()" class="button" mat-raised-button color="accent" [mat-dialog-close]="true">Editar</button>
+                <button (click)="edit()" class="button" mat-raised-button color="accent" [disabled]="!createadqui.valid" [mat-dialog-close]="true">Editar</button>
             </mat-card-actions>
         </mat-card>
     </div>
@@ -26,21 +35,35 @@
         <mat-card class="card">
             <mat-card-title>Crear Adquisicion </mat-card-title> 
             <mat-card-content>
-                <div class="container">
+                <form [formGroup]="createadqui" class="container">
                     <mat-form-field>
                         <mat-label>Cod. de Adquisicion</mat-label>
-                        <input [(ngModel)]="createadqui.id_adquisicion" maxlength="2" matInput placeholder="Ej. ' CF ' (Mayusculas)">
+                        <input formControlName="id_adquisicion" maxlength="3" matInput placeholder="Ej. SF)" required>
+                        <mat-error *ngIf="isValidField('id_adquisicion')"> 
+                            {{getErrorMessage("id_adquisicion")}} 
+                        </mat-error>
+                        <mat-hint  align="end">
+                            <mat-error *ngIf="id_adquisicion.invalid" >Introdusca datos</mat-error>
+                        </mat-hint>
                     </mat-form-field>
                     <mat-form-field>
-                        <input [(ngModel)]="createadqui.porcentaje" matInput placeholder="Porcentaje">
+                        <mat-label>Tipo de adquisicion</mat-label>
+                        <input formControlName="nombre_tipo_adq" matInput maxlength="30" placeholder="Ej. Sin Credito Fiscal" required>
+                        <mat-error *ngIf="isValidField('nombre_tipo_adq')">
+                            {{getErrorMessage("nombre_tipo_adq")}} 
+                        </mat-error>
+                        <mat-hint  align="end">
+                            <mat-error *ngIf="nombre_tipo_adq.invalid" >Introdusca datos</mat-error>
+                        </mat-hint>
                     </mat-form-field>
                     <mat-form-field>
-                        <input [(ngModel)]="createadqui.nombre_tipo_adq" matInput placeholder="Tipo de adquisicion">
+                        <mat-label>Porcentaje</mat-label>
+                        <input type="number" formControlName="porcentaje" matInput maxlength="5" placeholder="Ej. 0.13">
                     </mat-form-field>
-                </div>
+                </form>
             </mat-card-content>
             <mat-card-actions>
-                <button (click)="create()" class="button" mat-raised-button color="accent" [mat-dialog-close]="true">Crear</button>
+                <button (click)="create()" class="button" mat-raised-button color="accent" [disabled]="!createadqui.valid" [mat-dialog-close]="true">Crear</button>
             </mat-card-actions>
         </mat-card>
     </div>

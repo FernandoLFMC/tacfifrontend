@@ -1,44 +1,18 @@
-.mat-elevation-z8 {
-    max-width: 1100px;
+.example-card {
+    max-width: 600px;
+    background-color: #6fff6f91;
   }
   
-.example-header-image {
-    background-image: url(../../ImgActivos/terrenos.jpg);
+  .example-header-image {
+    background-image: url('https://www.link.com.bo/wp-content/uploads/2018/04/kisspng-information-technology-fixed-asset-information-tec-5b2136d6e61c98.8660808515289033829426.jpg');
     background-size: cover;
-}
-
-.list{
-    display: flex;
-    justify-content: center;
-}
-
-img{
-    max-width: 100px 100px;
-}
-
-mat-card-header{
-    background-image: url(../../ImgActivos/terrenos.jpg);
-    background-repeat: no-repeat;
-    background-size: 1100px;
-}
-
-.info{
-    color: black;
-    background-color: rgb(219, 246, 219);
-}
-
-table{
-    width: 100%;
-    justify-content: center;
-}
-
-mat-label{
-    text-decoration: underline;
-}
-
-.ope{
-    color: lightgreen;
-}
-.nope{
-    color: red;
-}
+  }
+  .container{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      
+  }
+  img{
+      max-width: 300px;
+  }

@@ -65,6 +65,9 @@ export class HeaderComponent implements OnInit {
   cuentalist(){
     this.router.navigate(['/listarcsc'])
   }
+  tipocuenta(){
+    this.router.navigate(['/listar-tipocuenta'])
+  }
   adquilist(){
     this.router.navigate(['/listar-adqui'])
   }

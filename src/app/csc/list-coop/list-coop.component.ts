@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskService } from '../../service/task.service'
+import { AuthService } from '../../service/auth.service'
 
 import { MatTableDataSource} from '@angular/material/table'
 //alertas de eliminar
@@ -15,33 +16,35 @@ import { CrearCoopComponent } from '../crear-coop/crear-coop.component'
 })
 export class ListCoopComponent implements OnInit {
 
-  constructor(private taskService: TaskService,
+  constructor(public authService: AuthService, private taskService: TaskService,
     public dialog:MatDialog) { }
 
   ngOnInit(): void {
-    this.listcoop()
-  }
-
-  //funciones para la cooperativa
-  dataSourcec = [];
-  displayedColumnsc: string[] = ['id_coop','nombre','ciudad','direccion','telefono','nit','correo','url','accion'];
-  listcoop(): void{
     this.taskService.listarcoop()
     .subscribe(
       res => {
         this.dataSourcec = res
       },
-      err => {
+      err => { 
         console.log(err)
+        if(err.status == 401){
+          this.authService.logoutUser()
+        }
       }
     )
   }
 
+  //funciones para la cooperativa
+  dataSourcec = [];
+  displayedColumnsc: string[] = ['id_coop','nombre','ciudad','direccion','telefono','nit','correo','url','accion'];
+
   editarC(coop){
     this.openDialogC(coop)
+    this.ngOnInit()
   }
   crearC(){
     this.openDialogC()
+    this.ngOnInit()
   }
   openDialogC(coop?): void{
     const config={
@@ -74,8 +77,11 @@ export class ListCoopComponent implements OnInit {
           Swal.fire('Eliminado', 'Se ha eliminado corectamente', 'success')
         },
           err =>{
-            console.log(err)
-            Swal.fire('Error', 'No se pudo eliminar', 'error')
+            if(err.status == 500){
+              Swal.fire('Error', 'No se puede eliminar, existe activos designados a esta Coop.', 'error')
+            }else{
+              Swal.fire('Error', 'No se pudo eliminar', 'error')
+            }
           }
         )
       }

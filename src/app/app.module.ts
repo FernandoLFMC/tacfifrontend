@@ -20,8 +20,10 @@ import {MatSnackBarModule} from '@angular/material/snack-bar'
 import {MatSelectModule} from '@angular/material/select'
 import {MatListModule} from '@angular/material/list'
 import { MatDialogModule } from '@angular/material/dialog'
+
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatNativeDateModule} from '@angular/material/core';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
+
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 
@@ -31,6 +33,7 @@ import {MatFormFieldModule} from '@angular/material/form-field'
 import {MatCardModule} from '@angular/material/card'
 import {FormsModule, ReactiveFormsModule} from '@angular/forms'
 import {MatTableModule} from '@angular/material/table';
+import {MatTabsModule} from '@angular/material/tabs';
 
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http'
 import { TokenInterceptorService } from './service/token-interceptor.service'
@@ -74,6 +77,13 @@ import { OtrosListComponent } from './activolist/otros-list/otros-list.component
 import { UserListComponent } from './user-list/user-list.component';
 import { ExportxlsxService } from './service/exportxlsx.service';
 import { ReportesComponent } from './activolist/reportes/reportes.component'
+import { from } from 'rxjs';
+import { DepreciacionAnualComponent } from './depreciacion/depreciacion-anual/depreciacion-anual.component';
+import { DepreciacionMensualComponent } from './depreciacion/depreciacion-mensual/depreciacion-mensual.component';
+import { ListTipoCuentaComponent } from './csc/list-tipo-cuenta/list-tipo-cuenta.component';
+import { CrearTipoCuentaComponent } from './csc/crear-tipo-cuenta/crear-tipo-cuenta.component';
+
+
 
 
 
@@ -117,7 +127,11 @@ import { ReportesComponent } from './activolist/reportes/reportes.component'
     VehiculosListComponent,
     OtrosListComponent,
     UserListComponent,
-    ReportesComponent
+    ReportesComponent,
+    DepreciacionAnualComponent,
+    DepreciacionMensualComponent,
+    ListTipoCuentaComponent,
+    CrearTipoCuentaComponent
   ],
   imports: [
     BrowserModule,
@@ -140,17 +154,22 @@ import { ReportesComponent } from './activolist/reportes/reportes.component'
     MatDialogModule,
     MatMenuModule,
     MatDatepickerModule,
-    MatNativeDateModule,
+    MatMomentDateModule,
     NgbModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatTabsModule
   ],
   providers: [AuthService, TaskService, AuthGuard,ExportxlsxService,
   {
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptorService,
     multi: true
-  }],
+  },
+
+  
+
+],
   entryComponents:[CrearFuncComponent,CrearCuentaComponent,CrearSeccionComponent],
   bootstrap: [AppComponent],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]

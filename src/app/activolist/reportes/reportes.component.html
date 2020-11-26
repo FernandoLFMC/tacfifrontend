@@ -50,49 +50,37 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-<button  mat-raised-button color="primary" (click)="exportAsXLSX()">Exportar a Excel
+<button  mat-raised-button color="primary" (click)="exportAsXLSX(dataSources.data)">Exportar a Excel
     <mat-icon>trending_down</mat-icon>
 </button>
 </div>
 
 <div class="row">
     <table mat-table [dataSource]="dataSources" matSort class="mat-elevation-z8">
-    
-        <ng-container matColumnDef="cuenta">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Cuenta&nbsp;&nbsp;&nbsp;</th>
-          <td mat-cell *matCellDef="let row"> {{row.cuenta}}</td>
-        </ng-container>
 
-        <ng-container matColumnDef="coop">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Coop.&nbsp;</th>
-            <td mat-cell *matCellDef="let row"> {{row.coop}}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="cod_tipo">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Cod. tipo&nbsp;</th>
-            <td mat-cell *matCellDef="let row"> {{row.cod_tipo}}</td>
+        <ng-container matColumnDef="codigo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>&nbsp;&nbsp;&nbsp;&nbsp;Codigo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+            <td mat-cell *matCellDef="let row"> {{row.codigo}}</td>
         </ng-container> 
 
         <ng-container matColumnDef="seccion">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Seccion&nbsp;</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Seccion&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
             <td mat-cell *matCellDef="let row"> {{row.seccion}}</td>
         </ng-container>
 
         <ng-container matColumnDef="funcionario">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Funcionario&nbsp;</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Funcionario&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
             <td mat-cell *matCellDef="let row"> {{row.funcionario}}</td>
         </ng-container>
     
         <ng-container matColumnDef="nombre_tipo">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre tipo&nbsp;</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre tipo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
             <td mat-cell *matCellDef="let row"> {{row.nombre_tipo}} </td>
           </ng-container>
             
         <ng-container matColumnDef="descripcion">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Descripcion&nbsp;</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Descripcion&nbsp;</th>
             <td mat-cell *matCellDef="let row"> {{row.descripcion}} </td>
           </ng-container>
     

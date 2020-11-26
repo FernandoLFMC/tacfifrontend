@@ -2,18 +2,27 @@
     <div class="form">
         <mat-card class="card">
             <mat-card-title>Editar cuenta de activo</mat-card-title> 
+
             <mat-card-content>
-                <div class="container" >
+                <form [formGroup]="cuenta" class="container">
+                    <div><mat-card class="info">
+                        <mat-label>Cod. de Cuenta:  </mat-label> 
+                          {{cuenta.value.id_cuenta}}
+                    </mat-card></div>
                     <mat-form-field>
-                        <input [(ngModel)]="editcuenta.id_cuenta" matInput placeholder="Codigo de cuenta">
+                        <mat-label>Nombre de Cuenta</mat-label>
+                        <input formControlName="descripcion_cuenta" matInput maxlength="40" placeholder="Nombre de cuenta" required>
+                        <mat-error *ngIf="isValidField('descripcion_cuenta')">
+                            {{getErrorMessage("descripcion_cuenta")}} 
+                        </mat-error>
+                        <mat-hint  align="end">
+                            <mat-error *ngIf="descripcion_cuenta.invalid" >Introdusca datos</mat-error>
+                        </mat-hint>
                     </mat-form-field>
-                    <mat-form-field>
-                        <input [(ngModel)]="editcuenta.descripcion_cuenta" matInput placeholder="Nombre de cuenta">
-                    </mat-form-field>
-                </div>
+                </form>
             </mat-card-content>
             <mat-card-actions>
-                <button (click)="edit()" class="button" mat-raised-button color="accent" [mat-dialog-close]="true">Editar</button>
+                <button (click)="edit()" class="button" mat-raised-button color="accent" [disabled]="!cuenta.valid" [mat-dialog-close]="true">Editar</button>
             </mat-card-actions>
         </mat-card>
     </div>
@@ -23,18 +32,31 @@
         <mat-card class="card">
             <mat-card-title>Crear cuenta de activo</mat-card-title> 
             <mat-card-content>
-                <div class="container">
+                <form [formGroup]="cuenta" class="container">
                     <mat-form-field>
-                        <mat-label>Codigo de cuenta</mat-label>
-                        <input type="number" [(ngModel)]="cuenta.id_cuenta" maxlength="3" matInput placeholder="Ej. 172">
+                        <mat-label>Cod. de Cuenta</mat-label>
+                        <input type="number" formControlName="id_cuenta" maxlength="3" matInput placeholder="Ej. 172)" required>
+                        <mat-error *ngIf="isValidField('id_cuenta')"> 
+                            {{getErrorMessage("id_cuenta")}} 
+                        </mat-error>
+                        <mat-hint  align="end">
+                            <mat-error *ngIf="id_cuenta.invalid" >Introdusca datos</mat-error>
+                        </mat-hint>
                     </mat-form-field>
                     <mat-form-field>
-                        <input [(ngModel)]="cuenta.descripcion_cuenta" matInput placeholder="Nombre de cuenta">
+                        <mat-label>Nombre de Cuneta</mat-label>
+                        <input formControlName="descripcion_cuenta" matInput maxlength="40" placeholder="Nombre de la cuenta" required>
+                        <mat-error *ngIf="isValidField('descripcion_cuenta')">
+                            {{getErrorMessage("descripcion_cuenta")}} 
+                        </mat-error>
+                        <mat-hint  align="end">
+                            <mat-error *ngIf="descripcion_cuenta.invalid" >Introdusca datos</mat-error>
+                        </mat-hint>
                     </mat-form-field>
-                </div>
+                </form>
             </mat-card-content>
             <mat-card-actions>
-                <button (click)="create()" class="button" mat-raised-button color="accent" [mat-dialog-close]="true">Crear</button>
+                <button (click)="create()" class="button" mat-raised-button color="accent" [disabled]="!cuenta.valid" [mat-dialog-close]="true">Crear</button>
             </mat-card-actions>
         </mat-card>
     </div>

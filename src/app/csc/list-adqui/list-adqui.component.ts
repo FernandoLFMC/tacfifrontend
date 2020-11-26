@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { TaskService } from '../../service/task.service'
+import { TaskService } from '../../service/task.service';
+import { AuthService } from '../../service/auth.service'
 
 import { MatTableDataSource} from '@angular/material/table'
 //alertas de eliminar
@@ -16,6 +17,7 @@ import { CrearAdquiComponent} from '../crear-adqui/crear-adqui.component'
 export class ListAdquiComponent implements OnInit {
 
   constructor(private taskService: TaskService,
+    public authService: AuthService,
     public dialog:MatDialog) { }
 
     dataSource = new MatTableDataSource();
@@ -27,8 +29,11 @@ export class ListAdquiComponent implements OnInit {
       res => {
         this.dataSource.data=res
       },
-      err => {
-        console.log(err)
+      err => { 
+        console.log('err',err)
+        if(err.status == 401){
+          this.authService.logoutUser()
+        }
       }
     )
   }
@@ -45,13 +50,13 @@ export class ListAdquiComponent implements OnInit {
         //message: cuenta ? 'edit cuenta': 'new cuenta',
         //content: cuenta
     };
-   const dialogRef = this.dialog.open(CrearAdquiComponent, config);
-   dialogRef.afterClosed().subscribe(
-     res => {
-       console.log(`Dialog result ${res}`);
-       this.ngOnInit()
-     }
-   )
+  const dialogRef = this.dialog.open(CrearAdquiComponent, config);
+  dialogRef.afterClosed().subscribe(
+    res => {
+      console.log(`Dialog result ${res}`);
+      this.ngOnInit()
+    }
+  )
  }
   eliminar(adqui){
     Swal.fire({

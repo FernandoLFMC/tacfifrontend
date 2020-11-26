@@ -1,67 +1,50 @@
-<div class="list">
-    <mat-card class="mat-elevation-z8">
-        <mat-card-header class="title">
-          <div mat-card-avatar class="example-header-image"></div>
-          <mat-card-title>Activo Edificios: {{activo.id_cuenta}}-{{activo.id_coop}}-{{activo.cod_tipo}}-{{activo.cod_seccion}}-{{activo.id_funcionario}} </mat-card-title>
-          <mat-card-subtitle>Nombre tipo: {{activo.nombre_tipo}} </mat-card-subtitle>
-        </mat-card-header>
-        
-        <h4>Detalles del activo </h4>
-        <table>
-          <td><mat-card class="info"><mat-label>Cod. Coop.:</mat-label> {{activo.id_coop}}</mat-card></td>&nbsp;&nbsp;
-          <td><mat-card class="info"><mat-label>Cod. Seccion:</mat-label> {{activo.cod_seccion}}</mat-card></td>&nbsp;&nbsp;
-          <td><mat-card class="info"><mat-label>Cod. Funcionario:</mat-label> {{activo.id_funcionario}}</mat-card></td>&nbsp;&nbsp;
-          <td><mat-card class="info"><mat-label>Unidad:</mat-label> {{activo.unidad}}</mat-card></td>&nbsp;&nbsp;
-          <td><mat-card class="info">
-            <mat-label class="ope" *ngIf="activo.estado_op_nop == 'Operativo' ">{{activo.estado_op_nop}}</mat-label>
-            <mat-label class="nope" *ngIf="activo.estado_op_nop == 'No operativo' ">{{activo.estado_op_nop}}</mat-label>
-          </mat-card></td>
-        </table>
-    
-        <table>
-          <td><mat-card class="info"><mat-label>Cod. Catastro.:</mat-label> {{edificios.cod_catastro}}</mat-card></td>&nbsp;&nbsp;
-          <td><mat-card class="info"><mat-label>Matricula DDRR.:</mat-label> {{edificios.matricula_ddrr}}</mat-card></td>&nbsp;&nbsp;
-          <td><mat-card class="info"><mat-label>Superficie :</mat-label> {{edificios.superficie}} m²</mat-card></td>
-        </table>
-        <table>
-          <td><mat-card class="info"><mat-label>Propietario :</mat-label> {{edificios.propietario}}</mat-card></td>&nbsp;&nbsp;
-          <td><mat-card class="info"><mat-label>Departamento :</mat-label> {{edificios.departamento}}</mat-card></td>&nbsp;&nbsp;
-          <td><mat-card class="info"><mat-label>Ciudad :</mat-label> {{edificios.ciudad}}</mat-card></td>
-          <td><mat-card class="info"><mat-label>Direccion :</mat-label> {{edificios.direccion}}</mat-card></td>
-        </table>
-    
-        <table>
-          <td><mat-card class="info">
-          <mat-label>Descripcion:</mat-label>
-          <p>
-             {{activo.descripcion}}
-          </p>
-          </mat-card></td>&nbsp;&nbsp;
-          <td><mat-card class="info">
-          <mat-label>Observacion:</mat-label>
-          <p>
-              {{activo.observacion}}
-          </p>
-          </mat-card></td>
-        </table>
-        <h5>Detalles de la adquisicion del activo </h5>
-        <table>
-          <td><mat-card class="info"><mat-label>Cod. Adquisicion.:</mat-label> {{adquisicion.id_adquisicion}}</mat-card></td>&nbsp;&nbsp;
-          <td><mat-card class="info"><mat-label>Nro. Factura:</mat-label> {{adquisicion.nro_factura}}</mat-card></td>&nbsp;&nbsp;
-          <td><mat-card class="info"><mat-label>Fecha Adquisicion:</mat-label> {{adquisicion.fecha_adquisicion}}</mat-card></td>&nbsp;&nbsp;
-          <td><mat-card class="info"><mat-label>Comprobante Contable:</mat-label> {{adquisicion.comprobante_contable}}</mat-card></td>&nbsp;&nbsp;
-          <td><mat-card class="info"><mat-label>Costo de Adquisicion:</mat-label> {{adquisicion.costo_adquisicion}} Bs. </mat-card></td>
-        </table>
+<div class="container">
+  <mat-card class="example-card">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>Codigo de activo : {{activo.id_cuenta}}-{{activo.id_coop}}-{{activo.cod_seccion}}-{{activo.cod_tipo}} </mat-card-title>
+      <mat-card-subtitle>Nombre del activo : {{activo.nombre_tipo}} </mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image src="data:image/jpeg;base64,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" 
+    alt="Photo of a Shiba Inu">
+    <mat-card-content>
+      <mat-tab-group mat-stretch-tabs class="example-stretched-tabs mat-elevation-z4">
+        <mat-tab label="detalle activo">
+          <mat-card-content class="mat-elevation-z4">
+          <p>Funcionario encargado : {{activo.id_funcionario}}</p>
+            <p>Codigo Catastral : {{edificios.cod_catastro</p>
+              <p>Superficie : {{edificios.superficie}}</p>
+                <p>Matricula DDRR : {{edificios.matricula_ddrr}}</p>
+                  <p>Propietario : {{edificios.propietario}}</p>
+                    <p>Departamento : {{edificios.departamento}}</p>
+                    <p>Ciudad : {{edificios.ciudad}}</p>
+                    <p>Direccion : {{edificios.direccion}}</p>
+                      <p>Unidad : {{activo.unidad}}</p>
+                        <p>Estado : {{activo.estado_op_nop}}</p>
+                          <p>Descripcion : {{activo.descripcion}}</p>
+                            <p>Observaciones: {{activo.observacion}}</p>
+          </mat-card-content>
+        </mat-tab>
+        <mat-tab label="Detalle de adquisicion">
+          
+          <p>Tipo de adquisicion : {{adquisicion.id_adquisicion}}</p>
+            <p>Comprobante Contable : {{adquisicion.comprobante_contable}}</p>
+            <p>Numero de Factura : {{adquisicion.nro_factura}}</p>
+            <p>Costo de adquisiscion : {{adquisicion.costo_adquisicion}}</p>
+            <p>Fecha de adquisicion : {{adquisicion.fecha_adquisicion}}</p>
+        </mat-tab>
+        <mat-tab label="Detalle Movimientos">
+          Sin Accion.......
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card-content>
+  </mat-card>
+  </div>
 
-        <table>
-          <td><mat-card class="info"><mat-label>Nro. Nit Proveedor:</mat-label> {{adquisicion.nit}}</mat-card></td>&nbsp;&nbsp;
-        </table>
-    
-        <mat-card-actions>
-          <button mat-button>LIKE</button>
-          <button mat-button>SHARE</button>
-        </mat-card-actions>
-    </mat-card>
-    </div>
-    
-    <!--<img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">-->

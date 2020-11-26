@@ -1,38 +1,50 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskService } from '../../service/task.service'
+import { AuthService } from '../../service/auth.service'
 
-import { MatTableDataSource} from '@angular/material/table'
-//alertas de eliminar
 import Swal from 'sweetalert2';
 
 import { MatDialog } from '@angular/material/dialog';
 import { CrearSeccionComponent } from '../crear-seccion/crear-seccion.component'
+import {MatPaginator} from '@angular/material/paginator';
+import {AfterViewInit, ViewChild} from '@angular/core';
+import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
   selector: 'app-list-seccion',
   templateUrl: './list-seccion.component.html',
   styleUrls: ['./list-seccion.component.css']
 })
-export class ListSeccionComponent implements OnInit {
+export class ListSeccionComponent implements AfterViewInit,OnInit {
 
-  constructor(private taskService: TaskService,
+  constructor(public authService: AuthService,
+    private taskService: TaskService,
     public dialog:MatDialog) { }
 
-  ngOnInit(): void {
-    this.listSeccion()
-  }
-  dataSources = [];
-  displayedColumnss: string[] = ['cod_seccion','nombre_seccion','accion'];
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  listSeccion():void{
+  ngAfterViewInit() {
+    this.dataSources.paginator = this.paginator;
+  }
+
+  ngOnInit(): void {
     this.taskService.getTask()
     .subscribe(
       res => {
-        this.dataSources=res
+        this.dataSources.data=res
       },
-      err=> console.log(err)
+      err=>{ 
+        console.log(err)
+        if(err.status == 401){
+          this.authService.logoutUser()
+        }
+      }
     )
   }
+  dataSources = new MatTableDataSource();
+  displayedColumnss: string[] = ['cod_seccion','nombre_seccion','accion'];
+
+  
   eliminarS(seccion){
     Swal.fire({
       title:'Estas Seguro',
@@ -53,7 +65,11 @@ export class ListSeccionComponent implements OnInit {
         },
           err =>{
             console.log(err)
-            Swal.fire('Error', 'No se pudo eliminar', 'error')
+            if(err.status == 500){
+              Swal.fire('Error', 'No se puede eliminar, existe activos designados a esta sección', 'error')
+            }else{
+              Swal.fire('Error', 'No se pudo eliminar', 'error')
+            }
           }
         )
       }

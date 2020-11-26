@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   rol="";
   admin="admin";
   user="user";
-  cliente="cliente";
+  cliente="pm";
 
   loginUser={
     username:"",

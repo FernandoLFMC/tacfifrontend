@@ -3,17 +3,25 @@
         <mat-card class="mat-elevation-z8">
             <mat-card-title>Editar Seccion </mat-card-title> 
             <mat-card-content>
-                <div class="container">
+                <form [formGroup]="createTask" class="container">
+                    <div><mat-card class="info">
+                        <mat-label>Cod. de Seccion:  </mat-label> 
+                          {{createTask.value.cod_seccion}}
+                    </mat-card></div>
                     <mat-form-field>
-                        <input [(ngModel)]="editseccion.cod_seccion" matInput placeholder="Cod. seccion">
+                        <mat-label>Nombre de seccion</mat-label>
+                        <input formControlName="nombre_seccion" matInput maxlength="40" placeholder="Sistemas" required>
+                        <mat-error *ngIf="isValidField('nombre_seccion')">
+                            {{getErrorMessage("nombre_seccion")}} 
+                        </mat-error>
+                        <mat-hint  align="end">
+                            <mat-error *ngIf="nombre_seccion.invalid" >Introdusca datos</mat-error>
+                        </mat-hint>
                     </mat-form-field>
-                    <mat-form-field>
-                        <input [(ngModel)]="editseccion.nombre_seccion" matInput placeholder="SeccionNombre">
-                    </mat-form-field>
-                </div>
+                </form>
             </mat-card-content>
             <mat-card-actions>
-                <button (click)="edit()" class="button" mat-raised-button color="accent" [mat-dialog-close]="true">Editar</button>
+                <button (click)="edit()" class="button" mat-raised-button color="accent" [disabled]="!createTask.valid" [mat-dialog-close]="true">Editar</button>
             </mat-card-actions>
         </mat-card>
     </div>
@@ -23,18 +31,31 @@
         <mat-card class="mat-elevation-z8">
             <mat-card-title>Crear Seccion </mat-card-title> 
             <mat-card-content>
-                <div class="container">
+                <form [formGroup]="createTask" class="container">
                     <mat-form-field>
                         <mat-label>Cod. de Seccion</mat-label>
-                        <input type="text" [(ngModel)]="createTask.cod_seccion" maxlength="4" matInput placeholder="Ej. ' SIS ' (Mayusculas)">
+                        <input type="text" formControlName="cod_seccion" maxlength="4" matInput placeholder="Ej. ' SIS ' (Mayusculas)" required>
+                        <mat-error *ngIf="isValidField('cod_seccion')"> 
+                            {{getErrorMessage("cod_seccion")}} 
+                        </mat-error>
+                        <mat-hint  align="end">
+                            <mat-error *ngIf="cod_seccion.invalid" >Introdusca datos</mat-error>
+                        </mat-hint>
                     </mat-form-field>
                     <mat-form-field>
-                        <input [(ngModel)]="createTask.nombre_seccion" matInput placeholder="SeccionNombre">
+                        <mat-label>Nombre de seccion</mat-label>
+                        <input formControlName="nombre_seccion" matInput maxlength="40" placeholder="Sistemas" required>
+                        <mat-error *ngIf="isValidField('nombre_seccion')">
+                            {{getErrorMessage("nombre_seccion")}} 
+                        </mat-error>
+                        <mat-hint  align="end">
+                            <mat-error *ngIf="nombre_seccion.invalid" >Introdusca datos</mat-error>
+                        </mat-hint>
                     </mat-form-field>
-                </div>
+                </form>
             </mat-card-content>
             <mat-card-actions>
-                <button (click)="create()" class="button" mat-raised-button color="accent" [mat-dialog-close]="true">crear</button>
+                <button (click)="create()" class="button" mat-raised-button color="accent" [disabled]="!createTask.valid" [mat-dialog-close]="true">Crear</button>
             </mat-card-actions>
         </mat-card>
     </div>

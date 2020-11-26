@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { TaskService } from '../../service/task.service'
-import { MatTableDataSource} from '@angular/material/table'
+import { TaskService } from '../../service/task.service';
+import { MatTableDataSource} from '@angular/material/table';
+import { AuthService } from '../../service/auth.service';
 //alertas de eliminar
 import Swal from 'sweetalert2';
 
@@ -14,12 +15,13 @@ import { CrearFuncComponent } from '../crear-func/crear-func.component';
 })
 export class ListarFuncComponent implements OnInit {
 
-  constructor(private taskService:TaskService,
+  constructor(public authService: AuthService,
+    private taskService:TaskService,
     public dialog:MatDialog) { }
 
   dataSource = new MatTableDataSource();
 
-  displayedColumns: string[] = ['id_funcionario','cod_seccion','id_coop','id_profesion','ci','nombre','ap_paterno','ap_materno','cargo','accion'];
+  displayedColumns: string[] = ['id_funcionario','cod_seccion','id_coop','id_profesion','ci','nombre','ap_paterno','ap_materno','cargo','estado','accion'];
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -31,7 +33,12 @@ export class ListarFuncComponent implements OnInit {
       res => {
         this.dataSource.data= res
       },
-      err => console.log(err)
+      err => { 
+        console.log(err)
+        if(err.status == 401){
+          this.authService.logoutUser()
+        }
+      }
     )
     
   }
@@ -56,8 +63,11 @@ export class ListarFuncComponent implements OnInit {
             Swal.fire('Eliminado', 'Se ha eliminado corectamente', 'success')
           },
           err =>{
-            console.log(err)
-            Swal.fire('Error', 'No se pudo eliminar', 'error')
+            if(err.status == 500){
+              Swal.fire('Error', 'No se puede eliminar, Existe activos designados a este Funcionario', 'error')
+            }else{
+              Swal.fire('Error', 'No se pudo eliminar', 'error')
+            }
           }
         )
       }

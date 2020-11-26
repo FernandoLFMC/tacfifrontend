@@ -1,0 +1,84 @@
+<div *ngIf="data; else showNewForm">
+    <div class="form">
+        <mat-card class="card">
+            <mat-card-title>Editar Tipo de cuenta</mat-card-title> 
+
+            <mat-card-content>
+                <form [formGroup]="tipo_cuenta2" class="container">
+                    <div><mat-card class="info">
+                        <mat-label>Cod. de Cuenta:  </mat-label> 
+                          {{tipo_cuenta2.value.id_cuenta}}
+                    </mat-card></div>
+                    <div><mat-card class="info">
+                        <mat-label>Numero de tipo de cuenta:  </mat-label> 
+                          {{tipo_cuenta2.value.num}}
+                    </mat-card></div>
+                    <mat-form-field>
+                        <mat-label>Nombrede tipo de Cuenta</mat-label>
+                        <input formControlName="nombre" matInput maxlength="40" placeholder="Nombre de cuenta" required>
+                        <mat-error *ngIf="isValidField('nombre')">
+                            {{getErrorMessage("nombre")}} 
+                        </mat-error>
+                        <mat-hint  align="end">
+                            <mat-error *ngIf="tipo_cuenta2.value.nombre" >Introdusca datos</mat-error>
+                        </mat-hint>
+                    </mat-form-field>
+                </form>
+            </mat-card-content>
+            <mat-card-actions>
+                <button (click)="edit()" class="button" mat-raised-button color="accent" [disabled]="!tipo_cuenta2.valid" [mat-dialog-close]="true">Editar</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>
+<ng-template #showNewForm>
+    <div class="form">
+        <mat-card class="card">
+            <mat-card-title>Crear Tipo de cuenta</mat-card-title> 
+            <mat-card-content>
+                <form [formGroup]="tipo_cuenta" class="container">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Cod. de Cuenta</mat-label>
+                        <mat-select formControlName="id_cuenta" name="food">
+                            <mat-option *ngFor="let food of cuenta" [value]="food.id_cuenta">
+                                {{food.id_cuenta}} - {{food.descripcion_cuenta}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="isValidField('id_cuenta')"> 
+                            {{getErrorMessage("id_cuenta")}} 
+                        </mat-error>
+                        <mat-hint  align="end">
+                            <mat-error *ngIf="!tipo_cuenta.value.id_cuenta" >Introdusca datos</mat-error>
+                        </mat-hint>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Numero de Tipo de Cuenta</mat-label>
+                        <input formControlName="num" matInput maxlength="40" placeholder="Ej. 1000" required>
+                        <mat-button mat-icon-button matSuffix>
+                            <mat-icon (click)="generar()">input</mat-icon>
+                        </mat-button>
+                        <mat-error *ngIf="isValidField('num')">
+                            {{getErrorMessage("num")}} 
+                        </mat-error>
+                        <mat-hint  align="end">
+                            <mat-error *ngIf="tipo_cuenta.value.num" >{{comprobar(tipo_cuenta.value.num)}}</mat-error>
+                        </mat-hint>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Nombre de Tipo de Cuenta</mat-label>
+                        <input formControlName="nombre" matInput maxlength="40" placeholder="Nombre de tipo de cuenta" required>
+                        <mat-error *ngIf="isValidField('nombre')">
+                            {{getErrorMessage("nombre")}} 
+                        </mat-error>
+                        <mat-hint  align="end">
+                            <mat-error *ngIf="tipo_cuenta.value.nombre" >Introdusca datos</mat-error>
+                        </mat-hint>
+                    </mat-form-field>
+                </form>
+            </mat-card-content>
+            <mat-card-actions>
+                <button (click)="create()" class="button" mat-raised-button color="accent" [disabled]="!tipo_cuenta.valid" [mat-dialog-close]="true">Crear</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</ng-template>

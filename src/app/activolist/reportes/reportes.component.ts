@@ -30,7 +30,7 @@ export class ReportesComponent implements OnInit {
 
     dataSource = new MatTableDataSource();
     dataSources = new MatTableDataSource();
-    displayedColumns: string[] = ['cuenta','coop','cod_tipo','seccion','funcionario','nombre_tipo','descripcion','estado'];
+    displayedColumns: string[] = ['codigo','seccion','funcionario','nombre_tipo','descripcion','estado'];
 
     report: string="todos"
     tipo: string="todos"
@@ -67,7 +67,6 @@ export class ReportesComponent implements OnInit {
           }
         }
       }
-      console.log('return',resultPost)
       return resultPost;
     }
 
@@ -76,8 +75,9 @@ export class ReportesComponent implements OnInit {
       for(const post of activos){
         const listactivo={
           cuenta:"",
-          coop:"",
-          cod_tipo:"",
+          codigo:"",
+          //coop:"",
+          //cod_tipo:"",
           seccion:"",
           funcionario:"",
           nombre_tipo:"",
@@ -86,37 +86,38 @@ export class ReportesComponent implements OnInit {
           verificar:""
         }
         listactivo.cuenta=post.id_cuenta;
-        listactivo.coop=post.id_coop;
-        listactivo.cod_tipo=post.cod_tipo;
+        listactivo.codigo=post.id_cuenta+'-'+post.id_coop+'-'+post.cod_tipo;
+        //listactivo.coop=post.id_coop;
+        //listactivo.cod_tipo=post.cod_tipo;
         listactivo.seccion=post.cod_seccion;
         listactivo.funcionario=post.id_funcionario;
         listactivo.nombre_tipo=post.nombre_tipo;
         listactivo.estado=post.estado_op_nop;
         listactivo.verificar='O'
         if(post.id_cuenta==173){
-          listactivo.descripcion='Color: '+post.mobiliarioenseres.color +' Material: '+post.mobiliarioenseres.color+' Descripcion: '+post.descripcion;
+          listactivo.descripcion='Color: '+post.mobiliarioenseres.color+', '+' Material: '+post.mobiliarioenseres.material+' Descripcion: '+post.descripcion;
         }else{
           if(post.id_cuenta==171){
-            listactivo.descripcion='Ciudad: '+post.terrenos.ciudad+' Cod. Catastro: '+post.terrenos.cod_catastro+' Departamento: '+post.terrenos.departamento
-            +' Direccion: '+post.terrenos.direccion+' Matricula DDRR: '+post.terrenos.matricula_ddrr+' Propietario: '+post.terrenos.propietario
-            +' Superficie: '+post.terrenos.superficie+' Descripcion: '+post.descripcion;
+            listactivo.descripcion='Ciudad: '+post.terrenos.ciudad+', '+' Cod. Catastro: '+post.terrenos.cod_catastro+', '+' Departamento: '+post.terrenos.departamento
+            +', '+' Direccion: '+post.terrenos.direccion+', '+' Matricula DDRR: '+post.terrenos.matricula_ddrr+', '+' Propietario: '+post.terrenos.propietario
+            +', '+' Superficie: '+post.terrenos.superficie+', '+' Descripcion: '+post.descripcion;
           }else{
             if(post.id_cuenta==172){
-              listactivo.descripcion='Ciudad: '+post.edificios.ciudad+' Cod. Catastro: '+post.edificios.cod_catastro+' Departamento: '+post.edificios.departamento
-              +' Direccion: '+post.edificios.direccion+' Matricula DDRR: '+post.edificios.matricula_ddrr+' Propietario: '+post.edificios.propietario
-              +' Superficie: '+post.edificios.superficie+' Descripcion: '+post.descripcion;
+              listactivo.descripcion='Ciudad: '+post.edificios.ciudad+', '+' Cod. Catastro: '+post.edificios.cod_catastro+', '+' Departamento: '+post.edificios.departamento
+              +', '+' Direccion: '+post.edificios.direccion+', '+' Matricula DDRR: '+post.edificios.matricula_ddrr+', '+' Propietario: '+post.edificios.propietario
+              +', '+' Superficie: '+post.edificios.superficie+', '+' Descripcion: '+post.descripcion;
             }else{
               if(post.id_cuenta==174){
-                listactivo.descripcion='Color: '+post.equiposinstalacion.color +' Industria: '+post.equiposinstalacion.industria+' Marca: '+post.equiposinstalacion.marca
-                +' Modelo: '+post.equiposinstalacion.modelo+' Nro. Serie: '+post.equiposinstalacion.nro_serial+' Tipo: '+post.equiposinstalacion.tipo+' descripcion: '+post.descripcion;
+                listactivo.descripcion='Color: '+post.equiposinstalacion.color +', '+' Industria: '+post.equiposinstalacion.industria+', '+' Marca: '+post.equiposinstalacion.marca
+                +', '+' Modelo: '+post.equiposinstalacion.modelo+', '+' Nro. Serie: '+post.equiposinstalacion.nro_serial+', '+' Tipo: '+post.equiposinstalacion.tipo+', '+' descripcion: '+post.descripcion;
               }else{
                 if(post.id_cuenta==175){
-                  listactivo.descripcion='Color: '+post.equiposcomputacion.color +' Industria: '+post.equiposcomputacion.industria+' Marca: '+post.equiposcomputacion.marca
-                  +' Nro. Serie: '+post.equiposcomputacion.nro_serial+' Tipo: '+post.equiposcomputacion.tipo+' Descripcion: '+post.descripcion;
+                  listactivo.descripcion='Color: '+ post.equiposcomputacion.color +', '+' Industria: '+ post.equiposcomputacion.industria+', '+' Marca: '+post.equiposcomputacion.marca
+                  +', '+' Nro. Serie: '+post.equiposcomputacion.nro_serial+', '+' Tipo: '+post.equiposcomputacion.tipo+', '+' Descripcion: '+post.descripcion;
                 }else{
                   if(post.id_cuenta==176){
-                    listactivo.descripcion='Color: '+post.vehiculos.color +' Marca: '+post.vehiculos.marca+' Modelo: '+post.vehiculos.modelo+' Nro. placa: '+post.vehiculos.nro_placa+' Nro. chasis: '+post.vehiculos.nro_chasis
-                    +' Nro. motor: '+post.vehiculos.nro_motor+' Ruat: '+post.vehiculos.ruat+' Tipo: '+post.vehiculos.tipo+' Descripcion: '+post.descripcion;
+                    listactivo.descripcion='Color: '+post.vehiculos.color +', '+' Marca: '+post.vehiculos.marca+', '+' Modelo: '+post.vehiculos.modelo+', '+' Nro. placa: '+post.vehiculos.nro_placa+', '+' Nro. chasis: '+post.vehiculos.nro_chasis
+                    +', '+' Nro. motor: '+post.vehiculos.nro_motor+', '+' Ruat: '+post.vehiculos.ruat+', '+' Tipo: '+post.vehiculos.tipo+', '+' Descripcion: '+post.descripcion;
                   }else{
                     listactivo.descripcion=post.descripcion;
                   }
@@ -129,8 +130,6 @@ export class ReportesComponent implements OnInit {
       }
       this.dataSource.data=resultActivos;
       this.dataSources.data=resultActivos;
-      console.log('result activos', this.dataSource.data)
-      return resultActivos
     }
   
     seccion:[]
@@ -160,7 +159,6 @@ export class ReportesComponent implements OnInit {
       res => {
         //this.dataSource.data=res
         this.activos=res
-        console.log('respons list activo',this.activos)//this.dataSource.data)
         this.combertir(this.activos)
       },
       err=>{
@@ -172,8 +170,29 @@ export class ReportesComponent implements OnInit {
     )
   }
 
-  exportAsXLSX(): void{
-    this.excelService.exportToExcel(this.dataSources.data, 'my_export')
+  exportAsXLSX(value: any): void{
+    const resultActivos=[]
+    for(const post of value){
+      const listactivo={
+        codigo:"",
+        seccion:"",
+        funcionario:"",
+        nombre_tipo:"",
+        descripcion:"",
+        estado:"",
+        verificar:""
+      }
+      listactivo.codigo=post.codigo;
+      listactivo.seccion=post.seccion;
+      listactivo.funcionario=post.funcionario;
+      listactivo.nombre_tipo=post.nombre_tipo;
+      listactivo.descripcion=post.descripcion;
+      listactivo.estado=post.estado;
+      listactivo.verificar='O'
+
+      resultActivos.push(listactivo);
+    }
+    this.excelService.exportToExcel(resultActivos, 'my_export')
   }
   
 }
