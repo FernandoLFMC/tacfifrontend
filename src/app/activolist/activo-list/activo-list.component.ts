@@ -58,7 +58,7 @@ export class ActivoListComponent implements OnInit {
     return resultPost;
   }
 
-  displayedColumns: string[] = ['id_activo','codigo','seccion','funcionario','nombre_tipo','descripcion',
+  displayedColumns: string[] = [/*'id_activo',*/'codigo','seccion','funcionario','nombre_tipo','descripcion',
   'unidad','estado','detalles','mover','editar','eliminar'];
 
 
@@ -71,7 +71,6 @@ export class ActivoListComponent implements OnInit {
     this.activoService.getactivo()
     .subscribe(
       res => {
-        console.log('res serv activo',res)
         this.combertir(res)
       },
       err=>{
@@ -83,14 +82,12 @@ export class ActivoListComponent implements OnInit {
     )
     this.taskservice.getTask()
       .subscribe(
-        res=>{console.log('res seccion', res)
-         this.seccion=res},
+        res=>{this.seccion=res},
           err=> console.log(err)
       )
     this.taskservice.listfuncionario()
       .subscribe(
-        res=>{console.log('res funcionario', res)
-          this.funcionario=res},
+        res=>{this.funcionario=res},
         err=>console.log(err)
       )
     this.taskservice.listarcuenta()
@@ -119,28 +116,28 @@ export class ActivoListComponent implements OnInit {
       listactivo.nombre_tipo=post.nombre_tipo;
       listactivo.estado=post.estado_op_nop;
       listactivo.unidad=post.unidad;
-      if(post.id_cuenta==173){
+      if(post.id_cuenta==173 && post.mobiliarioenseres){
         listactivo.descripcion='Color: '+post.mobiliarioenseres.color+', '+' Material: '+post.mobiliarioenseres.material+' Descripcion: '+post.descripcion;
       }else{
-        if(post.id_cuenta==171){
+        if(post.id_cuenta==171 && post.terrenos){
           listactivo.descripcion='Ciudad: '+post.terrenos.ciudad+', '+' Cod. Catastro: '+post.terrenos.cod_catastro+', '+' Departamento: '+post.terrenos.departamento
           +', '+' Direccion: '+post.terrenos.direccion+', '+' Matricula DDRR: '+post.terrenos.matricula_ddrr+', '+' Propietario: '+post.terrenos.propietario
           +', '+' Superficie: '+post.terrenos.superficie+', '+' Descripcion: '+post.descripcion;
         }else{
-          if(post.id_cuenta==172){
+          if(post.id_cuenta==172 && post.edificios){
             listactivo.descripcion='Ciudad: '+post.edificios.ciudad+', '+' Cod. Catastro: '+post.edificios.cod_catastro+', '+' Departamento: '+post.edificios.departamento
             +', '+' Direccion: '+post.edificios.direccion+', '+' Matricula DDRR: '+post.edificios.matricula_ddrr+', '+' Propietario: '+post.edificios.propietario
             +', '+' Superficie: '+post.edificios.superficie+', '+' Descripcion: '+post.descripcion;
           }else{
-            if(post.id_cuenta==174){
+            if(post.id_cuenta==174 && post.equiposinstalacion){
               listactivo.descripcion='Color: '+post.equiposinstalacion.color +', '+' Industria: '+post.equiposinstalacion.industria+', '+' Marca: '+post.equiposinstalacion.marca
               +', '+' Modelo: '+post.equiposinstalacion.modelo+', '+' Nro. Serie: '+post.equiposinstalacion.nro_serial+', '+' Tipo: '+post.equiposinstalacion.tipo+', '+' descripcion: '+post.descripcion;
             }else{
-              if(post.id_cuenta==175){
+              if(post.id_cuenta==175 && post.equiposcomputacion){
                 listactivo.descripcion='Color: '+ post.equiposcomputacion.color +', '+' Industria: '+ post.equiposcomputacion.industria+', '+' Marca: '+post.equiposcomputacion.marca
                 +', '+' Nro. Serie: '+post.equiposcomputacion.nro_serial+', '+' Tipo: '+post.equiposcomputacion.tipo+', '+' Descripcion: '+post.descripcion;
               }else{
-                if(post.id_cuenta==176){
+                if(post.id_cuenta==176 && post.vehiculos){
                   listactivo.descripcion='Color: '+post.vehiculos.color +', '+' Marca: '+post.vehiculos.marca+', '+' Modelo: '+post.vehiculos.modelo+', '+' Nro. placa: '+post.vehiculos.nro_placa+', '+' Nro. chasis: '+post.vehiculos.nro_chasis
                   +', '+' Nro. motor: '+post.vehiculos.nro_motor+', '+' Ruat: '+post.vehiculos.ruat+', '+' Tipo: '+post.vehiculos.tipo+', '+' Descripcion: '+post.descripcion;
                 }else{
@@ -158,10 +155,11 @@ export class ActivoListComponent implements OnInit {
   }
 
 
-  editar(id, cod){
+  editar(row, cod){
     if ((typeof cod === 'string') && (cod.indexOf('-') > -1)){
       const str = cod.split('-');
       const cuenta : string=str[0];
+      const id:number =row.id_activo
       if(cuenta=="171"){
         this.router.navigate(['/terrenos-new', id])
       }else{
@@ -179,6 +177,10 @@ export class ActivoListComponent implements OnInit {
             }else{
               if(cuenta=="176"){
                 this.router.navigate(['vehiculos-new', id])
+              }else{
+                if(cuenta > "176"){
+                  this.router.navigate(['/otrosedit-new',id])
+                }
               }
             }
           }
@@ -187,53 +189,7 @@ export class ActivoListComponent implements OnInit {
       }
     }
   }
-  /**
-   * path: 'terrenos-new/:id',
-    component: TerrenosNewComponent
-  },
-  {
-    path: 'edificios-new',
-    component: EdificiosNewComponent
-  },
-  {
-    path: 'edificios-new/:id',
-    component: EdificiosNewComponent
-  },
-  {
-    path: 'moviliario-new',
-    component: MoviliarioNewComponent
-  },
-  {
-    path: 'moviliario-new/:id',
-    component: MoviliarioNewComponent
-  },
-  {
-    path: 'instalacion-new',
-    component: InstalacionNewComponent
-  },
-  {
-    path: 'instalacion-new/:id',
-    component: InstalacionNewComponent
-  },
-  {
-    path: 'computacion-new',
-    component: ComputacionNewComponent
-  },
-  {
-    path: 'computacion-new/:id',
-    component: ComputacionNewComponent
-  },
-  {
-    path: 'vehiculos-new',
-    component: VehiculosNewComponent
-  },
-  {
-    path: 'vehiculos-new/:id',
-    component: VehiculosNewComponent
-  },
-  {
-    path: 'otros-new/:id',
-   */
+
   eliminar(element){
     Swal.fire({
       title:'Estas Seguro',
@@ -245,12 +201,10 @@ export class ActivoListComponent implements OnInit {
       confirmButtonText: 'SI, Eliminar!'
     }).then(result =>{
       if(result.value){
-        console.log('delete', element);
         this.activoService.deleteactivo(element)
         .subscribe(
           res =>{ 
             this.ngOnInit()
-            console.log(res)
             Swal.fire('Eliminado', 'Se ha eliminado corectamente', 'success')
           },
           err =>{
@@ -265,29 +219,6 @@ export class ActivoListComponent implements OnInit {
     const id:number = detail.id_activo
     const cuenta:number=detail.id_cuenta
     this.openDialog(id)
-    /*if(cuenta==171){
-      this.router.navigate(['/lista-terrenos', id])
-    }else{
-      if(cuenta==172){
-        this.router.navigate(['/lista-edificios', id])
-      }else{
-        if(cuenta==173){
-          this.router.navigate(['/lista-moviliario', id])
-        }else{
-          if(cuenta==174){
-            this.router.navigate(['/lista-instalacion', id])
-          }else{
-            if(cuenta==175){
-              this.router.navigate(['/lista-computacion', id])
-            }else{
-              if(cuenta==176){
-                this.router.navigate(['/lista-vehiculos', id])
-              }
-            }
-          }
-        }
-      }
-    }*/
   }
   mover(mover){
     console.log('mover id',mover)
@@ -324,7 +255,5 @@ export class ActivoListComponent implements OnInit {
        console.log(`Dialog result ${res}`);
      }
    )
- }
-
-
+  }
 }

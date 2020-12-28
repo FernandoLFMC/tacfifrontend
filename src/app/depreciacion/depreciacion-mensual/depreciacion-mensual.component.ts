@@ -6,6 +6,9 @@ import {MatSort} from '@angular/material/sort';
 
 import { ActivoService } from '../../service/activo.service';
 import { AuthService } from '../../service/auth.service';
+import { ExportxlsxService } from '../../service/exportxlsx.service';
+
+import { PdfMakeWrapper, Txt, Img, Canvas, Polyline, Table, Columns, Ul, Ol, Item, Cell } from 'pdfmake-wrapper';
 
 @Component({
   selector: 'app-depreciacion-mensual',
@@ -21,6 +24,7 @@ export class DepreciacionMensualComponent implements OnInit {
   }
 
   constructor(public authService: AuthService,
+    private excelService: ExportxlsxService,
     private activoService: ActivoService) { }
 
 
@@ -48,14 +52,6 @@ export class DepreciacionMensualComponent implements OnInit {
       }
     )
   }
-
-  datos_entrada=[
-    {
-      fechainicial:"2020-01-15",
-      precioinicial:1514,
-      vida_util_meses:120
-    }
-  ]
 
   meses =[
     {num: 1, mes:"Jan", day:"31", mesantes:12, dayantes:"31"},
@@ -105,7 +101,7 @@ export class DepreciacionMensualComponent implements OnInit {
     const resultdepre=[]
     this.parse()
     for(const post of value){
-      if(post.adquisicion_activo.fecha_adquisicion && post.adquisicion_activo.costo_adquisicion){
+      if(post.adquisicion_activo.costo_adquisicion){
         var yearinit=0
         var monthinit=0
         var dayinit=0
@@ -172,8 +168,8 @@ export class DepreciacionMensualComponent implements OnInit {
             }
           }
         }
-        if(post.id_cuenta == 171 || post.sujeto_depreciacion == "No" || !post.vida_util){
-          console.log('no hay fecha',post.id_activo, resdepre.codigo, resdepre.area)
+        if(post.id_cuenta == 171 || post.sujeto_depreciacion == "No" || !post.vida_util || !post.adquisicion_activo.fecha_adquisicion){
+          resdepre.valor_neto=post.adquisicion_activo.costo_adquisicion
         }else{
           //Calculo de fecha de adquisicion
           if ((typeof post.adquisicion_activo.fecha_adquisicion === 'string') && (post.adquisicion_activo.fecha_adquisicion.indexOf('-') > -1)) {
@@ -236,16 +232,19 @@ export class DepreciacionMensualComponent implements OnInit {
             resdepre.depreciacion_mensual=0
           }else{
             resdepre.meses_faltantes=mes_falta
-            resdepre.depreciacion_mensual=(post.adquisicion_activo.costo_adquisicion)/post.vida_util;
-            resdepre.depreciacion_mensual=Math.round(resdepre.depreciacion_mensual*100)/100;
           }
 
           //calculo de de los 
           resdepre.valor_anterior=post.adquisicion_activo.costo_adquisicion - 1;
-          const precio=((resdepre.valor_anterior/post.vida_util)*resdepre.meses_faltantes);
-          resdepre.gasto_al=Math.round(precio*100)/100;
-          resdepre.valor_acumulado=(post.adquisicion_activo.costo_adquisicion-1)-resdepre.gasto_al;
-          resdepre.valor_acumulado=Math.round(resdepre.valor_acumulado*100)/100;
+          if(this.fechacalcular.year >= añovencimiento && this.fechacalcular.month > mesvencimiento ){
+            resdepre.depreciacion_mensual=(post.adquisicion_activo.costo_adquisicion)/post.vida_util;
+            resdepre.depreciacion_mensual=Math.round(resdepre.depreciacion_mensual*100)/100;
+            const precio=((resdepre.valor_anterior/post.vida_util)*resdepre.meses_faltantes);
+            resdepre.gasto_al=Math.round(precio*100)/100;
+            resdepre.valor_acumulado=(post.adquisicion_activo.costo_adquisicion-1)-resdepre.gasto_al;
+            resdepre.valor_acumulado=Math.round(resdepre.valor_acumulado*100)/100;
+            
+          }
           var a=post.adquisicion_activo.costo_adquisicion - resdepre.valor_acumulado;
           resdepre.valor_neto=Math.round(a*100)/100;
         }
@@ -256,6 +255,80 @@ export class DepreciacionMensualComponent implements OnInit {
       
     }
     this.dataSource.data=resultdepre
-    console.log('resultado',this.dataSource.data)
+    
+  }
+
+
+  exportExcel(){
+    this.excelService.exportToExcel(this.dataSource.data, 'my_export_depreciacion')
+  }
+
+  exportPDF(){
+    var depre_mes=0;
+    var prec_inicial=0;
+    var val_anterio=0;
+    var val_acumlado=0;
+    var val_neto=0;
+    this.dataSource.data.forEach(function(elemento, indice) {
+      if(elemento["depreciacion_mensual"]){
+        depre_mes += elemento["depreciacion_mensual"];
+      }
+    });
+    
+    this.dataSource.data.forEach(function(elemento, indice) {
+      prec_inicial += elemento["precio_inicial"];
+    });
+    this.dataSource.data.forEach(function(elemento, indice) {
+      val_anterio += elemento["valor_anterior"];
+    });
+    this.dataSource.data.forEach(function(elemento, indice) {
+      val_acumlado += elemento["valor_acumulado"];
+    });
+    this.dataSource.data.forEach(function(elemento, indice) {
+      val_neto += elemento["valor_neto"];
+    });
+    const pdfMake = new PdfMakeWrapper();
+    pdfMake.pageSize('A4')
+    pdfMake.pageOrientation('landscape')
+    pdfMake.add( new Txt('Depreciacion Mensual a fecha '+ this.fecha).fontSize(16).alignment('center').italics().bold().end)
+    pdfMake.add(pdfMake.ln(1))
+    pdfMake.add(this.createTable(this.dataSource.data))
+    pdfMake.add(pdfMake.ln(1))
+    pdfMake.add( new Txt('Total Depreciacion Mensual = '+depre_mes).fontSize(12).alignment('justify').italics().bold().end)
+    pdfMake.add(pdfMake.ln(1))
+    pdfMake.add( new Txt('Total Precio Inicial = '+prec_inicial).fontSize(12).alignment('justify').italics().bold().end)
+    pdfMake.add(pdfMake.ln(1))
+    pdfMake.add( new Txt('Total Valor Anterior = '+val_anterio).fontSize(12).alignment('justify').italics().bold().end)
+    pdfMake.add(pdfMake.ln(1))
+    pdfMake.add( new Txt('Total Valor Acumulado = '+val_acumlado).fontSize(12).alignment('justify').italics().bold().end)
+    pdfMake.add(pdfMake.ln(1))
+    pdfMake.add( new Txt('Total Valor Neto = '+ val_neto).fontSize(12).alignment('justify').italics().bold().end)
+    pdfMake.create().open();
+  }
+  createTable(data: any){
+    [{}]
+    return new Table([
+      ['Codigo', 'Area', 'Nomb. tipo', 'Descripcion', 'Vida util', 'Sujeto Depr..', 'Fecha Adquicicion','Fecha de inicio','Fecha vencimiento', 'Meses Trans..', 'Meses Faltantes','Precio Adqui..', 'Valor anterior', 'Depre.. mensual', 'gasto al '+this.fecha, 'Valor Acumulado', 'Valor Neto'],
+      //[1,1, 'Hola', true],
+      ...this.extractData(data),
+    ])
+    .fontSize(6)
+    .alignment('justify')
+    .heights(rowIndex =>{
+      return rowIndex === 0 ? 20 : 0;
+    })
+    .layout({
+      fillColor:(rowIndex: number, node: any, columnIndex: number)=>{
+        return rowIndex === 0 ? '#CCCCCC': '';
+      },
+    })
+    .end;
+  }
+  extractData(data){
+    return data.map(row => [row.codigo, row.area, row.nombre_tipo, row.descripcion, row.vida_util,
+       row.sujeto_depreciacion, row.fecha_adqui, row.fecha_inicio, row.fecha_vencimiento, row.meses_transcurridos
+       , row.meses_faltantes, row.precio_inicial, row.valor_anterior, row.depreciacion_mensual, row.gasto_al
+       , row.valor_acumulado, row.valor_neto]);
+       
   }
 }

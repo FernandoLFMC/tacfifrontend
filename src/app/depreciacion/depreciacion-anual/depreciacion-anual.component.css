@@ -1,0 +1,29 @@
+.row{
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+table {
+    width: 90%;
+    justify-content: center;
+    align-items: center
+}
+
+mat-paginator{
+    width: 90%;
+}
+.title{
+    width: 90%;
+    display: -webkit-box;
+    justify-content: center;
+    align-content: center;
+    padding: 10px;
+}
+h2{
+    padding: 10px;
+}
+.titulo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

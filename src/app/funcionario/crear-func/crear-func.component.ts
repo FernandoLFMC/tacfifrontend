@@ -74,7 +74,8 @@ export class CrearFuncComponent implements OnInit {
   ngOnInit(): void {
     this.taskService.getTask()
     .subscribe(
-      res=>this.seccion=res,
+      res=>{res.sort(function (a, b) {return a.cod_seccion.localeCompare(b.cod_seccion);});
+        this.seccion=res},
       err=> console.log(err)
     )
     this.taskService.listprofes()

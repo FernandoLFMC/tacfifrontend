@@ -21,6 +21,7 @@ import { InstalacionNewComponent } from './activonew/instalacion-new/instalacion
 import { ComputacionNewComponent } from './activonew/computacion-new/computacion-new.component'
 import { VehiculosNewComponent } from './activonew/vehiculos-new/vehiculos-new.component'
 import { OtrosNewComponent } from './activonew/otros-new/otros-new.component'
+import { OtroseditNewComponent } from './activonew/otrosedit-new/otrosedit-new.component'
 
 import { TerrenosListComponent } from './activolist/terrenos-list/terrenos-list.component'
 
@@ -50,7 +51,7 @@ const routes: Routes = [
   {
     path: 'tasks',
     component: ListTaskComponent,
-    canActivate: [AuthGuard]
+    //canActivate: [AuthGuard]
   },
   {
     path:'create',
@@ -174,6 +175,10 @@ const routes: Routes = [
   {
     path: 'otros-new/:id',
     component: OtrosNewComponent
+  },
+  {
+    path: 'otrosedit-new/:id',
+    component: OtroseditNewComponent
   },
   //lista de componentes
   {

@@ -30,7 +30,7 @@ export class ListarFuncComponent implements OnInit {
   ngOnInit(): void {
     this.taskService.listfuncionario()
     .subscribe(
-      res => {
+      res => {res.sort(function (a, b) {return a.id_funcionario - b.id_funcionario;});
         this.dataSource.data= res
       },
       err => { 

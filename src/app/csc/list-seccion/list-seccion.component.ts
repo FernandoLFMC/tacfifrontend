@@ -30,7 +30,7 @@ export class ListSeccionComponent implements AfterViewInit,OnInit {
   ngOnInit(): void {
     this.taskService.getTask()
     .subscribe(
-      res => {
+      res => {res.sort(function (a, b) {return a.cod_seccion.localeCompare(b.cod_seccion);});
         this.dataSources.data=res
       },
       err=>{ 

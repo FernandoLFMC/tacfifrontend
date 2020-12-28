@@ -28,6 +28,7 @@ export class ActivoService {
   private infoactivoUrl= "http://localhost:8080/api/v1/infoactivo"
   private infoactiUrl= "http://localhost:8080/api/v1/info_activo"
   
+  private subirImageUrl = "http://localhost:8080/api/v1/activo/upload"
 
 
   getactivo(){
@@ -50,6 +51,15 @@ export class ActivoService {
     const id =activo.id_activo
     const url = `${this.activoUrl}/${id}`
     return this.http.put<any>(url, activo)
+  }
+
+  //para el servicio de imagenes
+  SubirImage(archivo: File, id){
+    let formData=new FormData();
+    formData.append("archivo", archivo);
+    formData.append("id", id);
+    return this.http.post<any>(this.subirImageUrl, formData)
+
   }
   
 

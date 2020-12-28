@@ -95,3 +95,30 @@ mat-form-field{
 .cartta{
   background-color: #ccf5cc; 
 }
+
+input[type='file']{
+  display: none;
+}
+.custom-file{
+  width: 120%;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  display: inline-block;
+  background: rgb(0 123 255 / 62%);
+}
+.title{
+  display: inline-flex;
+  width: 95%;
+  justify-content: center;
+  align-items: center;
+  margin: -5px 0 5px 0rem;
+}
+.spacer {
+  flex: 1 0 auto;
+}
+mat-icon{
+  vertical-align: text-bottom;
+}
+.name{
+  font-family: cursive;
+}

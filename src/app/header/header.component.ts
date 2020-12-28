@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../service/auth.service'
 import { Router, ActivatedRoute } from '@angular/router'
-import { TaskService } from '../service/task.service'
+import { TaskService } from '../service/task.service';
 
 
 @Component({
@@ -21,9 +21,13 @@ export class HeaderComponent implements OnInit {
     this.taskservice.listarcuenta()
     .subscribe(
       res=>this.cuenta=res,
-      err=>console.log('err serv cuenta', err)
+      err=>{
+        console.log(err)
+        if(err.status == 401){
+          this.authService.logoutUser()
+        }
+      }
     )
-    
   }
 
   listaactivo(){

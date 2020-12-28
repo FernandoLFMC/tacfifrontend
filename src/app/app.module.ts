@@ -82,10 +82,11 @@ import { DepreciacionAnualComponent } from './depreciacion/depreciacion-anual/de
 import { DepreciacionMensualComponent } from './depreciacion/depreciacion-mensual/depreciacion-mensual.component';
 import { ListTipoCuentaComponent } from './csc/list-tipo-cuenta/list-tipo-cuenta.component';
 import { CrearTipoCuentaComponent } from './csc/crear-tipo-cuenta/crear-tipo-cuenta.component';
+import { OtroseditNewComponent } from './activonew/otrosedit-new/otrosedit-new.component';
 
-
-
-
+import { PdfMakeWrapper } from 'pdfmake-wrapper';
+import pdfFonts from "pdfmake/build/vfs_fonts";
+PdfMakeWrapper.setFonts(pdfFonts);
 
 @NgModule({
   declarations: [
@@ -131,7 +132,8 @@ import { CrearTipoCuentaComponent } from './csc/crear-tipo-cuenta/crear-tipo-cue
     DepreciacionAnualComponent,
     DepreciacionMensualComponent,
     ListTipoCuentaComponent,
-    CrearTipoCuentaComponent
+    CrearTipoCuentaComponent,
+    OtroseditNewComponent
   ],
   imports: [
     BrowserModule,

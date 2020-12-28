@@ -17,7 +17,7 @@ export class UserListComponent implements OnInit {
     private authserv:AuthService) { }
 
   dataSource = new MatTableDataSource();
-  displayedColumns: string[] = ['id_funcionario','username','password','role','accion'];
+  displayedColumns: string[] = ['id_funcionario','username','password','accion'];
 
   ngOnInit(): void {
     this.authserv.listuser()

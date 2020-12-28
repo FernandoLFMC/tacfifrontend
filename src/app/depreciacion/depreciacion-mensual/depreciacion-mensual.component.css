@@ -12,3 +12,19 @@ table {
 mat-paginator{
     width: 90%;
 }
+.title{
+    width: 90%;
+    display: -webkit-box;
+    justify-content: center;
+    align-content: center;
+    padding: 10px;
+}
+h2{
+    padding: 10px;
+}
+
+.titulo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

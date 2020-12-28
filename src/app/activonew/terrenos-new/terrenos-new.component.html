@@ -13,7 +13,16 @@
             <mat-tab label="PASO 1"><div class="labels">
                 <mat-card class="mat-elevation-z3">
                     <form [formGroup]="activo">
-                        <h5>Cod. cuenta {{activo.value.id_cuenta}}</h5>
+                        <div class="title">
+                            <h4>Cod. cuenta {{activo.value.id_cuenta}}</h4>
+                            <span class="spacer"></span>
+                            <div class="container-input-file">
+                                <label class="custom-file">
+                                    <input type="file" formControlName="imagen" (change)="HandleImage($event)" />
+                                    &nbsp;&nbsp;<mat-icon>cloud_upload</mat-icon>&nbsp;&nbsp;&nbsp;<span class="name">SELECCIONAR IMAGEN</span>
+                                </label>
+                            </div>
+                        </div>
                         <table class="example-full-width" cellspacing="0"><tr>
                             <td *ngIf="!id"><mat-form-field appearance="fill">
                                 <mat-label>Nombre de tipo</mat-label>
@@ -112,10 +121,7 @@
                             </mat-form-field></td>
                             <td><mat-form-field appearance="fill">
                                 <mat-label>Vida util en meses</mat-label>
-                                <input type="number" formControlName="vida_util" matInput required>
-                                <mat-error *ngIf="isValidField('vida_util')"> 
-                                    {{getErrorMessage("vida_util")}} 
-                                </mat-error>
+                                <input type="number" formControlName="vida_util" matInput >
                             </mat-form-field></td>
                             <td><mat-form-field appearance="fill">
                                 <mat-label>Estado</mat-label>
@@ -233,39 +239,39 @@
                                         </mat-hint>
                                 </mat-form-field></td>
                                 <td><mat-form-field appearance="fill">
-                                        <mat-label>Comprovante contable </mat-label>
-                                        <input type="number" formControlName="comprobante_contable" matInput placeholder="Ej. 1234" required>
-                                        <mat-error *ngIf="isValidFieldss('comprobante_contable')"> 
-                                            {{getErrorMessagess("comprobante_contable")}} 
-                                        </mat-error>
-                                        <mat-hint  align="end">
-                                            <mat-error *ngIf="!adquisicion.value.comprobante_contable" >Introdusca datos</mat-error>
-                                        </mat-hint>
-                                </mat-form-field></td>
-                                <td>
-                                    <mat-form-field appearance="fill" >
-                                        <mat-label>Fecha Adquisicion</mat-label>
-                                        <input matInput [matDatepicker]="picker" formControlName="fecha_adquisicion" required>
-                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                        <mat-datepicker #picker></mat-datepicker>
-                                        <mat-error *ngIf="isValidFieldss('fecha_adquisicion')"> 
-                                            {{getErrorMessagess("fecha_adquisicion")}} 
-                                        </mat-error>
-                                        <mat-hint  align="end">
-                                            <mat-error *ngIf="!adquisicion.value.fecha_adquisicion" >Introdusca datos</mat-error>
-                                        </mat-hint>
-                                    </mat-form-field>
-                                </td>
-                                <td><mat-form-field appearance="fill">
-                                        <mat-label>Costo de adquicicion (Bs.)</mat-label>
-                                        <input type="number" formControlName="costo_adquisicion" matInput placeholder="Ej. 1234">
-                                        <mat-error *ngIf="isValidFieldss('costo_adquisicion')"> 
-                                            {{getErrorMessagess("costo_adquisicion")}} 
-                                        </mat-error>
-                                        <mat-hint  align="end">
-                                            <mat-error *ngIf="!adquisicion.value.costo_adquisicion" >Introdusca datos</mat-error>
-                                        </mat-hint>
-                                </mat-form-field></td>
+                                    <mat-label>Comprovante contable </mat-label>
+                                    <input type="number" formControlName="comprobante_contable" matInput placeholder="Ej. 1234">
+                                    <!--<mat-error *ngIf="isValidFieldss('comprobante_contable')"> 
+                                        {{getErrorMessagess("comprobante_contable")}} 
+                                    </mat-error>
+                                    <mat-hint  align="end">
+                                        <mat-error *ngIf="!adquisicion.value.comprobante_contable" >Introdusca datos</mat-error>
+                                    </mat-hint>-->
+                            </mat-form-field></td>
+                            <td>
+                                <mat-form-field appearance="fill" >
+                                    <mat-label>Fecha Adquisicion</mat-label>
+                                    <input matInput [matDatepicker]="picker" formControlName="fecha_adquisicion">
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                    <!--<mat-error *ngIf="isValidFieldss('fecha_adquisicion')"> 
+                                        {{getErrorMessagess("fecha_adquisicion")}} 
+                                    </mat-error>
+                                    <mat-hint  align="end">
+                                        <mat-error *ngIf="!adquisicion.value.fecha_adquisicion" >Introdusca datos</mat-error>
+                                    </mat-hint>-->
+                                </mat-form-field>
+                            </td>
+                            <td><mat-form-field appearance="fill">
+                                    <mat-label>Costo de adquicicion (Bs.)</mat-label>
+                                    <input type="number" formControlName="costo_adquisicion" matInput placeholder="Ej. 1234">
+                                    <mat-error *ngIf="isValidFieldss('costo_adquisicion')"> 
+                                        {{getErrorMessagess("costo_adquisicion")}} 
+                                    </mat-error>
+                                    <!--<mat-hint  align="end">
+                                        <mat-error *ngIf="!adquisicion.value.costo_adquisicion" >Introdusca datos</mat-error>
+                                    </mat-hint>-->
+                            </mat-form-field></td>
                             </tr></table>
                         </form>
                     <form [formGroup]="adquisicion">
@@ -343,7 +349,7 @@
                         <button (click)="crear()" class="button" mat-raised-button color="primary" [disabled]="!adquisicion.valid">Crear</button>
                     </mat-card-actions>
                     <mat-card-actions *ngIf="id">
-                        <button (click)="edit()" class="button" mat-raised-button color="primary" [disabled]="!adquisicion.valid">Editar</button>
+                        <button (click)="edit()" class="button" mat-raised-button color="primary" [disabled]="!adquisicion.valid">Guardar Cambios</button>
                     </mat-card-actions>
                     <mat-card-actions>
                         <button class="button" mat-raised-button color="accent"></button>

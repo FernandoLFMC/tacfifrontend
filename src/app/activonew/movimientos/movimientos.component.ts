@@ -66,12 +66,14 @@ export class MovimientosComponent implements OnInit {
     )
     this.taskservice.getTask()
     .subscribe(
-      res=>this.seccion=res,
+      res=>{res.sort(function (a, b) {return a.cod_seccion.localeCompare(b.cod_seccion);});
+        this.seccion=res},
         err=> console.log(err)
     )
     this.taskservice.listfuncionario()
     .subscribe(
-      res=>this.funcionario=res,
+      res=>{ res.sort(function (a, b) {return a.id_funcionario - b.id_funcionario;});
+        this.funcionario=res},
       err=>console.log(err)
     )
   }

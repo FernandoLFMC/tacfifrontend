@@ -2,33 +2,59 @@
     <mat-card class="card">
         <mat-card-title>Registrar usuario</mat-card-title>
         <mat-card-content>
-            <div class="container">
+            <div class="container" [formGroup]="signUpUser">
                 <mat-form-field>
                     <mat-label>Cod. Funcionario</mat-label>
-                    <mat-select [(ngModel)]="signUpUser.id_funcionario" name="food">
+                    <mat-select formControlName="id_funcionario" name="food">
                         <mat-option *ngFor="let food of funcionario" [value]="food.id_funcionario">
                             {{food.id_funcionario}} - {{food.nombre}} {{food.ap_paterno}}
                         </mat-option>
                     </mat-select>
+                    <mat-error *ngIf="isValidField('id_funcionario')"> 
+                        {{getErrorMessage("id_funcionario")}} 
+                    </mat-error>
+                    <mat-hint  align="end">
+                        <mat-error *ngIf="!signUpUser.value.id_funcionario" >Introdusca datos</mat-error>
+                    </mat-hint>
                 </mat-form-field>
                 <mat-form-field>
-                    <input [(ngModel)]="signUpUser.username" matInput placeholder="Nombre Usuario">
+                    <input formControlName="username" matInput placeholder="Nombre Usuario" required>
+                    <mat-error *ngIf="isValidField('username')"> 
+                        {{getErrorMessage("username")}} 
+                    </mat-error>
+                    <mat-hint  align="end">
+                        <mat-error *ngIf="!signUpUser.value.username" >Introdusca datos</mat-error>
+                    </mat-hint>
                 </mat-form-field>
                 <mat-form-field>
-                    <input [(ngModel)]="signUpUser.password" matInput placeholder="Password">
+                    <input minlength="6" maxlength="20" formControlName="password" matInput placeholder="Password" required>
+                    <mat-error *ngIf="isValidField('password')"> 
+                        {{getErrorMessage("password")}} 
+                    </mat-error>
+                    <mat-hint  align="end">
+                        <mat-error *ngIf="!signUpUser.value.password" >Introdusca datos</mat-error>
+                    </mat-hint>
                 </mat-form-field>
+                
                 <mat-form-field>
                     <mat-label>Rol de Usuario</mat-label>
-                    <mat-select [(value)]="selected">
+                    <mat-select formControlName="role">
                       <mat-option value="admin">administrador</mat-option>
                       <mat-option value="user">usuario</mat-option>
                       <mat-option value="pm">cliente</mat-option>
                     </mat-select>
-                  </mat-form-field>
+                    <mat-error *ngIf="isValidField('role')"> 
+                        {{getErrorMessage("role")}} 
+                    </mat-error>
+                    <mat-hint  align="end">
+                        <mat-error *ngIf="!signUpUser.value.role" >Introdusca datos</mat-error>
+                    </mat-hint>
+                </mat-form-field>
+                  
             </div>
         </mat-card-content>
         <mat-card-actions>
-            <button (click)="signUp()" class="button" mat-raised-button color="primary">Registrar</button>
+            <button (click)="signUp()" class="button" mat-raised-button color="primary" [disabled]="!signUpUser.valid">Registrar</button>
         </mat-card-actions>
     </mat-card>
 </div>

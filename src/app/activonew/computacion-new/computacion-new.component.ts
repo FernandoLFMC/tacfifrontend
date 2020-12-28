@@ -42,6 +42,20 @@ export class ComputacionNewComponent implements OnInit{
     observacion: "",
     imagen: ""
   })
+
+  private image : File;
+  HandleImage(event:any):void{
+    this.image = event.target.files[0];
+    if(this.image.type.indexOf('image') < 0){
+      Swal.fire('Error:', 'El archivo debe ser del tipo Imagen', 'error');
+      this.image=null;
+    }else{ if (this.image){
+      this._snackBar.open('Se a Seleccionado correctamente la imagen ', this.image.name, {
+        duration: 4000,});
+    }
+    }
+  }
+
   getErrorMessage(field: string){
     let message;
     if(this.activo.get(field).errors.required){
@@ -78,6 +92,8 @@ export class ComputacionNewComponent implements OnInit{
     }else{ this._snackBar.open('Seleccione un Nombre de tipo de activo para generar', 'Codigo', {
       duration: 3000,});}
   }
+
+  validador:0;
   comprobar(comp: number){
     let message;
     for(const post of this.dataSource){
@@ -89,9 +105,10 @@ export class ComputacionNewComponent implements OnInit{
     if(this.activo.value.nombre_tipo){
       for(const post of this.codigo){
         if(post.nombre == this.activo.value.nombre_tipo){
+          this.validador=post.num;
           const numb=post.num;
           const rango=post.num + 999;
-          if(comp > rango || comp < numb ){
+          if(comp > rango || comp <= numb ){
             message= `Introdusca en el rango ${numb} --- ${rango}`
           }
           break
@@ -125,10 +142,10 @@ export class ComputacionNewComponent implements OnInit{
     id_activo: 0,
     id_adquisicion: ["",Validators.required],
     nit: [null,Validators.required],//1020304050,
-    fecha_adquisicion: [Date,Validators.required],//2020-03-17
-    comprobante_contable: [null,Validators.required],
+    fecha_adquisicion: [""/*,Validators.required*/],//2020-03-17
+    comprobante_contable: [""/*,Validators.required*/],
     nro_factura:"",
-    costo_adquisicion: ["",Validators.required]
+    costo_adquisicion: [0,Validators.required]
   })
   getErrorMessagess(field: string){
     let message;
@@ -141,7 +158,6 @@ export class ComputacionNewComponent implements OnInit{
     return ((this.adquisicion.get(field).touched || this.adquisicion.get(field).dirty) && 
     !this.adquisicion.get(field).valid);
   }
-  
 
   proveedor= this.fb.group({
     nit: ["",Validators.required],
@@ -230,7 +246,8 @@ export class ComputacionNewComponent implements OnInit{
     }
     this.taskservice.getTask()
     .subscribe(
-      res=>this.seccion=res,
+      res=>{res.sort(function (a, b) {return a.cod_seccion.localeCompare(b.cod_seccion);});
+        this.seccion=res},
         err=> {console.log(err)
           if(err.status == 401){
             this.authService.logoutUser()
@@ -238,7 +255,8 @@ export class ComputacionNewComponent implements OnInit{
     )
     this.taskservice.listfuncionario()
     .subscribe(
-      res=>this.funcionario=res,
+      res=>{ res.sort(function (a, b) {return a.id_funcionario - b.id_funcionario;});
+        this.funcionario=res},
       err=>console.log(err)
     )
     this.taskservice.listarcoop()
@@ -286,43 +304,53 @@ export class ComputacionNewComponent implements OnInit{
   }
   crear(){
     if(this.activo.status == "VALID"){
-      this.activoservice.createactivo(this.activo.value)
-      .subscribe(
-        res=>{
-          console.log('respuesta id act',res)
-          this.adquisicion.patchValue({id_activo : res.id_activo})
-          //this.adquisicion.id_activo=res.id_activo
-          this.equipcompu.patchValue({id_activo : res.id_activo})
-          //this.equipcompu.id_activo=res.id_activo
-          if(this.adquisicion.status == "VALID"){
-            this.parse(this.adquisicion.value.fecha_adquisicion)
-            this.activoservice.createAdquiActi(this.adquisicion.value)
-            .subscribe(
-              res=>{console.log('res AdquiActi', res)
-                if(this.equipcompu.status == "VALID"){
-                  this.activoservice.createEquiCompu(this.equipcompu.value)
-                  .subscribe(
-                    res=>{console.log('res computacion', res)
-                    Swal.fire('Creado', 'Se creo corectamente', 'success')
-                    this.router.navigate(['/listar-activo'])
-                    },
-                    err=>{console.log('err Instalacion', err)
-                          Swal.fire('Error', 'No se creo Equipo de computacion', 'error')
-                          this.delete(this.activo.value.id_activo)}
-                  ) 
-                }else{this.delete(this.activo.value.id_activo)}          
-              },
-              err=>{console.log('err AdquiActi', err)
-                    Swal.fire('Error', 'No se creo tipo de adquisicion', 'error')
-                    this.delete(this.activo.value.id_activo)}
-            )      
-          }else{this.delete(this.activo.value.id_activo)} 
-        },
-        err=>{
-          console.log('error',err)
-          Swal.fire('Error', 'Error, el codigo de tipo existe', 'error')
-        }
-      )
+      if(this.activo.value.cod_tipo > this.validador && this.activo.value.cod_tipo <= this.validador+999){
+        this.activoservice.createactivo(this.activo.value)
+        .subscribe(
+          res=>{
+            if(this.image){
+              this.activoservice.SubirImage(this.image, res.id_activo)
+              .subscribe(
+                res=>{console.log('res image', res)},
+                err=>{console.log('err image', err)}
+              )
+            }
+            this.adquisicion.patchValue({id_activo : res.id_activo})
+            //this.adquisicion.id_activo=res.id_activo
+            this.equipcompu.patchValue({id_activo : res.id_activo})
+            //this.equipcompu.id_activo=res.id_activo
+            if(this.adquisicion.status == "VALID"){
+              if(this.adquisicion.value.fecha_adquisicion){
+                this.parse(this.adquisicion.value.fecha_adquisicion)
+              }
+              this.activoservice.createAdquiActi(this.adquisicion.value)
+              .subscribe(
+                res=>{console.log('res AdquiActi', res)
+                  if(this.equipcompu.status == "VALID"){
+                    this.activoservice.createEquiCompu(this.equipcompu.value)
+                    .subscribe(
+                      res=>{console.log('res computacion', res)
+                      Swal.fire('Creado', 'Se creo corectamente', 'success')
+                      this.router.navigate(['/listar-activo'])
+                      },
+                      err=>{console.log('err Instalacion', err)
+                            Swal.fire('Error', 'No se creo Equipo de computacion', 'error')
+                            this.delete(this.activo.value.id_activo)}
+                    ) 
+                  }else{this.delete(this.activo.value.id_activo)}          
+                },
+                err=>{console.log('err AdquiActi', err)
+                      Swal.fire('Error', 'No se creo tipo de adquisicion', 'error')
+                      this.delete(this.activo.value.id_activo)}
+              )      
+            }else{this.delete(this.activo.value.id_activo)} 
+          },
+          err=>{
+            console.log('error',err)
+            Swal.fire('Error', 'Error, el codigo de tipo existe', 'error')
+          }
+        )
+      }else{Swal.fire('Error', 'El Codigo Tipo no corresponde al Nombre Tipo.. Verifique el Paso 1', 'error')}
     }else{this._snackBar.open('Complete todos los espacios', 'Activo', {
       duration: 3000,});}
   }
@@ -331,11 +359,20 @@ export class ComputacionNewComponent implements OnInit{
     if(this.activo.status == "VALID"){
     this.activoservice.putactivo(this.activo.value)
     .subscribe(
-      res=>{console.log('res put acti',res)
+      res=>{
+        if(this.image){
+          this.activoservice.SubirImage(this.image, res.id_activo)
+          .subscribe(
+            res=>{console.log('res image', res)},
+            err=>{console.log('err image', err)}
+          )
+        }
       if(this.adquisicion.status == "VALID"){
         if(this.adquisicion.value.fecha_adquisicion==this.fechaedit){
         }else{
-          this.parse(this.adquisicion.value.fecha_adquisicion)
+          if(this.adquisicion.value.fecha_adquisicion){
+            this.parse(this.adquisicion.value.fecha_adquisicion)
+          }
         }
         this.activoservice.putAdquiActi(this.adquisicion.value)
         .subscribe(

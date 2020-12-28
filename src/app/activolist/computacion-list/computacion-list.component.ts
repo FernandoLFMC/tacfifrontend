@@ -31,7 +31,9 @@ export class ComputacionListComponent implements OnInit {
       estado_op_nop: "Operativo",
       observacion: "",
       vida_util:"",
-      sujeto_depreciacion:""
+      sujeto_depreciacion:"",
+      imagen:""
+
     }
     
     adquisicion ={

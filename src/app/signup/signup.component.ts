@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { AuthService } from '../service/auth.service'
 import { TaskService } from '../service/task.service'
+import { Validators, FormBuilder, FormControl } from '@angular/forms';
 
 import { Router } from '@angular/router'
 
@@ -13,20 +14,33 @@ import Swal from 'sweetalert2';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
+  
+  constructor(private auth: AuthService,
+    private router: Router,
+    private fb: FormBuilder,
+    private task: TaskService) { }
 
   //toppingList: string[] = ["user","admin","cliente"];
 
   selected = "user"
 
-  signUpUser={
-    id_funcionario:"004",
-    username: "",
-    role:[""],
-    password:""
+  signUpUser=this.fb.group({
+    id_funcionario:["",Validators.required],
+    username:["",Validators.required],
+    role:["",Validators.required],
+    password:["",Validators.required]
+  })
+  getErrorMessage(field: string){
+    let message;
+    if(this.signUpUser.get(field).errors.required){
+      message = 'Requiere datos...';
+    }
+    return message; 
   }
-
-  constructor(private auth: AuthService,private router: Router,
-              private task: TaskService) { }
+  isValidField(field: string): boolean {
+    return ((this.signUpUser.get(field).touched || this.signUpUser.get(field).dirty) && 
+    !this.signUpUser.get(field).valid);
+  }
 
 
   funcionario:[]
@@ -40,24 +54,30 @@ export class SignupComponent implements OnInit {
   }
 
   signUp(){
-    console.log(this.signUpUser)
-    this.signUpUser.role=[this.selected]
-    this.auth.signUpUser(this.signUpUser)
-      .subscribe(
-        res=>console.log(res),
-        err => {console.log(err)
-          if(err.status==200){
-            this.router.navigate(['/list-user'])
-          Swal.fire('Creado', 'Se ha creado correctamente', 'success')
-          }else{
-            if(err.status==400){
-              Swal.fire('Error', 'El nombre de usuario ya existe', 'error')
+    if(this.signUpUser.status == "VALID"){
+      const sign={
+        id_funcionario:this.signUpUser.value.id_funcionario,
+        username:this.signUpUser.value.username,
+        role:[this.signUpUser.value.role],
+        password:this.signUpUser.value.password
+      }
+      this.auth.signUpUser(sign)
+        .subscribe(
+          res=>console.log(res),
+          err => {console.log(err)
+            if(err.status==200){
+              this.router.navigate(['/list-user'])
+            Swal.fire('Creado', 'Se ha creado correctamente', 'success')
             }else{
-              Swal.fire('Error', 'No se pudo crear, faltan datos', 'error')
+              if(err.status==400){
+                Swal.fire('Error', 'El nombre de usuario ya existe', 'error')
+              }else{
+                Swal.fire('Error', 'No se pudo crear, faltan datos', 'error')
+              }
             }
           }
-        }
-      )
+        )
+    }
   }
 
 }

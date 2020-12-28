@@ -15,18 +15,19 @@
             <a>Nuevo Activo</a>
         </button>
 
+        <button mat-button *ngIf="authService.isLogged() && authService.getRol() == 'admin'" [matMenuTriggerFor]="depreciacion" aria-label="Example icon-button with a menu">
+            <mat-icon>more_vert</mat-icon>
+            <a>Depreciacion</a>
+        </button>
+
         <button mat-button *ngIf="authService.isLogged() && authService.getRol() == 'admin'" [matMenuTriggerFor]="seccion" aria-label="Example icon-button with a menu">
             <mat-icon>more_vert</mat-icon>
             <a>Lista Componentes</a>
         </button>
 
         <a mat-button *ngIf="authService.isLogged() && authService.getRol() == 'admin'" routerLink="listar-func">Funcionarios</a>
-        <button mat-button *ngIf="authService.isLogged() && authService.getRol() == 'admin'" [matMenuTriggerFor]="depreciacion" aria-label="Example icon-button with a menu">
-            <mat-icon>more_vert</mat-icon>
-            <a>Depreciacion</a>
-        </button>
 
-        <a mat-button *ngIf="authService.isLogged() && authService.getRol() == 'admin'" routerLink="create">create</a>
+        <!--<a mat-button *ngIf="authService.isLogged() && authService.getRol() == 'admin'" routerLink="create">create</a>-->
 
         
 <!--menu para la parte del usuario qeu utilizara el sistema-->
@@ -44,6 +45,11 @@
         <button mat-button *ngIf="authService.isLogged() && authService.getRol() == 'user'" [matMenuTriggerFor]="seccion" aria-label="Example icon-button with a menu">
             <mat-icon>more_vert</mat-icon>
             <a>Lista Componentes</a>
+        </button>
+
+        <button mat-button *ngIf="authService.isLogged() && authService.getRol() == 'user'" [matMenuTriggerFor]="depreciacion" aria-label="Example icon-button with a menu">
+            <mat-icon>more_vert</mat-icon>
+            <a>Depreciacion</a>
         </button>
 
 

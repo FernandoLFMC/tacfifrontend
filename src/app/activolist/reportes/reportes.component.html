@@ -1,22 +1,25 @@
 <h4 class="title">Generar reportes</h4>
 <div class="container">
-<mat-form-field class="example-user-input">
-    <mat-label>Reportes</mat-label>
-    <mat-select [(ngModel)]="report">
-        <mat-option value="todos">
-            Todos
-        </mat-option>
-        <mat-option value="sec">
-            Por Secciones
-        </mat-option>
-        <mat-option value="func">
-            Por funcionario
-        </mat-option>
-        <mat-option value="cuenta">
-            Por tipo de cuenta
-        </mat-option>
-    </mat-select>
-</mat-form-field>
+    <mat-form-field class="example-user-input">
+        <mat-label>Reportes</mat-label>
+        <mat-select [(ngModel)]="report">
+            <mat-option value="todos">
+                Todos
+            </mat-option>
+            <mat-option value="sec">
+                Por Secciones
+            </mat-option>
+            <mat-option value="func">
+                Por funcionario
+            </mat-option>
+            <mat-option value="cuenta">
+                Por tipo de cuenta
+            </mat-option>
+            <mat-option value="ope">
+                Por Altas y Bajas
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
 
 <mat-form-field class="example-user-input" *ngIf="report == 'sec'" >
     <mat-label>Por Seccion</mat-label>
@@ -43,15 +46,30 @@
         </mat-option>
     </mat-select>
 </mat-form-field>
+<mat-form-field class="example-user-input" *ngIf="report == 'ope'">
+    <mat-label>Por tipo de cuenta</mat-label>
+    <mat-select [(ngModel)]="tipo">
+        <mat-option value="Operativo">Altas "Operativo"</mat-option>
+        <mat-option value="No operativo">Bajas "No operativo"</mat-option>
+    </mat-select>
+</mat-form-field>
   
 <button mat-raised-button color="accent" (click)="reporte(dataSource.data,tipo,report)">
     Generar
 </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;
 
-<button  mat-raised-button color="primary" (click)="exportAsXLSX(dataSources.data)">Exportar a Excel
+
+<!--<button  mat-raised-button color="primary" (click)="exportAsXLSX(dataSources.data)">Exportar a Excel
+    <mat-icon>trending_down</mat-icon>
+</button>&nbsp;&nbsp;-->
+<button  mat-raised-button color="primary" (click)="exportPDFs(report)">Lista de Activos PDF
+    <mat-icon>trending_down</mat-icon>
+</button>&nbsp;&nbsp;
+<button  mat-raised-button color="primary" (click)="exportPDFs()" [disabled]="report != 'func'">Acta Entrega, Recepcion PDF
+    <mat-icon>trending_down</mat-icon>
+</button>&nbsp;&nbsp;
+<button  mat-raised-button color="primary" (click)="exportPDF(etiquetas)" [disabled]="etiquetas.length == 0">Generar Etiqueta
     <mat-icon>trending_down</mat-icon>
 </button>
 </div>
