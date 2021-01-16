@@ -17,15 +17,16 @@
     min-height: 30vh;
     background-image: url('../../ImgActivos/desktop_9f14302e-bfe9-4d55-8ca8-7f9cb9834688.gif');
     background-repeat: no-repeat;
-    background-size: 500px 180px;
+    background-size: 570px 180px;
 }
 .image2{
     width: 50%;
     min-height: 30vh;
-    background-image: url('../../ImgActivos/images.jpg');
+    background-image: url('../../ImgActivos/login_logo_glpi.png');
     background-repeat: no-repeat;
-    background-size: 300px 210px;
+    background-size: 400px 270px;
 }
+
 
 h1{
     width: 100%;

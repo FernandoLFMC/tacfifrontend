@@ -43,17 +43,77 @@ export class ComputacionNewComponent implements OnInit{
     imagen: ""
   })
 
+  imagen= this.fb.group({
+    id_activo:Number,
+    image: File,
+    estado: ["Seleccionado"]
+  })
+  displayedColumns: string[] = ['nombre', 'estado'];
+  imagenes=[];
   private image : File;
   HandleImage(event:any):void{
+    const imagen={
+      id_activo:0,
+      image: File,
+      estado:"Seleccionado"
+    }
     this.image = event.target.files[0];
+    imagen.image=event.target.files[0];
+    imagen.id_activo=this.id_activo;
     if(this.image.type.indexOf('image') < 0){
       Swal.fire('Error:', 'El archivo debe ser del tipo Imagen', 'error');
       this.image=null;
-    }else{ if (this.image){
-      this._snackBar.open('Se a Seleccionado correctamente la imagen ', this.image.name, {
-        duration: 4000,});
+    }else{ 
+      if (this.image && this.imagenes.length != 0){
+        var nombre=0;
+        console.log('existe la imagen')
+        for(const post of this.imagenes){
+          console.log(this.image.name,'es igual', post.image.name)
+          if(this.image.name == post.image.name){
+            console.log('existe imagen')
+            nombre = 1;
+            Swal.fire('Error:', 'La imagen ya sido Seleccionando', 'error');
+            break;
+          }
+        }
+        if (nombre==0){
+          this.imagenes.push(imagen)
+        }
+      }else{
+        if (this.image && this.imagenes.length == 0){
+          console.log('no existe la imagen')
+          this.imagenes.push(imagen)
+        }
+      }
     }
+  }
+  descartar(image){
+    for (var i = 0; i < this.imagenes.length; i++) {
+      if (this.imagenes[i].image.name == image) {
+        this.imagenes.splice(i, 1);
+        break;
+      }
     }
+  }
+  listimage(idA){
+    this.activoservice.getidacti(idA)
+      .subscribe(
+        res=>{console.log('res listimage',res)},
+        err=>{console.log('err. listimage',err)}
+      )
+  }
+  createImagen(data){
+    console.log('todo imagenes', this.imagenes)
+    for(const post of data){
+      this.activoservice.SubirImage(post.image, post.id_activo)
+      .subscribe(
+      res=>{console.log('res image', res)
+      post.estado="Guardado"},
+      err=>{console.log('err image', err)}
+      )
+    }
+    console.log('despues de enviar', this.imagenes)
+    this.listimage(this.id_activo)
   }
 
   getErrorMessage(field: string){
@@ -302,19 +362,15 @@ export class ComputacionNewComponent implements OnInit{
       err=>{console.log('err id activo',err)}
     )
   }
+
+  id_activo = 0;
   crear(){
     if(this.activo.status == "VALID"){
       if(this.activo.value.cod_tipo > this.validador && this.activo.value.cod_tipo <= this.validador+999){
         this.activoservice.createactivo(this.activo.value)
         .subscribe(
           res=>{
-            if(this.image){
-              this.activoservice.SubirImage(this.image, res.id_activo)
-              .subscribe(
-                res=>{console.log('res image', res)},
-                err=>{console.log('err image', err)}
-              )
-            }
+            this.id_activo=res.id_activo;
             this.adquisicion.patchValue({id_activo : res.id_activo})
             //this.adquisicion.id_activo=res.id_activo
             this.equipcompu.patchValue({id_activo : res.id_activo})

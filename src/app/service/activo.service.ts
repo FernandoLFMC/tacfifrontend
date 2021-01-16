@@ -28,7 +28,7 @@ export class ActivoService {
   private infoactivoUrl= "http://localhost:8080/api/v1/infoactivo"
   private infoactiUrl= "http://localhost:8080/api/v1/info_activo"
   
-  private subirImageUrl = "http://localhost:8080/api/v1/activo/upload"
+  private subirImageUrl = "http://localhost:8080/api/v1/imagenes/upload"
 
 
   getactivo(){

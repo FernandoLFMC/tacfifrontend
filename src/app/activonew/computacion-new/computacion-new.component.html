@@ -337,7 +337,54 @@
                         <button class="button" mat-raised-button color="accent"></button>
                     </mat-card-actions>
                 </mat-card>
-            </div></mat-tab> 
+            </div></mat-tab>
+            <mat-tab label="PASO 3"><div class="labels">
+                <mat-card class="mat-elevation-z3">
+                    <div class="title">
+                        <h3>Cargar Imagenes</h3>
+                        <span class="spacer"></span>
+                        <div class="container-input-file" >
+                            <label class="custom-file">
+                                <input type="file" (change)="HandleImage($event)" />
+                                &nbsp;&nbsp;<mat-icon>cloud_upload</mat-icon>&nbsp;&nbsp;&nbsp;<span class="name">SELECCIONAR IMAGEN</span>
+                            </label>
+                        </div>
+                        <!--<img *ngIf="activo.imagen" mat-card-image src="http://localhost:8080/api/v1/uploads/img/{{activo.imagen}}" 
+                        alt="Foto del activo">-->
+                    </div>
+                    <div class="col-md-8 mt-5">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Lista de imagenes a Guardar</h4>
+                            </div>
+                            <div class="card-body">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Nombre de imagen</th>
+                                            <th>Estado</th>
+                                            <th>Descartar</th>
+                                        </tr>
+                                    </thead>
+                                <tbody>
+                                    <tr *ngFor="let imagen of imagenes">
+                                        <td>{{imagen.image.name}}</td>
+                                        <td>{{imagen.estado}}</td>
+                                        <td>
+                                            <mat-icon (click)="descartar(imagen.image.name)" color="warn" [disabled]="imagenes.estado == 'Guardado'">deleted</mat-icon>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                </table>
+                                <div class="container-buttons">
+                                    <button (click)="imagenes = []" class="btn btn-danger" >Descartar todo</button>
+                                    <button (click)="createImagen(imagenes)" [disabled]="imagenes.length === 0" class="btn btn-primary">Guardar imagenes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </mat-card>
+            </div></mat-tab>
           </mat-tab-group>
     <!--    
     <form [formGroup]="activo">

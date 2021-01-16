@@ -104,7 +104,7 @@
     cursor: pointer;
     border: 1px solid #ccc;
     display: inline-block;
-    background: rgb(0 123 255 / 62%);
+    background: #349ff4;
   }
   .title{
     display: inline-flex;
@@ -122,3 +122,33 @@
   .name{
     font-family: cursive;
   }
+
+.card-header{
+  text-transform: uppercase;
+  background: #2196f3 linear-gradient(180deg, #017b1d, #5fff5ffc) repeat-x;
+  border-color: #2196f3;
+  height: 2.5rem;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: bold;
+}
+h4 {
+  font-size: 1rem;
+  color: black;
+  justify-content: center;
+  display: flex;
+}
+.card-body{
+  padding: 0.25rem;
+}
+.container-buttons{
+  display: flex;
+  justify-content: space-between;
+}
+.btn-primary{
+  padding: 0 4rem;
+  background: #0707f1e8;
+}
+.btn-danger{
+  background: #f12020ba;
+}
